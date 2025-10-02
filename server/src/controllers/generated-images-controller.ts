@@ -4,6 +4,9 @@ import { saveGeneratedImages } from "../services/generated-images-service";
 import supabase from "../supabase/client";
 import { getProvider } from "../utils";
 
+const SUPABASE_IMAGES_BUCKET = process.env.SUPABASE_IMAGES_BUCKET || "public-images";
+const SUPABASE_URL = process.env.SUPABASE_URL || "";
+
 const generateImage = async (req: Request, res: Response) => {
   try {
     const {
@@ -63,14 +66,30 @@ const generateImage = async (req: Request, res: Response) => {
     }
 
     const result = await generateImageFn(options);
-    console.log({ result });
-
+    
     const images = result.images || [result.image];
-    const formattedImages = images.map((img, index) => {
-      const imageData: any = {
-        base64: img.base64,
-        url: `data:image/png;base64,${img.base64}`,
-      };
+    
+    const formattedImages = await Promise.all(
+      images.map(async (img: any, index: number) => {
+        const buffer = Buffer.from(img.base64, "base64");
+        const key = `${Date.now()}_${crypto.randomUUID()}_${index}.png`;
+
+        const { data: uploadData, error: uploadError } = await supabase.storage
+          .from(SUPABASE_IMAGES_BUCKET)
+          .upload(key, buffer, {
+            contentType: "image/png",
+            upsert: false,
+          });
+
+        if (uploadError) {
+          throw uploadError;
+        }
+
+        let hostedUrl: string | null = uploadData?.fullPath ?? null;
+
+        const imageData: any = {
+          url: `${SUPABASE_URL}/storage/v1/object/public/${hostedUrl}`,
+        };
 
       // Include provider-specific metadata if available
       const metadata: any =
@@ -85,18 +104,17 @@ const generateImage = async (req: Request, res: Response) => {
           imageData.contentType = metadata.content_type;
       }
 
-      return imageData;
-    });
+        return imageData;
+      })
+    );
 
-    // Persist generated images to DB (best-effort). Accept optional userId from request body.
     try {
       const userId =
         req.body && req.body.userId ? String(req.body.userId) : null;
 
-      // Prepare inputs for saveGeneratedImages: include size/quality/style per image if provided in request
-      const imageInputs = images.map((img: any) => ({
-        url: `data:image/png;base64,${img.base64}`, // TODO: store real URL if hosting images
-        b64_json: img.base64,
+      const imageInputs = formattedImages.map((img) => ({
+        url: img.url,
+        b64_json: null,
         size: size ?? null,
         quality: req.body && req.body.quality ? String(req.body.quality) : null,
         style: req.body && req.body.style ? String(req.body.style) : null,
@@ -104,9 +122,9 @@ const generateImage = async (req: Request, res: Response) => {
 
       await saveGeneratedImages(userId, imageInputs, prompt, model);
     } catch (e: any) {
-      // Log and continue; image generation was successful so we still return images to caller
       console.error("Failed to save generated images:", e?.message || e);
     }
+    
     const response: any = {
       success: true,
       images: formattedImages,

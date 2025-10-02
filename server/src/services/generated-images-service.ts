@@ -2,7 +2,7 @@ import supabase from "../supabase/client";
 
 type ImageInput = {
   url: string;
-  b64_json?: string;
+  b64_json?: string | null;
   size?: string | null;
   quality?: string | null;
   style?: string | null;
