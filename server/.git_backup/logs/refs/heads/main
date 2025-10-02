@@ -1,0 +1,2 @@
+0000000000000000000000000000000000000000 8c7db67a151e07a41a9e85acfc42ad9e33d04ad7 matheus <matheusvieiracoelho@gmail.com> 1759358730 -0300	commit (initial): feat: initialize Dreamy Studio API with image generation endpoint
+8c7db67a151e07a41a9e85acfc42ad9e33d04ad7 a66ab21977c19991943462c57516ecffba87d5df matheus <matheusvieiracoelho@gmail.com> 1759407777 -0300	commit: feat: restructure server code and integrate Supabase for image generation

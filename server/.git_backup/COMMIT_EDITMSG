@@ -1,0 +1,12 @@
+feat: restructure server code and integrate Supabase for image generation
+
+- Updated .env configuration to include SUPABASE_URL and SUPABASE_KEY.
+- Added @supabase/supabase-js dependency for Supabase integration.
+- Created app.ts to initialize Express app and middleware.
+- Implemented generated-images-controller.ts for handling image generation and retrieval.
+- Removed index.ts and moved routes to routes.ts for better organization.
+- Created server.ts to start the application and listen on the specified port.
+- Added generated-images-service.ts for saving generated images to Supabase.
+- Created client.ts to initialize Supabase client with environment variables.
+- Defined database types in database.types.ts for better type safety.
+- Implemented getProvider utility function to manage different image generation providers.
