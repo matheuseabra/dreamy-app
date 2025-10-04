@@ -1,8 +1,4 @@
-import dotenv from "dotenv";
 import app from "./app";
-import './routes';
-
-dotenv.config();
 
 const port = process.env.PORT ? Number(process.env.PORT) : 9000;
 

@@ -14,201 +14,229 @@ export type Database = {
   }
   public: {
     Tables: {
-      account: {
+      generations: {
         Row: {
-          accessToken: string | null
-          accessTokenExpiresAt: string | null
-          accountId: string
-          createdAt: string | null
+          completed_at: string | null
+          created_at: string
+          credits_used: number
+          duration_ms: number | null
+          error_message: string | null
+          fal_request_id: string | null
+          guidance_scale: number | null
           id: string
-          idToken: string | null
-          password: string | null
-          providerId: string
-          refreshToken: string | null
-          refreshTokenExpiresAt: string | null
-          scope: string | null
-          updatedAt: string | null
-          userId: string
+          image_size: string | null
+          model: string
+          model_options: Json | null
+          negative_prompt: string | null
+          num_images: number
+          num_inference_steps: number | null
+          prompt: string
+          queue_position: number | null
+          seed: number | null
+          started_at: string
+          status: string
+          updated_at: string
+          user_id: string
         }
         Insert: {
-          accessToken?: string | null
-          accessTokenExpiresAt?: string | null
-          accountId: string
-          createdAt?: string | null
-          id: string
-          idToken?: string | null
-          password?: string | null
-          providerId: string
-          refreshToken?: string | null
-          refreshTokenExpiresAt?: string | null
-          scope?: string | null
-          updatedAt?: string | null
-          userId: string
+          completed_at?: string | null
+          created_at?: string
+          credits_used?: number
+          duration_ms?: number | null
+          error_message?: string | null
+          fal_request_id?: string | null
+          guidance_scale?: number | null
+          id?: string
+          image_size?: string | null
+          model: string
+          model_options?: Json | null
+          negative_prompt?: string | null
+          num_images?: number
+          num_inference_steps?: number | null
+          prompt: string
+          queue_position?: number | null
+          seed?: number | null
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id: string
         }
         Update: {
-          accessToken?: string | null
-          accessTokenExpiresAt?: string | null
-          accountId?: string
-          createdAt?: string | null
+          completed_at?: string | null
+          created_at?: string
+          credits_used?: number
+          duration_ms?: number | null
+          error_message?: string | null
+          fal_request_id?: string | null
+          guidance_scale?: number | null
           id?: string
-          idToken?: string | null
-          password?: string | null
-          providerId?: string
-          refreshToken?: string | null
-          refreshTokenExpiresAt?: string | null
-          scope?: string | null
-          updatedAt?: string | null
-          userId?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "account_userId_fkey"
-            columns: ["userId"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      generated_images: {
-        Row: {
-          created_at: string | null
-          id: string
-          image_url: string
-          model: string
-          prompt: string
-          quality: string | null
-          size: string | null
-          style: string | null
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string | null
-          id?: string
-          image_url: string
-          model: string
-          prompt: string
-          quality?: string | null
-          size?: string | null
-          style?: string | null
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string | null
-          id?: string
-          image_url?: string
+          image_size?: string | null
           model?: string
+          model_options?: Json | null
+          negative_prompt?: string | null
+          num_images?: number
+          num_inference_steps?: number | null
           prompt?: string
-          quality?: string | null
-          size?: string | null
-          style?: string | null
-          user_id?: string | null
-        }
-        Relationships: [
-          {
-            foreignKeyName: "generated_images_user_id_fkey"
-            columns: ["user_id"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      session: {
-        Row: {
-          createdAt: string | null
-          expiresAt: string
-          id: string
-          ipAddress: string | null
-          token: string
-          updatedAt: string | null
-          userAgent: string | null
-          userId: string
-        }
-        Insert: {
-          createdAt?: string | null
-          expiresAt: string
-          id: string
-          ipAddress?: string | null
-          token: string
-          updatedAt?: string | null
-          userAgent?: string | null
-          userId: string
-        }
-        Update: {
-          createdAt?: string | null
-          expiresAt?: string
-          id?: string
-          ipAddress?: string | null
-          token?: string
-          updatedAt?: string | null
-          userAgent?: string | null
-          userId?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "session_userId_fkey"
-            columns: ["userId"]
-            isOneToOne: false
-            referencedRelation: "user"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      user: {
-        Row: {
-          createdAt: string | null
-          email: string
-          emailVerified: boolean | null
-          id: string
-          image: string | null
-          name: string | null
-          updatedAt: string | null
-        }
-        Insert: {
-          createdAt?: string | null
-          email: string
-          emailVerified?: boolean | null
-          id: string
-          image?: string | null
-          name?: string | null
-          updatedAt?: string | null
-        }
-        Update: {
-          createdAt?: string | null
-          email?: string
-          emailVerified?: boolean | null
-          id?: string
-          image?: string | null
-          name?: string | null
-          updatedAt?: string | null
+          queue_position?: number | null
+          seed?: number | null
+          started_at?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
-      verification: {
+      image_tags: {
         Row: {
-          createdAt: string | null
-          expiresAt: string
+          created_at: string
           id: string
-          identifier: string
-          updatedAt: string | null
-          value: string
+          image_id: string
+          tag: string
+          user_id: string
         }
         Insert: {
-          createdAt?: string | null
-          expiresAt: string
-          id: string
-          identifier: string
-          updatedAt?: string | null
-          value: string
+          created_at?: string
+          id?: string
+          image_id: string
+          tag: string
+          user_id: string
         }
         Update: {
-          createdAt?: string | null
-          expiresAt?: string
+          created_at?: string
           id?: string
-          identifier?: string
-          updatedAt?: string | null
-          value?: string
+          image_id?: string
+          tag?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "image_tags_image_id_fkey"
+            columns: ["image_id"]
+            isOneToOne: false
+            referencedRelation: "images"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      images: {
+        Row: {
+          content_type: string | null
+          created_at: string
+          fal_metadata: Json | null
+          file_size_bytes: number | null
+          format: string
+          generation_id: string
+          height: number | null
+          id: string
+          is_favorited: boolean
+          is_public: boolean
+          storage_bucket: string
+          storage_path: string
+          updated_at: string
+          url: string | null
+          user_id: string
+          width: number | null
+        }
+        Insert: {
+          content_type?: string | null
+          created_at?: string
+          fal_metadata?: Json | null
+          file_size_bytes?: number | null
+          format?: string
+          generation_id: string
+          height?: number | null
+          id?: string
+          is_favorited?: boolean
+          is_public?: boolean
+          storage_bucket?: string
+          storage_path: string
+          updated_at?: string
+          url?: string | null
+          user_id: string
+          width?: number | null
+        }
+        Update: {
+          content_type?: string | null
+          created_at?: string
+          fal_metadata?: Json | null
+          file_size_bytes?: number | null
+          format?: string
+          generation_id?: string
+          height?: number | null
+          id?: string
+          is_favorited?: boolean
+          is_public?: boolean
+          storage_bucket?: string
+          storage_path?: string
+          updated_at?: string
+          url?: string | null
+          user_id?: string
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "images_generation_id_fkey"
+            columns: ["generation_id"]
+            isOneToOne: false
+            referencedRelation: "generations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_credits: {
+        Row: {
+          created_at: string
+          credits_remaining: number
+          credits_total: number
+          id: string
+          last_refill_date: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          credits_remaining?: number
+          credits_total?: number
+          id?: string
+          last_refill_date?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          credits_remaining?: number
+          credits_total?: number
+          id?: string
+          last_refill_date?: string
+          updated_at?: string
+          user_id?: string
         }
         Relationships: []
       }
