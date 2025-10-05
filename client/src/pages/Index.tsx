@@ -1,5 +1,4 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
-import DashboardHeader from "@/components/DashboardHeader";
 import { GenerationSettings } from "@/components/GenerationSettings";
 import { ImageModal } from "@/components/ImageModal";
 import { ModelSelector } from "@/components/ModelSelector";
@@ -80,8 +79,6 @@ const Index = () => {
     if (imagesData && imagesData.length > 0)
       setGeneratedImagesLocal(imagesData);
   }, [imagesData]);
-
-  console.log(imagesData);
 
   const queryClient = useQueryClient();
 
@@ -199,9 +196,6 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Header */}
-      <DashboardHeader />
-
       {/* Main Content */}
       <div className="container mx-auto px-4 py-6">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">

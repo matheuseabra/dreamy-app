@@ -1,4 +1,5 @@
 import { ImageCard } from "./ImageCard";
+import { ImageGallery } from "./ImageGallery";
 
 interface CombinedGalleryProps {
   onImageClick: (image) => void;
@@ -35,15 +36,8 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
           ))}
         </div>
       ) : generatedImages.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
-          <svg xmlns="http://www.w3.org/2000/svg" className="h-20 w-20 text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7" />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.5" d="M16 3v4M8 3v4M3 11h18" />
-            <rect x="7" y="13" width="10" height="6" rx="1" ry="1" />
-          </svg>
-          <h4 className="mt-4 text-lg font-medium text-foreground">No saved images yet</h4>
-          <p className="mt-2 text-sm text-muted-foreground max-w-md">When you generate images they will appear here. Start by entering a prompt and creating your first generation.</p>
-        </div>
+        // When the API returns no images, show the mock ImageGallery to help users get started
+        <ImageGallery onImageClick={() => {}} />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
           {allImages.map((image) => (
