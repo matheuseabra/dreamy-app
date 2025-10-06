@@ -1,8 +1,6 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
-import { GenerationSettings } from "@/components/GenerationSettings";
 import { ImageModal } from "@/components/ImageModal";
-import { ModelSelector } from "@/components/ModelSelector";
-import { PromptInput } from "@/components/PromptInput";
+import { PromptBar } from "@/components/PromptBar";
 import { supabase } from "@/integrations/supabase/client";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -198,51 +196,35 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Main Content */}
       <div className="container mx-auto px-4 py-6">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
-          {/* Left Sidebar - Controls */}
-          <aside className="lg:col-span-1 space-y-6 animate-fade-in">
-            <div className="lg:sticky lg:top-24 space-y-6 scrollbar-thin">
-              {/* Generation Settings */}
-              <div className="border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200">
-                <h3 className="text-lg font-semibold mb-4">Image Settings</h3>
-                <ModelSelector
-                  selectedModel={selectedModel}
-                  onSelect={setSelectedModel}
-                />
-                <br />
-                <GenerationSettings
-                  size={size}
-                  quality={quality}
-                  style={style}
-                  onSizeChange={setSize}
-                  onQualityChange={setQuality}
-                  onStyleChange={setStyle}
-                />
-                <br />
-                <PromptInput
-                  value={prompt}
-                  onChange={setPrompt}
-                  onGenerate={handleGenerate}
-                  isGenerating={isGenerating}
-                />
-              </div>
-            </div>
-          </aside>
+        {/* Prompt bar fixed to the top area */}
+        <div className="mb-6">
+          <PromptBar
+            prompt={prompt}
+            onPromptChange={setPrompt}
+            onGenerate={handleGenerate}
+            isGenerating={isGenerating}
+            selectedModel={selectedModel}
+            onModelChange={setSelectedModel}
+            size={size}
+            onSizeChange={setSize}
+            quality={quality}
+            onQualityChange={setQuality}
+            style={style}
+            onStyleChange={setStyle}
+          />
+        </div>
 
-          {/* Main Content - Gallery */}
-          <main className="lg:col-span-2 animate-slide-up">
-            <div className="border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
-              <CombinedGallery
-                onImageClick={handleImageClick}
-                generatedImages={
-                  generatedImagesLocal.length > 0
-                    ? generatedImagesLocal
-                    : imagesData || []
-                }
-                isLoading={imagesLoading}
-              />
-            </div>
-          </main>
+        {/* Gallery */}
+        <div className="border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
+          <CombinedGallery
+            onImageClick={handleImageClick}
+            generatedImages={
+              generatedImagesLocal.length > 0
+                ? generatedImagesLocal
+                : imagesData || []
+            }
+            isLoading={imagesLoading}
+          />
         </div>
       </div>
 
