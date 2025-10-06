@@ -56,22 +56,6 @@ export const Hero = () => {
               See Features
             </Button>
           </div>
-
-          {/* Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-2xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">10+</div>
-              <div className="text-muted-foreground">AI Models</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">1M+</div>
-              <div className="text-muted-foreground">Images Generated</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-primary mb-2">99.9%</div>
-              <div className="text-muted-foreground">Uptime</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>

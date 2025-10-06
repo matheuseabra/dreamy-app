@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import { Bell, LogOut, Sparkles, Star } from "lucide-react";
+import { Bell, LogOut, Sparkles } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -42,25 +42,20 @@ const DashboardHeader = () => {
               style={{
                 border: "1px solid transparent",
                 backgroundImage: `
-              linear-gradient(to bottom, rgb(30 27 75 / 0.9), rgb(88 28 135 / 0.95)),
+              linear-gradient(to bottom, #000000, #000000),
               linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
             `,
                 backgroundOrigin: "border-box",
                 backgroundClip: "padding-box, border-box",
               }}
-              className="h-9 rounded-xl px-4 text-sm font-medium text-white bg-gradient-to-r from-[#6b5bff] via-[#7f63ff] to-[#a7f3ff] shadow-sm hover:opacity-95"
+              className="h-9 rounded-xl px-4 text-sm font-medium"
             >
-              
-              <span className="bg-gradient-to-r from-pink-300 via-blue-300 to-white bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-pink-300 via-blue-300 to-white bg-clip-text text-transparent font-bold">
                 Upgrade
               </span>
               <Sparkles className="h-4 w-4 mr-1" />
             </Button>
             <div className="mx-1 h-5 w-px bg-border" />
-            <div className="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-sm">
-              <Star className="h-4 w-4" />
-              <span className="tabular-nums">{credits}</span>
-            </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button
