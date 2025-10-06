@@ -1,10 +1,21 @@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Zap, Sparkles, Gauge } from "lucide-react";
+import { Brush, Camera, Crown, Gauge, Image, Layers, Palette, Rocket, Sparkles, Star, Wand2, Zap } from "lucide-react";
 
 const AI_MODELS = [
-  { id: "dalle", name: "Flux Schnell", description: "Fast & good quality", icon: Zap },
-  { id: "midjourney", name: "Flux Dev", description: "Better quality, slower", icon: Sparkles },
-  { id: "flux", name: "Flux Pro", description: "Best quality, slowest", icon: Gauge },
+  { id: "fal-ai/flux/dev", name: "Flux Dev", description: "High quality text-to-image generation", icon: Sparkles },
+  { id: "fal-ai/flux/schnell", name: "Flux Schnell", description: "Fast text-to-image generation", icon: Zap },
+  { id: "fal-ai/flux/dev/image-to-image", name: "Flux Dev I2I", description: "Image-to-image with Flux Dev", icon: Image },
+  { id: "fal-ai/flux-1/schnell/redux", name: "Flux Schnell Redux", description: "Enhanced Flux Schnell model", icon: Wand2 },
+  { id: "fal-ai/flux-pro/kontext", name: "Flux Pro Kontext", description: "Professional context-aware generation", icon: Crown },
+  { id: "fal-ai/flux-pro/kontext/max", name: "Flux Pro Kontext Max", description: "Maximum quality context generation", icon: Star },
+  { id: "fal-ai/flux-kontext/dev", name: "Flux Kontext Dev", description: "Development context model", icon: Layers },
+  { id: "fal-ai/flux-kontext-lora", name: "Flux Kontext LoRA", description: "LoRA-enhanced context model", icon: Palette },
+  { id: "fal-ai/recraft/v3/text-to-image", name: "Recraft V3 T2I", description: "Advanced text-to-image generation", icon: Brush },
+  { id: "fal-ai/recraft/v3/image-to-image", name: "Recraft V3 I2I", description: "Advanced image-to-image generation", icon: Camera },
+  { id: "fal-ai/ideogram/v2", name: "Ideogram V2", description: "Text rendering and design generation", icon: Rocket },
+  { id: "fal-ai/ideogram/v3", name: "Ideogram V3", description: "Latest text rendering capabilities", icon: Rocket },
+  { id: "fal-ai/nano-banana", name: "Nano Banana", description: "Lightweight fast generation", icon: Zap },
+  { id: "fal-ai/wan/v2.2-5b/text-to-image", name: "WAN V2.2", description: "5B parameter text-to-image model", icon: Gauge },
 ];
 
 interface ModelSelectorProps {

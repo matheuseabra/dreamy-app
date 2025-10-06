@@ -1,11 +1,10 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
 import { PromptBar } from "@/components/PromptBar";
-import { supabase } from "@/integrations/supabase/client";
+import { apiClient } from "@/lib/api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
-import { config } from "../config";
 
 interface GeneratedImage {
   id: string;
@@ -15,14 +14,22 @@ interface GeneratedImage {
 }
 
 type ServerResponse = {
-  imageUrl: string;
-  prompt?: string;
-  model?: string;
+  success: boolean;
+  generation: {
+    id: string;
+    status: string;
+    images: Array<{
+      id: string;
+      url: string;
+      width: number;
+      height: number;
+    }>;
+  };
 };
 
 const Index = () => {
   const [prompt, setPrompt] = useState("");
-  const [selectedModel, setSelectedModel] = useState("dalle");
+  const [selectedModel, setSelectedModel] = useState("fal-ai/flux/schnell");
   const [size, setSize] = useState("square");
   const [quality, setQuality] = useState("hd");
   const [style, setStyle] = useState("vivid");
@@ -33,42 +40,28 @@ const Index = () => {
     GeneratedImage[]
   >([]);
 
+  console.log({selectedModel});
+
   const { data: imagesData, isLoading: imagesLoading } = useQuery<
     GeneratedImage[],
     Error
   >({
     queryKey: ["getImages"],
     queryFn: async () => {
-      let data = null;
-      let error = null;
-
       try {
-        const res = await fetch(`${config.API_URL}/api/images`);
-        if (!res.ok) {
-          const text = await res.text();
-          throw new Error(
-            text || "Failed to fetch generated images from server"
-          );
-        }
-
-        const json = await res.json();
-        data = Array.isArray(json) ? json : [];
-      } catch (e) {
-        error = e as Error;
+        const response = await apiClient.get("/api/gallery");
+        const images = response.images || [];
+        return images.map((img) => ({
+          id: img.id,
+          src: img.url,
+          prompt: img.prompt,
+          model: img.model,
+        }));
+      } catch (error) {
+        throw new Error(
+          error instanceof Error ? error.message : "Failed to fetch generated images from server"
+        );
       }
-
-      if (error) throw error;
-
-      if (!data) return [];
-
-      const formattedImages: GeneratedImage[] = data.map((img) => ({
-        id: img.id,
-        src: img.image_url,
-        prompt: img.prompt,
-        model: img.model,
-      }));
-
-      return formattedImages;
     },
   });
 
@@ -82,25 +75,15 @@ const Index = () => {
 
   const generateImageMutation = useMutation<ServerResponse, Error, void>({
     mutationFn: async (): Promise<ServerResponse> => {
-      // Call the server express endpoint
-      const res = await fetch(`${config.API_URL}/api/generate-image`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          prompt,
-          model: selectedModel,
-          size,
-          quality,
-          style,
-        }),
+      const data = await apiClient.post("/api/generate", {
+        prompt,
+        model: selectedModel,
+        image_size: size,
+        quality,
+        style,
+        sync_mode: true,
+        num_images: 1,
       });
-
-      if (!res.ok) {
-        const text = await res.text();
-        throw new Error(text || "Server error while generating image");
-      }
-
-      const data = await res.json();
       return data as ServerResponse;
     },
     onMutate: async () => {
@@ -120,46 +103,21 @@ const Index = () => {
       }
     },
     onSuccess: async (data) => {
-      if (!data?.imageUrl) {
-        toast.error("No image URL received from server");
+      if (!data?.success || !data?.generation?.images?.length) {
+        toast.error("No images received from server");
         return;
       }
 
+      const firstImage = data.generation.images[0];
       const newImage: GeneratedImage = {
-        id: data.imageUrl,
-        src: data.imageUrl,
-        prompt: data.prompt || prompt,
-        model: data.model || getModelDisplayName(selectedModel),
+        id: firstImage.id,
+        src: firstImage.url,
+        prompt: prompt,
+        model: getModelDisplayName(selectedModel),
       };
 
-      // Save to database
-      try {
-        const { data: savedImage, error: dbError } = await supabase
-          .from("generated_images")
-          .insert({
-            image_url: data.imageUrl,
-            prompt: data.prompt || prompt,
-            model: data.model || getModelDisplayName(selectedModel),
-            size,
-            quality,
-            style,
-          })
-          .select()
-          .single();
-
-        if (dbError) {
-          console.error("Database error:", dbError);
-          toast.error("Image generated but couldn't save to database");
-        } else {
-          newImage.id = savedImage.id;
-        }
-      } catch (dbErr) {
-        console.error("Database save exception:", dbErr);
-        toast.error("Image generated but couldn't save to database");
-      }
-
       setGeneratedImagesLocal((prev) => [newImage, ...prev]);
-      toast.success("Image generated and saved successfully!");
+      toast.success("Image generated successfully!");
       setPrompt("");
     },
     onSettled: () => {
@@ -179,10 +137,20 @@ const Index = () => {
 
   const getModelDisplayName = (modelId: string) => {
     const modelMap: Record<string, string> = {
-      dalle: "DALL-E 3",
-      midjourney: "Midjourney v6",
-      stable: "Stable Diffusion XL",
-      flux: "Flux Pro",
+      "fal-ai/flux/dev": "Flux Dev",
+      "fal-ai/flux/schnell": "Flux Schnell",
+      "fal-ai/flux/dev/image-to-image": "Flux Dev I2I",
+      "fal-ai/flux-1/schnell/redux": "Flux Schnell Redux",
+      "fal-ai/flux-pro/kontext": "Flux Pro Kontext",
+      "fal-ai/flux-pro/kontext/max": "Flux Pro Kontext Max",
+      "fal-ai/flux-kontext/dev": "Flux Kontext Dev",
+      "fal-ai/flux-kontext-lora": "Flux Kontext LoRA",
+      "fal-ai/recraft/v3/text-to-image": "Recraft V3 T2I",
+      "fal-ai/recraft/v3/image-to-image": "Recraft V3 I2I",
+      "fal-ai/ideogram/v2": "Ideogram V2",
+      "fal-ai/ideogram/v3": "Ideogram V3",
+      "fal-ai/nano-banana": "Nano Banana",
+      "fal-ai/wan/v2.2-5b/text-to-image": "WAN V2.2",
     };
     return modelMap[modelId] || "AI Model";
   };
@@ -215,7 +183,7 @@ const Index = () => {
         </div>
 
         {/* Gallery */}
-        <div className="border border-border rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
+        <div className="border border-none rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
           <CombinedGallery
             onImageClick={handleImageClick}
             generatedImages={
