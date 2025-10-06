@@ -19,7 +19,7 @@ const Signup: React.FC = () => {
     setError(null);
     const res = await signUp(email, password);
     if (res.error) setError(res.error);
-    else navigate('/');
+    else navigate('/dashboard');
   };
 
   return (

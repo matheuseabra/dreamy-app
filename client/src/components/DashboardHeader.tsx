@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { SidebarTrigger } from "./ui/sidebar";
 
 const DashboardHeader = () => {
   const { user, signOut } = useAuth();
@@ -22,19 +23,20 @@ const DashboardHeader = () => {
   const credits = 0; // TODO: wire with real credits
 
   return (
-    <header className="border-none backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <header className="border-border border-b backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             {/* <div className="h-7 w-7 rounded-md bg-gradient-to-br from-[#a48fff] via-[#00bcd4] to-[#7afcff] opacity-90 shadow-sm" />
             <Logo className="text-xl" /> */}
+            <SidebarTrigger />
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="h-9 w-9">
               <Bell className="h-5 w-5" />
             </Button>
             <Button className="h-9 rounded-full px-4 text-sm font-medium text-white bg-gradient-to-r from-[#6b5bff] via-[#7f63ff] to-[#a7f3ff] shadow-sm hover:opacity-95">
-              Subscribe!
+              Subscribe
             </Button>
             <div className="mx-1 h-5 w-px bg-border" />
             <div className="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-sm">

@@ -214,7 +214,7 @@ export function PromptBar({
               <Settings2 className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56">
+          <DropdownMenuContent align="end" className="w-56 border border-border">
             <DropdownMenuLabel>Quality</DropdownMenuLabel>
             <DropdownMenuRadioGroup
               value={quality}

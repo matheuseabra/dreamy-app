@@ -1,10 +1,10 @@
-import { ImageCard } from "./ImageCard";
 import generated1 from "@/assets/generated-1.jpg";
 import generated2 from "@/assets/generated-2.jpg";
 import generated3 from "@/assets/generated-3.jpg";
 import generated4 from "@/assets/generated-4.jpg";
 import generated5 from "@/assets/generated-5.jpg";
 import generated6 from "@/assets/generated-6.jpg";
+import { ImageCard } from "./ImageCard";
 
 const MOCK_IMAGES = [
   {

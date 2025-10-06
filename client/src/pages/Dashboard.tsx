@@ -27,7 +27,7 @@ type ServerResponse = {
   };
 };
 
-const Index = () => {
+const Dashboard = () => {
   const [prompt, setPrompt] = useState("");
   const [selectedModel, setSelectedModel] = useState("fal-ai/flux/schnell");
   const [size, setSize] = useState("square");
@@ -40,6 +40,7 @@ const Index = () => {
     GeneratedImage[]
   >([]);
 
+  console.log({selectedModel});
 
   const { data: imagesData, isLoading: imagesLoading } = useQuery<
     GeneratedImage[],
@@ -162,7 +163,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Main Content */}
-      <div className="container mx-auto px-24 py-6">
+      <div className="container mx-auto px-4 py-6">
         {/* Prompt bar fixed to the top area */}
         <div className="mb-6">
           <PromptBar
@@ -182,7 +183,7 @@ const Index = () => {
         </div>
 
         {/* Gallery */}
-        <div className="border border-none rounded-lg shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
+        <div className="border border-none rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
           <CombinedGallery
             onImageClick={handleImageClick}
             generatedImages={
@@ -205,4 +206,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Dashboard;

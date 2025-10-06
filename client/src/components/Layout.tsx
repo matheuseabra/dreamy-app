@@ -10,7 +10,6 @@ import {
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import DashboardHeader from "./DashboardHeader";
-import Logo from "./Logo";
 import {
   Sidebar,
   SidebarContent,
@@ -40,12 +39,12 @@ const Layout: React.FC<Props> = ({ children }) => {
         {/* Sidebar */}
         <Sidebar className="z-20 border-border" collapsible="icon">
           <SidebarHeader className="px-3 py-4">
-            <div className="flex items-center justify-between gap-2 px-1">
+            {/* <div className="flex items-center justify-between gap-2 px-1">
               <Logo className="text-2xl" />
-            </div>
+            </div> */}
           </SidebarHeader>
 
-          <SidebarContent className="px-2 py-3">
+          <SidebarContent className="px-1 py-6">
             <SidebarGroup className="px-1">
               <SidebarMenu>
                 <SidebarMenuItem>
