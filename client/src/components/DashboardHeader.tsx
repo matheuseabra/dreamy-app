@@ -42,7 +42,7 @@ const DashboardHeader = () => {
               style={{
                 border: "1px solid transparent",
                 backgroundImage: `
-              linear-gradient(to bottom, #000000, #000000),
+              linear-gradient(to bottom, #0e0e10, #2c2833),
               linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
             `,
                 backgroundOrigin: "border-box",

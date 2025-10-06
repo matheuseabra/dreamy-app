@@ -23,33 +23,67 @@ const Login: React.FC = () => {
   };
 
   return (
-    <div className="bg-background min-h-screen flex items-center justify-center px-4">
-      <div className="w-full max-w-md">
-        <div className="flex justify-center mb-4">
+    <div className="bg-gradient-to-br from-black via-gray-900 to-black min-h-screen flex items-center justify-center px-4 relative">
+      {/* Background gradient overlay */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-gray-900/20 to-black/30 pointer-events-none" />
+      
+      <div className="w-full max-w-md relative">
+        <div className="flex justify-center mb-6">
           <Logo />
         </div>
-        <Card className="w-full border border-border">
+        <Card 
+          className="w-full backdrop-blur-sm"
+          style={{
+            border: "1px solid transparent",
+            backgroundImage: `
+              linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
+              linear-gradient(135deg, rgb(168 85 247 / 0.4), rgb(59 130 246 / 0.4), rgb(147 197 253 / 0.4))
+            `,
+            backgroundOrigin: "border-box",
+            backgroundClip: "padding-box, border-box",
+          }}
+        >
         <CardHeader>
-          <CardTitle>Sign in to Dreamy</CardTitle>
-          <CardDescription>Enter your email and password to continue.</CardDescription>
+          <CardTitle className="text-white text-center">Sign in to Dreamy</CardTitle>
+          <CardDescription className="text-slate-300 text-center">Enter your email and password to continue.</CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={submit} className="grid gap-3">
+          <form onSubmit={submit} className="grid gap-4">
             <div>
-              <label className="block text-sm mb-1">Email</label>
-              <Input placeholder="you@example.com" value={email} onChange={(e) => setEmail(e.target.value)} />
+              <label className="block text-sm mb-2 text-slate-300">Email</label>
+              <Input 
+                placeholder="you@example.com" 
+                value={email} 
+                onChange={(e) => setEmail(e.target.value)}
+                className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-purple-400"
+              />
             </div>
             <div>
-              <label className="block text-sm mb-1">Password</label>
-              <Input type="password" placeholder="••••••••" value={password} onChange={(e) => setPassword(e.target.value)} />
+              <label className="block text-sm mb-2 text-slate-300">Password</label>
+              <Input 
+                type="password" 
+                placeholder="••••••••" 
+                value={password} 
+                onChange={(e) => setPassword(e.target.value)}
+                className="bg-slate-800/50 border-slate-600 text-white placeholder:text-slate-400 focus:border-purple-400"
+              />
             </div>
-            {error && <div className="text-sm text-destructive">{error}</div>}
-            <Button type="submit">Sign in</Button>
+            {error && <div className="text-sm text-red-400">{error}</div>}
+            <Button 
+              type="submit" 
+              className="text-black font-semibold"
+              style={{
+                background: "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
+                border: "none",
+              }}
+            >
+              Sign in
+            </Button>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col gap-2">
-          <div className="text-sm">
-            New here? <Link to="/signup" className="text-primary underline">Create an account</Link>
+          <div className="text-sm text-slate-300 text-center">
+            New here? <Link to="/signup" className="text-purple-300 hover:underline">Create an account</Link>
           </div>
         </CardFooter>
       </Card>

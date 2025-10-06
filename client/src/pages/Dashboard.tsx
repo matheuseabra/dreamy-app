@@ -40,15 +40,6 @@ const Dashboard = () => {
     GeneratedImage[]
   >([]);
 
-  console.log({
-    selectedModel,
-    prompt,
-    size,
-    quality,
-    style,
-    isGenerating
-  })
-
   const { data: imagesData, isLoading: imagesLoading } = useQuery<
     GeneratedImage[],
     Error
@@ -66,7 +57,9 @@ const Dashboard = () => {
         }));
       } catch (error) {
         throw new Error(
-          error instanceof Error ? error.message : "Failed to fetch generated images from server"
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch generated images from server"
         );
       }
     },
@@ -169,9 +162,10 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      {/* Main Content */}
       <div className="container mx-auto px-4 py-6">
-        {/* Prompt bar fixed to the top area */}
+        <div className="mt-12 mb-16 text-center">
+          <h1 className="text-3xl font-bold">What are you dreaming of?</h1>
+        </div>
         <div className="mb-6">
           <PromptBar
             prompt={prompt}
