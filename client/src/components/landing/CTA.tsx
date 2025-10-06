@@ -7,16 +7,13 @@ export const CTA = () => {
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
   };
   return (
     <section className="py-20 px-4 relative">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-gray-900/25 to-black/30 pointer-events-none" />
-      
       <div className="container mx-auto relative">
-        <Card 
+        <Card
           className="overflow-hidden"
           style={{
             border: "1px solid transparent",
@@ -42,18 +39,20 @@ export const CTA = () => {
 
               {/* Description */}
               <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
-                Join thousands of creators who are already using Dreamy Studio to bring their ideas to life. 
-                Start generating stunning AI images today.
+                Join thousands of creators who are already using Dreamy Studio
+                to bring their ideas to life. Start generating stunning AI
+                images today.
               </p>
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
                 <Link to="/signup">
-                  <Button 
-                    size="lg" 
+                  <Button
+                    size="lg"
                     className="text-lg px-8 py-6 text-black font-semibold"
                     style={{
-                      background: "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
+                      background:
+                        "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
                       border: "none",
                     }}
                   >
@@ -61,11 +60,11 @@ export const CTA = () => {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
-                <Button 
-                  variant="outline" 
-                  size="lg" 
+                <Button
+                  variant="outline"
+                  size="lg"
                   className="text-lg px-8 py-6 border-purple-400/50 text-purple-300 hover:bg-purple-900/20"
-                  onClick={() => scrollToSection('pricing')}
+                  onClick={() => scrollToSection("pricing")}
                 >
                   <Zap className="mr-2 w-5 h-5" />
                   View Pricing

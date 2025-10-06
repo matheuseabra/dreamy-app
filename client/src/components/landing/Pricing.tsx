@@ -64,8 +64,7 @@ export const Pricing = () => {
 
   return (
     <section id="pricing" className="py-20 px-4 relative">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-gray-900/25 to-black/30 pointer-events-none" />
+    
       
       <div className="container mx-auto relative">
         <div className="text-center mb-16">

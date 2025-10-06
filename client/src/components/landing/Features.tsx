@@ -1,13 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-    Clock,
-    Download,
-    Layers,
-    Palette,
-    Shield,
-    Sparkles,
-    Wand2,
-    Zap
+  Clock,
+  Download,
+  Layers,
+  Palette,
+  Shield,
+  Sparkles,
+  Wand2,
+  Zap
 } from "lucide-react";
 
 export const Features = () => {
@@ -56,8 +56,7 @@ export const Features = () => {
 
   return (
     <section id="features" className="py-20 px-4 relative">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 pointer-events-none" />
+     
       
       <div className="container mx-auto relative">
         <div className="text-center mb-16">

@@ -45,10 +45,7 @@ export const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-20 px-4 relative">
-      {/* Background gradient */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 pointer-events-none" />
-      
+    <section id="faq" className="py-20 px-4 relative"> 
       <div className="container mx-auto max-w-4xl relative">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
