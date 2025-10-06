@@ -91,8 +91,10 @@ const AI_MODELS = [
 
 const SIZE_LABEL: Record<string, string> = {
   square: "1:1",
-  portrait: "2:3",
-  landscape: "3:2",
+  portrait_9_16: "9:16",
+  landscape_16_9: "16:9",
+  portrait_3_4: "3:4",
+  landscape_4_3: "4:3",
 };
 
 export function PromptBar({
@@ -187,17 +189,48 @@ export function PromptBar({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end" className="w-40 border border-border">
-            <DropdownMenuLabel>Aspect ratio</DropdownMenuLabel>
+            <DropdownMenuLabel>Aspect Ratio</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup value={size} onValueChange={onSizeChange}>
-              <DropdownMenuRadioItem value="square">
-                1:1 (1024×1024)
+              <DropdownMenuRadioItem value="square" className="cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
+                    <rect x="3" y="3" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                  <span>1:1</span>
+                </div>
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="portrait">
-                2:3 (1024×1536)
+              <DropdownMenuRadioItem value="landscape_16_9" className="cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
+                    <rect x="2" y="5" width="12" height="6" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                  <span>16:9</span>
+                </div>
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="landscape">
-                3:2 (1536×1024)
+              <DropdownMenuRadioItem value="portrait_9_16" className="cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
+                    <rect x="5" y="2" width="6" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                  <span>9:16</span>
+                </div>
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="landscape_4_3" className="cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
+                    <rect x="2" y="4.5" width="12" height="7" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                  <span>4:3</span>
+                </div>
+              </DropdownMenuRadioItem>
+              <DropdownMenuRadioItem value="portrait_3_4" className="cursor-pointer">
+                <div className="flex items-center gap-2">
+                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
+                    <rect x="4.5" y="2" width="7" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  </svg>
+                  <span>3:4</span>
+                </div>
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
