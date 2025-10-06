@@ -10,7 +10,7 @@ export const Hero = () => {
     }
   };
   return (
-    <section className="pt-24 pb-16 px-4 relative overflow-hidden">
+    <section className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-gray-900/20 to-black/30 pointer-events-none" />
       
