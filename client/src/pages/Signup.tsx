@@ -28,7 +28,7 @@ const Signup: React.FC = () => {
         <div className="flex justify-center mb-4">
           <Logo />
         </div>
-        <Card className="w-full border-primary">
+        <Card className="w-full border border-border">
         <CardHeader>
           <CardTitle>Create your account</CardTitle>
           <CardDescription>Sign up to start generating images with Dreamy.</CardDescription>

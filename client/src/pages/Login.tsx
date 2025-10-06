@@ -28,7 +28,7 @@ const Login: React.FC = () => {
         <div className="flex justify-center mb-4">
           <Logo />
         </div>
-        <Card className="w-full border-primary">
+        <Card className="w-full border border-border">
         <CardHeader>
           <CardTitle>Sign in to Dreamy</CardTitle>
           <CardDescription>Enter your email and password to continue.</CardDescription>

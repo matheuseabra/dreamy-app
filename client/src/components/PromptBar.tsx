@@ -1,29 +1,25 @@
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
-    Brush,
-    Camera,
-    Crown,
-    Gauge,
-    ImageDown,
-    Layers,
-    Palette,
-    Ratio,
-    Rocket,
-    Settings2,
-    Sparkles,
-    Star,
-    Wand2,
-    Zap,
+  Brush,
+  Crown,
+  Gauge,
+  ImageDown,
+  Ratio,
+  Rocket,
+  Settings2,
+  Sparkles,
+  Star,
+  Zap
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -56,18 +52,6 @@ const AI_MODELS = [
     icon: Zap,
   },
   {
-    id: "fal-ai/flux/dev/image-to-image",
-    name: "Flux Dev I2I",
-    description: "Image-to-image with Flux Dev",
-    icon: Wand2,
-  },
-  {
-    id: "fal-ai/flux-1/schnell/redux",
-    name: "Flux Schnell Redux",
-    description: "Enhanced Flux Schnell model",
-    icon: Wand2,
-  },
-  {
     id: "fal-ai/flux-pro/kontext",
     name: "Flux Pro Kontext",
     description: "Professional context-aware generation",
@@ -80,34 +64,10 @@ const AI_MODELS = [
     icon: Star,
   },
   {
-    id: "fal-ai/flux-kontext/dev",
-    name: "Flux Kontext Dev",
-    description: "Development context model",
-    icon: Layers,
-  },
-  {
-    id: "fal-ai/flux-kontext-lora",
-    name: "Flux Kontext LoRA",
-    description: "LoRA-enhanced context model",
-    icon: Palette,
-  },
-  {
     id: "fal-ai/recraft/v3/text-to-image",
     name: "Recraft V3 T2I",
     description: "Advanced text-to-image generation",
     icon: Brush,
-  },
-  {
-    id: "fal-ai/recraft/v3/image-to-image",
-    name: "Recraft V3 I2I",
-    description: "Advanced image-to-image generation",
-    icon: Camera,
-  },
-  {
-    id: "fal-ai/ideogram/v2",
-    name: "Ideogram V2",
-    description: "Text rendering and design generation",
-    icon: Rocket,
   },
   {
     id: "fal-ai/ideogram/v3",
@@ -153,8 +113,7 @@ export function PromptBar({
     () => AI_MODELS.find((m) => m.id === selectedModel) || AI_MODELS[0],
     [selectedModel]
   );
-  const SelectedIcon = selectedModelData.icon;
-
+ 
   return (
     <div className="w-full">
       <div className="flex items-center gap-2 rounded-xl border border-border bg-background/70 px-3 py-2 shadow-sm">
@@ -166,8 +125,7 @@ export function PromptBar({
         >
           <ImageDown className="h-4 w-4" />
         </Button>
-
-       
+    
         <Input
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
@@ -186,7 +144,9 @@ export function PromptBar({
               <span className="text-xs">{selectedModelData.name}</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-100 border-none">
+          <DropdownMenuContent align="end" className="w-72 max-h-120 overflow-y-auto border border-border">
+            <DropdownMenuLabel>Models</DropdownMenuLabel>
+            <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
               value={selectedModel}
               onValueChange={onModelChange}
@@ -196,16 +156,16 @@ export function PromptBar({
                   <DropdownMenuRadioItem
                     key={m.id}
                     value={m.id}
-                    className="cursor-pointer flex flex-col items-start gap-0.5"
+                    className="cursor-pointer h-16 flex items-center gap-3 px-3 py-2"
                   >
-                    <div className="flex items-center gap-1">
-                      <m.icon className="h-4 w-4 mr-1" />
-                      <div className="flex flex-col items-start gap-0.5">
-                        <span className="text-sm font-medium">{m.name}</span>
-                        <span className="text-xs text-muted-foreground">
-                          {m.description}
-                        </span>
-                      </div>
+                    <div className="flex items-center justify-center w-6 h-6">
+                      <m.icon className="h-4 w-4" />
+                    </div>
+                    <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
+                      <span className="text-sm font-medium truncate">{m.name}</span>
+                      <span className="text-xs text-muted-foreground truncate">
+                        {m.description}
+                      </span>
                     </div>
                   </DropdownMenuRadioItem>
                 );
@@ -226,7 +186,7 @@ export function PromptBar({
               <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40">
+          <DropdownMenuContent align="end" className="w-40 border border-border">
             <DropdownMenuLabel>Aspect ratio</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup value={size} onValueChange={onSizeChange}>

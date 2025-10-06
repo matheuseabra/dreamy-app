@@ -1,10 +1,17 @@
 import useAuth from "@/hooks/useAuth";
-import { Bell, Star } from "lucide-react";
+import { Bell, LogOut, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const DashboardHeader = () => {
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
   const displayName = user?.email?.split("@")[0] ?? "User";
   const initials = (user?.user_metadata?.full_name as string | undefined)?.split(" ")
     .map((n) => n[0])
@@ -34,10 +41,35 @@ const DashboardHeader = () => {
               <Star className="h-4 w-4" />
               <span className="tabular-nums">{credits}</span>
             </div>
-            <Avatar className="ml-2 h-9 w-9">
-              <AvatarImage src={avatarUrl} alt={displayName} />
-              <AvatarFallback>{initials}</AvatarFallback>
-            </Avatar>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                  <Avatar className="h-9 w-9">
+                    <AvatarImage src={avatarUrl} alt={displayName} />
+                    <AvatarFallback>{initials}</AvatarFallback>
+                  </Avatar>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 border border-border" align="end" forceMount>
+                <div className="flex items-center justify-start gap-2 p-2">
+                  <div className="flex flex-col space-y-1 leading-none">
+                    {user?.user_metadata?.full_name && (
+                      <p className="font-medium">{user.user_metadata.full_name}</p>
+                    )}
+                    {user?.email && (
+                      <p className="w-[200px] truncate text-sm text-muted-foreground">
+                        {user.email}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+                  <LogOut className="mr-2 h-4 w-4 text-red-400" />
+                  <span className="text-sm text-red-400">Log out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
