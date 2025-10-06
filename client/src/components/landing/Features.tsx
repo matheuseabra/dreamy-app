@@ -55,28 +55,43 @@ export const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-20 px-4 bg-muted/30">
-      <div className="container mx-auto">
+    <section id="features" className="py-20 px-4 relative">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 pointer-events-none" />
+      
+      <div className="container mx-auto relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Powerful Features for Creative Professionals
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             Everything you need to create stunning AI-generated images with professional-grade quality and control.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {features.map((feature, index) => (
-            <Card key={index} className="group hover:shadow-lg hover:scale-105 transition-all duration-300 border-0 bg-background/50 backdrop-blur-sm">
+            <Card 
+              key={index} 
+              className="group hover:shadow-lg hover:scale-105 transition-all duration-300 border-0 bg-slate-800/40 backdrop-blur-sm"
+              style={{
+                border: "1px solid transparent",
+                backgroundImage: `
+                  linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
+                  linear-gradient(135deg, rgb(168 85 247 / 0.3), rgb(59 130 246 / 0.3), rgb(147 197 253 / 0.3))
+                `,
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+              }}
+            >
               <CardHeader className="text-center pb-4">
-                <div className="mx-auto mb-4 p-3 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300 w-fit">
+                <div className="mx-auto mb-4 p-3 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20 text-purple-300 group-hover:from-purple-400/30 group-hover:to-blue-400/30 transition-all duration-300 w-fit">
                   {feature.icon}
                 </div>
-                <CardTitle className="text-lg">{feature.title}</CardTitle>
+                <CardTitle className="text-lg text-white">{feature.title}</CardTitle>
               </CardHeader>
               <CardContent>
-                <CardDescription className="text-center text-muted-foreground">
+                <CardDescription className="text-center text-slate-300">
                   {feature.description}
                 </CardDescription>
               </CardContent>

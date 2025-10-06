@@ -8,7 +8,7 @@ import { Pricing } from "./landing/Pricing";
 
 export const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
       <Navbar />
       <main>
         <Hero />

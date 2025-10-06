@@ -11,23 +11,37 @@ export const CTA = () => {
     }
   };
   return (
-    <section className="py-20 px-4">
-      <div className="container mx-auto">
-        <Card className="bg-gradient-to-r from-primary/10 to-primary/5 border-primary/20 overflow-hidden">
+    <section className="py-20 px-4 relative">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-gray-900/25 to-black/30 pointer-events-none" />
+      
+      <div className="container mx-auto relative">
+        <Card 
+          className="overflow-hidden"
+          style={{
+            border: "1px solid transparent",
+            backgroundImage: `
+              linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
+              linear-gradient(135deg, rgb(168 85 247 / 0.4), rgb(59 130 246 / 0.4), rgb(147 197 253 / 0.4))
+            `,
+            backgroundOrigin: "border-box",
+            backgroundClip: "padding-box, border-box",
+          }}
+        >
           <CardContent className="p-12 text-center">
             <div className="max-w-3xl mx-auto">
               {/* Icon */}
-              <div className="mx-auto mb-6 p-4 rounded-full bg-primary/20 w-fit">
-                <Sparkles className="w-8 h-8 text-primary" />
+              <div className="mx-auto mb-6 p-4 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 w-fit">
+                <Sparkles className="w-8 h-8 text-purple-300" />
               </div>
 
               {/* Heading */}
-              <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
                 Ready to Create Something Amazing?
               </h2>
 
               {/* Description */}
-              <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
                 Join thousands of creators who are already using Dreamy Studio to bring their ideas to life. 
                 Start generating stunning AI images today.
               </p>
@@ -35,7 +49,14 @@ export const CTA = () => {
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
                 <Link to="/signup">
-                  <Button size="lg" className="text-lg px-8 py-6 bg-primary hover:bg-primary/90">
+                  <Button 
+                    size="lg" 
+                    className="text-lg px-8 py-6 text-black font-semibold"
+                    style={{
+                      background: "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
+                      border: "none",
+                    }}
+                  >
                     Start Creating Free
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
@@ -43,7 +64,7 @@ export const CTA = () => {
                 <Button 
                   variant="outline" 
                   size="lg" 
-                  className="text-lg px-8 py-6 border-primary/50 hover:bg-primary/10"
+                  className="text-lg px-8 py-6 border-purple-400/50 text-purple-300 hover:bg-purple-900/20"
                   onClick={() => scrollToSection('pricing')}
                 >
                   <Zap className="mr-2 w-5 h-5" />
@@ -52,17 +73,17 @@ export const CTA = () => {
               </div>
 
               {/* Trust indicators */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-muted-foreground">
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-slate-300">
                 <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
                   No credit card required
                 </div>
                 <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
                   Free forever plan available
                 </div>
                 <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-500 rounded-full mr-2"></div>
+                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
                   Cancel anytime
                 </div>
               </div>

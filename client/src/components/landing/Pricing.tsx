@@ -63,13 +63,16 @@ export const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 px-4">
-      <div className="container mx-auto">
+    <section id="pricing" className="py-20 px-4 relative">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-gray-900/25 to-black/30 pointer-events-none" />
+      
+      <div className="container mx-auto relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
             Choose the plan that fits your creative needs. Upgrade or downgrade at any time.
           </p>
         </div>
@@ -80,34 +83,60 @@ export const Pricing = () => {
               key={index} 
               className={`relative transition-all duration-300 hover:shadow-xl ${
                 plan.popular 
-                  ? 'border-primary shadow-lg scale-105' 
-                  : 'border-border hover:border-primary/50'
+                  ? 'shadow-lg scale-105' 
+                  : ''
               }`}
+              style={{
+                border: "1px solid transparent",
+                backgroundImage: plan.popular 
+                  ? `
+                    linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
+                    linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
+                  `
+                  : `
+                    linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
+                    linear-gradient(135deg, rgb(168 85 247 / 0.3), rgb(59 130 246 / 0.3), rgb(147 197 253 / 0.3))
+                  `,
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+              }}
             >
               {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-primary text-primary-foreground">
+                <Badge 
+                  className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-white font-semibold"
+                  style={{
+                    background: "linear-gradient(135deg, rgb(59 130 246), rgb(168 85 247))",
+                    border: "1px solid transparent",
+                    backgroundImage: `
+                      linear-gradient(to bottom, rgb(59 130 246), rgb(168 85 247)),
+                      linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
+                    `,
+                    backgroundOrigin: "border-box",
+                    backgroundClip: "padding-box, border-box",
+                  }}
+                >
                   <Star className="w-3 h-3 mr-1" />
                   Most Popular
                 </Badge>
               )}
               
               <CardHeader className="text-center pb-4">
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                <CardTitle className="text-2xl text-white">{plan.name}</CardTitle>
                 <div className="mt-4">
-                  <span className="text-4xl font-bold text-foreground">{plan.price}</span>
+                  <span className="text-4xl font-bold text-white">{plan.price}</span>
                   {plan.period && (
-                    <span className="text-muted-foreground">/{plan.period}</span>
+                    <span className="text-slate-300">/{plan.period}</span>
                   )}
                 </div>
-                <CardDescription className="mt-2">{plan.description}</CardDescription>
+                <CardDescription className="mt-2 text-slate-300">{plan.description}</CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-6">
                 <ul className="space-y-3">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center">
-                      <Check className="w-4 h-4 text-primary mr-3 flex-shrink-0" />
-                      <span className="text-sm text-foreground">{feature}</span>
+                      <Check className="w-4 h-4 text-purple-300 mr-3 flex-shrink-0" />
+                      <span className="text-sm text-slate-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -116,10 +145,14 @@ export const Pricing = () => {
                   <Button 
                     className={`w-full ${
                       plan.popular 
-                        ? 'bg-primary hover:bg-primary/90' 
-                        : 'bg-secondary hover:bg-secondary/90'
+                        ? 'text-black font-semibold' 
+                        : 'bg-slate-700 hover:bg-slate-600 text-white'
                     }`}
                     size="lg"
+                    style={plan.popular ? {
+                      background: "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
+                      border: "none",
+                    } : {}}
                   >
                     {plan.cta}
                   </Button>
@@ -130,11 +163,11 @@ export const Pricing = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
+          <p className="text-slate-300 mb-4">
             All plans include our core features and 24/7 support
           </p>
-          <p className="text-sm text-muted-foreground">
-            Need a custom plan? <Link to="/contact" className="text-primary hover:underline">Contact our sales team</Link>
+          <p className="text-sm text-slate-300">
+            Need a custom plan? <Link to="/contact" className="text-purple-300 hover:underline">Contact our sales team</Link>
           </p>
         </div>
       </div>

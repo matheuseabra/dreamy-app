@@ -45,13 +45,16 @@ export const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-20 px-4 bg-muted/30">
-      <div className="container mx-auto max-w-4xl">
+    <section id="faq" className="py-20 px-4 relative">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-gray-900/30 to-black/40 pointer-events-none" />
+      
+      <div className="container mx-auto max-w-4xl relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-muted-foreground">
+          <p className="text-xl text-slate-300">
             Everything you need to know about Dreamy Studio
           </p>
         </div>
@@ -61,14 +64,23 @@ export const FAQ = () => {
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="bg-background/50 backdrop-blur-sm border border-border rounded-lg px-6"
+              className="backdrop-blur-sm rounded-lg px-6"
+              style={{
+                border: "1px solid transparent",
+                backgroundImage: `
+                  linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
+                  linear-gradient(135deg, rgb(168 85 247 / 0.2), rgb(59 130 246 / 0.2), rgb(147 197 253 / 0.2))
+                `,
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+              }}
             >
               <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="text-lg font-medium text-foreground">
+                <span className="text-lg font-medium text-white">
                   {faq.question}
                 </span>
               </AccordionTrigger>
-              <AccordionContent className="text-muted-foreground pb-6 leading-relaxed">
+              <AccordionContent className="text-slate-300 pb-6 leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
@@ -76,12 +88,12 @@ export const FAQ = () => {
         </Accordion>
 
         <div className="text-center mt-12">
-          <p className="text-muted-foreground mb-4">
+          <p className="text-slate-300 mb-4">
             Still have questions?
           </p>
           <a 
             href="mailto:support@dreamystudio.com" 
-            className="text-primary hover:underline font-medium"
+            className="text-purple-300 hover:underline font-medium"
           >
             Contact our support team
           </a>

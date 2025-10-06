@@ -176,6 +176,57 @@
     box-shadow: var(--glow-accent);
   }
 
+  /* Luxury gradient backgrounds */
+  .bg-luxury-dark {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #0a0a1a 100%);
+  }
+
+  .bg-luxury-subtle {
+    background: linear-gradient(135deg, rgba(5, 5, 5, 0.9) 0%, rgba(15, 5, 15, 0.8) 50%, rgba(5, 5, 15, 0.9) 100%);
+  }
+
+  /* Gradient border utilities */
+  .border-gradient-luxury {
+    border: 1px solid transparent;
+    background-image: 
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
+      linear-gradient(135deg, rgb(168 85 247 / 0.3), rgb(59 130 246 / 0.3), rgb(147 197 253 / 0.3));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  .border-gradient-luxury-strong {
+    border: 1px solid transparent;
+    background-image: 
+      linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
+      linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253));
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+  }
+
+  /* Luxury button gradients */
+  .btn-luxury-gradient {
+    background: linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%);
+    color: #000;
+    font-weight: 600;
+    border: none;
+  }
+
+  /* Text gradient utilities */
+  .text-gradient-luxury {
+    background: linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-purple {
+    background: linear-gradient(135deg, #a855f7 0%, #3b82f6 50%, #93c5fd 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
   /* Enhanced animations */
   .animate-fade-in {
     animation: fadeIn 0.5s ease-in-out;
