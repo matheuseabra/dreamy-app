@@ -40,7 +40,14 @@ const Dashboard = () => {
     GeneratedImage[]
   >([]);
 
-  console.log({selectedModel});
+  console.log({
+    selectedModel,
+    prompt,
+    size,
+    quality,
+    style,
+    isGenerating
+  })
 
   const { data: imagesData, isLoading: imagesLoading } = useQuery<
     GeneratedImage[],

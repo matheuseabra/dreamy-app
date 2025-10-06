@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import { Bell, LogOut, Star } from "lucide-react";
+import { Bell, LogOut, Sparkles, Star } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import {
@@ -14,12 +14,15 @@ import { SidebarTrigger } from "./ui/sidebar";
 const DashboardHeader = () => {
   const { user, signOut } = useAuth();
   const displayName = user?.email?.split("@")[0] ?? "User";
-  const initials = (user?.user_metadata?.full_name as string | undefined)?.split(" ")
-    .map((n) => n[0])
-    .join("")
-    .slice(0, 2)
-    .toUpperCase() || (displayName[0] ?? "U").toUpperCase();
-  const avatarUrl = (user?.user_metadata?.avatar_url as string | undefined) || undefined;
+  const initials =
+    (user?.user_metadata?.full_name as string | undefined)
+      ?.split(" ")
+      .map((n) => n[0])
+      .join("")
+      .slice(0, 2)
+      .toUpperCase() || (displayName[0] ?? "U").toUpperCase();
+  const avatarUrl =
+    (user?.user_metadata?.avatar_url as string | undefined) || undefined;
   const credits = 0; // TODO: wire with real credits
 
   return (
@@ -35,8 +38,23 @@ const DashboardHeader = () => {
             <Button variant="ghost" size="icon" className="h-9 w-9">
               <Bell className="h-5 w-5" />
             </Button>
-            <Button className="h-9 rounded-full px-4 text-sm font-medium text-white bg-gradient-to-r from-[#6b5bff] via-[#7f63ff] to-[#a7f3ff] shadow-sm hover:opacity-95">
-              Subscribe
+            <Button
+              style={{
+                border: "1px solid transparent",
+                backgroundImage: `
+              linear-gradient(to bottom, rgb(30 27 75 / 0.9), rgb(88 28 135 / 0.95)),
+              linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
+            `,
+                backgroundOrigin: "border-box",
+                backgroundClip: "padding-box, border-box",
+              }}
+              className="h-9 rounded-xl px-4 text-sm font-medium text-white bg-gradient-to-r from-[#6b5bff] via-[#7f63ff] to-[#a7f3ff] shadow-sm hover:opacity-95"
+            >
+              
+              <span className="bg-gradient-to-r from-pink-300 via-blue-300 to-white bg-clip-text text-transparent">
+                Upgrade
+              </span>
+              <Sparkles className="h-4 w-4 mr-1" />
             </Button>
             <div className="mx-1 h-5 w-px bg-border" />
             <div className="flex items-center gap-1 rounded-full border border-border px-3 py-1.5 text-sm">
@@ -45,18 +63,27 @@ const DashboardHeader = () => {
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-9 w-9 rounded-full">
+                <Button
+                  variant="ghost"
+                  className="relative h-9 w-9 rounded-full"
+                >
                   <Avatar className="h-9 w-9">
                     <AvatarImage src={avatarUrl} alt={displayName} />
                     <AvatarFallback>{initials}</AvatarFallback>
                   </Avatar>
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 border border-border" align="end" forceMount>
+              <DropdownMenuContent
+                className="w-56 border border-border"
+                align="end"
+                forceMount
+              >
                 <div className="flex items-center justify-start gap-2 p-2">
                   <div className="flex flex-col space-y-1 leading-none">
                     {user?.user_metadata?.full_name && (
-                      <p className="font-medium">{user.user_metadata.full_name}</p>
+                      <p className="font-medium">
+                        {user.user_metadata.full_name}
+                      </p>
                     )}
                     {user?.email && (
                       <p className="w-[200px] truncate text-sm text-muted-foreground">
@@ -66,7 +93,10 @@ const DashboardHeader = () => {
                   </div>
                 </div>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem className="cursor-pointer" onClick={() => signOut()}>
+                <DropdownMenuItem
+                  className="cursor-pointer"
+                  onClick={() => signOut()}
+                >
                   <LogOut className="mr-2 h-4 w-4 text-red-400" />
                   <span className="text-sm text-red-400">Log out</span>
                 </DropdownMenuItem>

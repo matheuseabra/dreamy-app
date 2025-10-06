@@ -19,7 +19,7 @@ import {
   Settings2,
   Sparkles,
   Star,
-  Zap
+  Zap,
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -65,7 +65,7 @@ const AI_MODELS = [
   },
   {
     id: "fal-ai/recraft/v3/text-to-image",
-    name: "Recraft V3 T2I",
+    name: "Recraft V3",
     description: "Advanced text-to-image generation",
     icon: Brush,
   },
@@ -93,8 +93,6 @@ const SIZE_LABEL: Record<string, string> = {
   square: "1:1",
   portrait_9_16: "9:16",
   landscape_16_9: "16:9",
-  portrait_3_4: "3:4",
-  landscape_4_3: "4:3",
 };
 
 export function PromptBar({
@@ -115,7 +113,7 @@ export function PromptBar({
     () => AI_MODELS.find((m) => m.id === selectedModel) || AI_MODELS[0],
     [selectedModel]
   );
- 
+
   return (
     <div className="w-full">
       <div className="flex items-center gap-2 rounded-xl border border-border bg-background/70 px-3 py-2 shadow-sm">
@@ -127,7 +125,7 @@ export function PromptBar({
         >
           <ImageDown className="h-4 w-4" />
         </Button>
-    
+
         <Input
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
@@ -146,7 +144,10 @@ export function PromptBar({
               <span className="text-xs">{selectedModelData.name}</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-72 max-h-120 overflow-y-auto border border-border">
+          <DropdownMenuContent
+            align="end"
+            className="w-72 max-h-120 overflow-y-auto border border-border"
+          >
             <DropdownMenuLabel>Models</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
@@ -164,7 +165,9 @@ export function PromptBar({
                       <m.icon className="h-4 w-4" />
                     </div>
                     <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
-                      <span className="text-sm font-medium truncate">{m.name}</span>
+                      <span className="text-sm font-medium truncate">
+                        {m.name}
+                      </span>
                       <span className="text-xs text-muted-foreground truncate">
                         {m.description}
                       </span>
@@ -188,55 +191,86 @@ export function PromptBar({
               <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-40 border border-border">
+          <DropdownMenuContent
+            align="end"
+            className="w-40 border border-border"
+          >
             <DropdownMenuLabel>Aspect Ratio</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup value={size} onValueChange={onSizeChange}>
               <DropdownMenuRadioItem value="square" className="cursor-pointer">
                 <div className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
-                    <rect x="3" y="3" width="10" height="10" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    className="text-muted-foreground"
+                  >
+                    <rect
+                      x="3"
+                      y="3"
+                      width="10"
+                      height="10"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
                   </svg>
                   <span>1:1</span>
                 </div>
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="landscape_16_9" className="cursor-pointer">
+              <DropdownMenuRadioItem
+                value="landscape_16_9"
+                className="cursor-pointer"
+              >
                 <div className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
-                    <rect x="2" y="5" width="12" height="6" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    className="text-muted-foreground"
+                  >
+                    <rect
+                      x="2"
+                      y="5"
+                      width="12"
+                      height="6"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
                   </svg>
                   <span>16:9</span>
                 </div>
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="portrait_9_16" className="cursor-pointer">
+              <DropdownMenuRadioItem
+                value="portrait_9_16"
+                className="cursor-pointer"
+              >
                 <div className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
-                    <rect x="5" y="2" width="6" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    className="text-muted-foreground"
+                  >
+                    <rect
+                      x="5"
+                      y="2"
+                      width="6"
+                      height="12"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                    />
                   </svg>
                   <span>9:16</span>
-                </div>
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="landscape_4_3" className="cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
-                    <rect x="2" y="4.5" width="12" height="7" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                  </svg>
-                  <span>4:3</span>
-                </div>
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="portrait_3_4" className="cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <svg width="16" height="16" viewBox="0 0 16 16" className="text-muted-foreground">
-                    <rect x="4.5" y="2" width="7" height="12" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                  </svg>
-                  <span>3:4</span>
                 </div>
               </DropdownMenuRadioItem>
             </DropdownMenuRadioGroup>
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Quality and style collapsed under settings */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button
@@ -247,7 +281,10 @@ export function PromptBar({
               <Settings2 className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
-          <DropdownMenuContent align="end" className="w-56 border border-border">
+          <DropdownMenuContent
+            align="end"
+            className="w-56 border border-border"
+          >
             <DropdownMenuLabel>Quality</DropdownMenuLabel>
             <DropdownMenuRadioGroup
               value={quality}
@@ -275,16 +312,15 @@ export function PromptBar({
           </DropdownMenuContent>
         </DropdownMenu>
 
-        {/* Generate button */}
         <Button
-          variant="gradient"
-          size="sm"
-          className="h-8 px-3 font-semibold"
           onClick={onGenerate}
           disabled={isGenerating || !prompt.trim()}
+          size="sm"
+          className="h-8 px-4 rounded-xl bg-transparent hover:bg-transparent border border-border"
         >
-          <Sparkles className="h-4 w-4 mr-1" />{" "}
-          {isGenerating ? "Generating" : "Generate"}
+          <span className="bg-gradient-to-r from-pink-300 via-blue-300 to-white bg-clip-text text-transparent font-sans text-sm">
+            {isGenerating ? "Generating" : "Generate"}
+          </span>
         </Button>
       </div>
     </div>
