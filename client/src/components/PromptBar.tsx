@@ -23,6 +23,89 @@ import {
 } from "lucide-react";
 import { useMemo } from "react";
 
+const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
+  const iconProps = {
+    width: "16",
+    height: "16",
+    viewBox: "0 0 16 16",
+    className: "text-muted-foreground",
+  };
+
+  const rectProps = {
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "1.5",
+  };
+
+  switch (ratio) {
+    case "square":
+      return (
+        <svg {...iconProps}>
+          <rect x="3" y="3" width="10" height="10" {...rectProps} />
+        </svg>
+      );
+    case "landscape_16_9":
+      return (
+        <svg {...iconProps}>
+          <rect x="2" y="5" width="12" height="6" {...rectProps} />
+        </svg>
+      );
+    case "portrait_9_16":
+      return (
+        <svg {...iconProps}>
+          <rect x="5" y="2" width="6" height="12" {...rectProps} />
+        </svg>
+      );
+    default:
+      return null;
+  }
+};
+
+const SettingsDropdown = ({
+  trigger,
+  label,
+  children,
+  className = "w-56 border border-border",
+}: {
+  trigger: React.ReactNode;
+  label: string;
+  children: React.ReactNode;
+  className?: string;
+}) => (
+  <DropdownMenu>
+    <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
+    <DropdownMenuContent align="end" className={className}>
+      <DropdownMenuLabel>{label}</DropdownMenuLabel>
+      <DropdownMenuSeparator />
+      {children}
+    </DropdownMenuContent>
+  </DropdownMenu>
+);
+
+const ModelItem = ({ model, isSelected, onSelect }: {
+  model: typeof AI_MODELS[0];
+  isSelected: boolean;
+  onSelect: () => void;
+}) => {
+  const Icon = model.icon;
+  return (
+    <DropdownMenuRadioItem
+      value={model.id}
+      className="cursor-pointer h-16 flex items-center gap-3 px-3 py-2"
+    >
+      <div className="flex items-center justify-center w-6 h-6">
+        <Icon className="h-4 w-4" />
+      </div>
+      <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
+        <span className="text-sm font-medium truncate">{model.name}</span>
+        <span className="text-xs text-muted-foreground truncate">
+          {model.description}
+        </span>
+      </div>
+    </DropdownMenuRadioItem>
+  );
+};
+
 type PromptBarProps = {
   prompt: string;
   onPromptChange: (value: string) => void;
@@ -133,9 +216,9 @@ export function PromptBar({
           className="border-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1"
         />
 
-        {/* Model selector icon */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+        {/* Model selector */}
+        <SettingsDropdown
+          trigger={
             <Button
               variant="ghost"
               size="sm"
@@ -143,45 +226,28 @@ export function PromptBar({
             >
               <span className="text-xs">{selectedModelData.name}</span>
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className="w-72 max-h-120 overflow-y-auto border border-border"
+          }
+          label="Models"
+          className="w-72 max-h-120 overflow-y-auto border border-border"
+        >
+          <DropdownMenuRadioGroup
+            value={selectedModel}
+            onValueChange={onModelChange}
           >
-            <DropdownMenuLabel>Models</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuRadioGroup
-              value={selectedModel}
-              onValueChange={onModelChange}
-            >
-              {AI_MODELS.map((m) => {
-                return (
-                  <DropdownMenuRadioItem
-                    key={m.id}
-                    value={m.id}
-                    className="cursor-pointer h-16 flex items-center gap-3 px-3 py-2"
-                  >
-                    <div className="flex items-center justify-center w-6 h-6">
-                      <m.icon className="h-4 w-4" />
-                    </div>
-                    <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
-                      <span className="text-sm font-medium truncate">
-                        {m.name}
-                      </span>
-                      <span className="text-xs text-muted-foreground truncate">
-                        {m.description}
-                      </span>
-                    </div>
-                  </DropdownMenuRadioItem>
-                );
-              })}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            {AI_MODELS.map((model) => (
+              <ModelItem
+                key={model.id}
+                model={model}
+                isSelected={model.id === selectedModel}
+                onSelect={() => onModelChange(model.id)}
+              />
+            ))}
+          </DropdownMenuRadioGroup>
+        </SettingsDropdown>
 
         {/* Aspect ratio selector */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+        <SettingsDropdown
+          trigger={
             <Button
               variant="ghost"
               size="sm"
@@ -190,89 +256,28 @@ export function PromptBar({
               <Ratio className="h-4 w-4 mr-1" />
               <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className="w-40 border border-border"
-          >
-            <DropdownMenuLabel>Aspect Ratio</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuRadioGroup value={size} onValueChange={onSizeChange}>
-              <DropdownMenuRadioItem value="square" className="cursor-pointer">
-                <div className="flex items-center gap-2">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    className="text-muted-foreground"
-                  >
-                    <rect
-                      x="3"
-                      y="3"
-                      width="10"
-                      height="10"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                  <span>1:1</span>
-                </div>
-              </DropdownMenuRadioItem>
+          }
+          label="Aspect Ratio"
+          className="w-40 border border-border"
+        >
+          <DropdownMenuRadioGroup value={size} onValueChange={onSizeChange}>
+            {Object.entries(SIZE_LABEL).map(([value, label]) => (
               <DropdownMenuRadioItem
-                value="landscape_16_9"
+                key={value}
+                value={value}
                 className="cursor-pointer"
               >
                 <div className="flex items-center gap-2">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    className="text-muted-foreground"
-                  >
-                    <rect
-                      x="2"
-                      y="5"
-                      width="12"
-                      height="6"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                  <span>16:9</span>
+                  <AspectRatioIcon ratio={value} />
+                  <span>{label}</span>
                 </div>
               </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem
-                value="portrait_9_16"
-                className="cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    className="text-muted-foreground"
-                  >
-                    <rect
-                      x="5"
-                      y="2"
-                      width="6"
-                      height="12"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.5"
-                    />
-                  </svg>
-                  <span>9:16</span>
-                </div>
-              </DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            ))}
+          </DropdownMenuRadioGroup>
+        </SettingsDropdown>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
+        <SettingsDropdown
+          trigger={
             <Button
               variant="ghost"
               size="icon"
@@ -280,37 +285,26 @@ export function PromptBar({
             >
               <Settings2 className="h-4 w-4" />
             </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            align="end"
-            className="w-56 border border-border"
+          }
+          label="Settings"
+        >
+          <DropdownMenuLabel>Quality</DropdownMenuLabel>
+          <DropdownMenuRadioGroup
+            value={quality}
+            onValueChange={onQualityChange}
           >
-            <DropdownMenuLabel>Quality</DropdownMenuLabel>
-            <DropdownMenuRadioGroup
-              value={quality}
-              onValueChange={onQualityChange}
-            >
-              <DropdownMenuRadioItem value="standard">
-                Standard
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="hd">HD</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="ultra">
-                Ultra HD
-              </DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-            <DropdownMenuSeparator />
-            <DropdownMenuLabel>Style</DropdownMenuLabel>
-            <DropdownMenuRadioGroup value={style} onValueChange={onStyleChange}>
-              <DropdownMenuRadioItem value="natural">
-                Natural
-              </DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="vivid">Vivid</DropdownMenuRadioItem>
-              <DropdownMenuRadioItem value="artistic">
-                Artistic
-              </DropdownMenuRadioItem>
-            </DropdownMenuRadioGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <DropdownMenuRadioItem value="standard">Standard</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="hd">HD</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="ultra">Ultra HD</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuLabel>Style</DropdownMenuLabel>
+          <DropdownMenuRadioGroup value={style} onValueChange={onStyleChange}>
+            <DropdownMenuRadioItem value="natural">Natural</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="vivid">Vivid</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="artistic">Artistic</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+        </SettingsDropdown>
 
         <Button
           onClick={onGenerate}
