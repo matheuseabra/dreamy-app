@@ -39,21 +39,16 @@ const DashboardHeader = () => {
               <Bell className="h-5 w-5" />
             </Button>
             <Button
+              className="h-9 rounded-xl px-4 text-sm font-medium text-black font-semibold"
               style={{
-                border: "1px solid transparent",
-                backgroundImage: `
-              linear-gradient(to bottom, #0e0e10, #2c2833),
-              linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
-            `,
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
+                background: "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
+                border: "none",
               }}
-              className="h-9 rounded-xl px-4 text-sm font-medium"
             >
-              <span className="bg-gradient-to-r from-pink-300 via-blue-300 to-white bg-clip-text text-transparent font-bold">
+              <span className="font-bold">
                 Upgrade
               </span>
-              <Sparkles className="h-4 w-4 mr-1" />
+              <Sparkles className="h-4 w-4 ml-1" />
             </Button>
             <div className="mx-1 h-5 w-px bg-border" />
             <DropdownMenu>

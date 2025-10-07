@@ -51,7 +51,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive("/explore")}
-                    className="h-12 text-md font-medium"
+                    className="h-10 text-md font-medium"
                   >
                     <Link to="/explore">
                       <Compass className="h-5 w-5" />
@@ -63,7 +63,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive("/generate")}
-                    className="h-12 text-md font-medium"
+                    className="h-10 text-md font-medium"
                   >
                     <Link to="/generate">
                       <Sparkles className="h-5 w-5" />
@@ -75,7 +75,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive("/edit")}
-                    className="h-12 text-md font-medium"
+                    className="h-10 text-md font-medium"
                   >
                     <Link to="/edit">
                       <Pencil className="h-5 w-5" />
@@ -87,7 +87,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive("/project")}
-                    className="h-12 text-md font-medium"
+                    className="h-10 text-md font-medium"
                   >
                     <Link to="/project">
                       <LibraryBig className="h-5 w-5" />
@@ -109,7 +109,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive("/assets")}
-                    className="h-12 text-md font-medium"
+                    className="h-10 text-md font-medium"
                   >
                     <Link to="/assets">
                       <FolderOpen className="h-5 w-5" />
@@ -121,7 +121,7 @@ const Layout: React.FC<Props> = ({ children }) => {
                   <SidebarMenuButton
                     asChild
                     isActive={isActive("/favorites")}
-                    className="h-12 text-md font-medium"
+                    className="h-10 text-md font-medium"
                   >
                     <Link to="/favorites">
                       <Star className="h-5 w-5" />
