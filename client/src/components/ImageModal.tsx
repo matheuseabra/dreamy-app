@@ -1,6 +1,15 @@
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Download, Copy } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Copy,
+  Download,
+  Star,
+  ThumbsDown,
+  ThumbsUp
+} from "lucide-react";
 import { toast } from "sonner";
 
 interface ImageModalProps {
@@ -10,10 +19,24 @@ interface ImageModalProps {
     src: string;
     prompt: string;
     model: string;
+    createdAt?: string;
+    aspectRatio?: string;
   } | null;
+  onPrevious?: () => void;
+  onNext?: () => void;
+  hasPrevious?: boolean;
+  hasNext?: boolean;
 }
 
-export const ImageModal = ({ open, onOpenChange, image }: ImageModalProps) => {
+export const ImageModal = ({
+  open,
+  onOpenChange,
+  image,
+  onPrevious,
+  onNext,
+  hasPrevious = false,
+  hasNext = false,
+}: ImageModalProps) => {
   if (!image) return null;
 
   const handleCopyPrompt = () => {
@@ -22,8 +45,7 @@ export const ImageModal = ({ open, onOpenChange, image }: ImageModalProps) => {
   };
 
   const handleDownload = () => {
-    // Create a temporary link to download the image
-    const link = document.createElement('a');
+    const link = document.createElement("a");
     link.href = image.src;
     link.download = `dreamforge-${Date.now()}.png`;
     document.body.appendChild(link);
@@ -32,36 +54,143 @@ export const ImageModal = ({ open, onOpenChange, image }: ImageModalProps) => {
     toast.success("Image download started!");
   };
 
+  const formatDate = (dateString?: string) => {
+    if (!dateString) return "06 Oct 2025 08:03:41";
+    return new Date(dateString).toLocaleDateString("en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+    });
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl p-0 overflow-hidden bg-card border-border">
-        <div className="relative">
-          <img
-            src={image.src}
-            alt={image.prompt}
-            className="w-full h-auto max-h-[70vh] object-contain"
-          />
-        </div>
-        <div className="p-6 space-y-4">
-          <DialogHeader>
-            <DialogTitle className="text-lg font-semibold">Generated Image</DialogTitle>
-            <DialogDescription className="text-sm text-muted-foreground">
-              Model: {image.model}
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-2">
-            <h4 className="text-sm font-medium text-muted-foreground">Prompt</h4>
-            <p className="text-sm text-foreground">{image.prompt}</p>
+      <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black border-0">
+        <div className="flex h-full">
+          <div className="flex-1 relative bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center">
+            {hasPrevious && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute left-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white border border-border backdrop-blur-sm"
+                onClick={onPrevious}
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </Button>
+            )}
+
+            {hasNext && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute right-4 top-1/2 -translate-y-1/2 z-10 bg-black/50 hover:bg-black/70 text-white border border-border backdrop-blur-sm"
+                onClick={onNext}
+              >
+                <ChevronRight className="h-6 w-6" />
+              </Button>
+            )}
+
+            <img
+              src={image.src}
+              alt={image.prompt}
+              className="max-w-full max-h-full object-contain"
+            />
           </div>
-          <div className="flex gap-2 justify-end">
-            <Button variant="outline" onClick={handleCopyPrompt}>
-              <Copy className="mr-2 h-4 w-4" />
-              Copy Prompt
-            </Button>
-            <Button variant="gradient" onClick={handleDownload}>
-              <Download className="mr-2 h-4 w-4" />
-              Download Image
-            </Button>
+
+          <div className="w-80 bg-card border-l border-border flex flex-col">
+            <div className="p-4 border-b border-border">
+              <div className="flex items-center justify-between">
+                <div>
+                  <br />
+                </div>
+              </div>
+            </div>
+            <div className="flex-1 p-4 space-y-6 overflow-y-auto scrollbar-thin">
+              <div className="space-y-2">
+                <div className="flex items-start justify-between">
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {image.prompt}
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-muted-foreground hover:text-foreground ml-2"
+                    onClick={handleCopyPrompt}
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+              <div className="space-y-3">
+                <div className="flex gap-2">
+                  <Badge
+                    variant="secondary"
+                    className="bg-primary/20 text-primary border-primary/30"
+                  >
+                    {image.model}
+                  </Badge>
+                  <Badge
+                    variant="secondary"
+                    className="bg-primary/20 text-primary border-primary/30"
+                  >
+                    {image.aspectRatio || "1:1"}
+                  </Badge>
+                </div>
+
+                <div className="space-y-2 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Creation Time</span>
+                    <span className="text-foreground">
+                      {formatDate(image.createdAt)}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">
+                      Inspiration Mode
+                    </span>
+                    <span className="text-foreground">Off</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Footer */}
+            <div className="p-4 border-t border-border">
+              <div className="flex items-center justify-center gap-3">
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <ThumbsUp className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <ThumbsDown className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-muted-foreground hover:text-foreground"
+                  onClick={handleDownload}
+                >
+                  <Download className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <Star className="h-4 w-4" />
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </DialogContent>
