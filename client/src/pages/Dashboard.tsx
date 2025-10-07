@@ -182,8 +182,6 @@ const Dashboard = () => {
             onStyleChange={setStyle}
           />
         </div>
-
-        {/* Gallery */}
         <div className="border border-none rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
           <CombinedGallery
             onImageClick={handleImageClick}
@@ -197,7 +195,6 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Image Detail Modal */}
       <ImageModal
         open={modalOpen}
         onOpenChange={setModalOpen}
