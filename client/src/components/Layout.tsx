@@ -35,12 +35,11 @@ const Layout: React.FC<Props> = ({ children }) => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <SidebarProvider className="min-h-screen bg-background">
-      <div className="flex w-full">
-        {/* Sidebar */}
+    <SidebarProvider className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
+      <div className="flex">
         <Sidebar className="z-20 border-border" collapsible="icon">
           <SidebarHeader className="px-3 py-4">
-            <div className="flex items-center justify-between gap-2 px-1">
+            <div className="flex items-center justify-between">
               <Logo className="text-2xl" />
             </div>
           </SidebarHeader>
@@ -51,10 +50,10 @@ const Layout: React.FC<Props> = ({ children }) => {
                 <SidebarMenuItem>
                   <SidebarMenuButton
                     asChild
-                    isActive={isActive("/")}
+                    isActive={isActive("/explore")}
                     className="h-12 text-md font-medium"
                   >
-                    <Link to="/">
+                    <Link to="/explore">
                       <Compass className="h-5 w-5" />
                       <span>Explore</span>
                     </Link>
@@ -134,7 +133,7 @@ const Layout: React.FC<Props> = ({ children }) => {
             </SidebarGroup>
           </SidebarContent>
         </Sidebar>
-        <SidebarInset className={cn("flex-1 min-h-screen bg-background")}>
+        <SidebarInset className={cn("flex-1 min-h-screen bg-gradient-to-br from-black via-gray-900 to-black")}>
           <DashboardHeader />
           <main className="w-full">{children}</main>
         </SidebarInset>

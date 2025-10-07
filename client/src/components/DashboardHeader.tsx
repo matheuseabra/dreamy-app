@@ -26,7 +26,7 @@ const DashboardHeader = () => {
   const credits = 0; // TODO: wire with real credits
 
   return (
-    <header className="border-border border-b backdrop-blur-md sticky top-0 z-50 shadow-sm">
+    <header className="border-border border-b backdrop-blur-md sticky top-0 z-50 shadow-sm ">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">

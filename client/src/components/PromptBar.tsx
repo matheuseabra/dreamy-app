@@ -1,25 +1,25 @@
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuLabel,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuLabel,
+    DropdownMenuRadioGroup,
+    DropdownMenuRadioItem,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
-  Brush,
-  Crown,
-  Gauge,
-  ImageDown,
-  Ratio,
-  Rocket,
-  Settings2,
-  Sparkles,
-  Star,
-  Zap,
+    Brush,
+    Crown,
+    Gauge,
+    ImageDown,
+    Ratio,
+    Rocket,
+    Settings2,
+    Sparkles,
+    Star,
+    Zap,
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -199,11 +199,11 @@ export function PromptBar({
 
   return (
     <div className="w-full">
-      <div className="flex items-center gap-2 rounded-xl border border-border bg-background/70 px-3 py-2 shadow-sm">
+      <div className="flex items-center gap-2 rounded-xl border border-border bg-transparent px-3 py-2 shadow-sm">
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-muted-foreground"
+          className="h-8 w-8 text-muted-foreground bg-transparent hover:bg-transparent"
           disabled
         >
           <ImageDown className="h-4 w-4" />
@@ -213,7 +213,7 @@ export function PromptBar({
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
           placeholder="Describe the scene you imagine, with details."
-          className="border-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1"
+          className="border-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1 bg-transparent"
         />
 
         {/* Model selector */}
@@ -222,7 +222,7 @@ export function PromptBar({
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-2 text-muted-foreground"
+              className="h-8 px-2 text-muted-foreground bg-transparent hover:bg-transparent"
             >
               <span className="text-xs">{selectedModelData.name}</span>
             </Button>
@@ -251,7 +251,7 @@ export function PromptBar({
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-2 text-muted-foreground"
+              className="h-8 px-2 text-muted-foreground bg-transparent hover:bg-transparent"
             >
               <Ratio className="h-4 w-4 mr-1" />
               <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
@@ -281,7 +281,7 @@ export function PromptBar({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-muted-foreground"
+              className="h-8 w-8 text-muted-foreground bg-transparent hover:bg-transparent"
             >
               <Settings2 className="h-4 w-4" />
             </Button>

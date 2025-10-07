@@ -30,7 +30,7 @@ const App = () => (
               <Route path="/signup" element={<Signup />} />
               <Route path="/contact" element={<Contact />} />
               <Route
-                path="/dashboard"
+                path="/generate"
                 element={
                   <ProtectedRoute>
                     <Layout>
