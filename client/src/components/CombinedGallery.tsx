@@ -39,7 +39,7 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
         // When the API returns no images, show the mock ImageGallery to help users get started
         <ImageGallery onImageClick={() => {}} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-6">
           {allImages.map((image) => (
             <ImageCard
               key={image.id}

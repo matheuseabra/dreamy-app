@@ -1,25 +1,25 @@
 import { Button } from "@/components/ui/button";
 import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuLabel,
-    DropdownMenuRadioGroup,
-    DropdownMenuRadioItem,
-    DropdownMenuSeparator,
-    DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuLabel,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
 import {
-    Brush,
-    Crown,
-    Gauge,
-    ImageDown,
-    Ratio,
-    Rocket,
-    Settings2,
-    Sparkles,
-    Star,
-    Zap,
+  Brush,
+  Crown,
+  Gauge,
+  ImageDown,
+  Ratio,
+  Rocket,
+  Settings2,
+  Sparkles,
+  Star,
+  Zap,
 } from "lucide-react";
 import { useMemo } from "react";
 
@@ -173,8 +173,11 @@ const AI_MODELS = [
 ];
 
 const SIZE_LABEL: Record<string, string> = {
+  square_hd: "1:1 HD",
   square: "1:1",
-  portrait_9_16: "9:16",
+  portrait_4_3: "3:4",
+  portrait_16_9: "9:16",
+  landscape_4_3: "4:3",
   landscape_16_9: "16:9",
 };
 
