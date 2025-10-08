@@ -12,6 +12,7 @@ build/
 *.env
 
 # OS/editor
+.cursor/
 .DS_Store
 .vscode/
 .idea/
