@@ -12,7 +12,14 @@ export const CTA = () => {
   };
   return (
     <section className="py-20 px-4 relative">
-      <div className="container mx-auto relative">
+      {/* Purple Radial Glow Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
+        }}
+      />
+      <div className="container mx-auto relative z-10">
         <Card
           className="overflow-hidden"
           style={{
