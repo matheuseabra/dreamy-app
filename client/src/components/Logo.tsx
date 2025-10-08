@@ -7,7 +7,7 @@ const Logo: React.FC<{ className?: string }> = ({ className = "" }) => {
       <img
         src={blueWizLogo}
         alt="bluewizard logo"
-        className={`h-8 w-auto ${className}`} // Apply className and set a default height
+        className={`h-6 w-auto ${className}`} // Apply className and set a default height
       />
       <span className="text-lg font-bold">BlueWiz</span>
     </div>

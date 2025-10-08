@@ -30,6 +30,9 @@ export const Navbar = () => {
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
+            <Link to="/explore" className="text-white hover:text-purple-300 transition-colors">
+              Explore
+            </Link>
             <button 
               onClick={() => scrollToSection('features')} 
               className="text-white hover:text-purple-300 transition-colors"
@@ -81,6 +84,9 @@ export const Navbar = () => {
         {isMenuOpen && (
           <div className="md:hidden py-4 border-t border-white/20">
             <div className="flex flex-col space-y-4">
+              <Link to="/explore" onClick={() => setIsMenuOpen(false)} className="text-white hover:text-purple-300 transition-colors text-left">
+                Explore
+              </Link>
               <button 
                 onClick={() => scrollToSection('features')} 
                 className="text-white hover:text-purple-300 transition-colors text-left"

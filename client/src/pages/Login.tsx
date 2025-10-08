@@ -54,7 +54,7 @@ const Login: React.FC = () => {
               }}
             >
               <CardHeader>
-                <CardTitle className="text-white text-center">Sign in to Dreamy</CardTitle>
+                <CardTitle className="text-white text-center">Sign in</CardTitle>
                 <CardDescription className="text-slate-300 text-center">Enter your email and password to continue.</CardDescription>
               </CardHeader>
               <CardContent>

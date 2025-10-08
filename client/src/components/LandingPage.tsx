@@ -3,7 +3,6 @@ import { FAQ } from "./landing/FAQ";
 import { Features } from "./landing/Features";
 import { Footer } from "./landing/Footer";
 import { Hero } from "./landing/Hero";
-import { ImageShowcase } from "./landing/ImageShowcase";
 import { Navbar } from "./landing/Navbar";
 import { Pricing } from "./landing/Pricing";
 
@@ -13,7 +12,6 @@ export const LandingPage = () => {
       <Navbar />
       <main>
         <Hero />
-        <ImageShowcase />
         <Features />
         <Pricing />
         <FAQ />

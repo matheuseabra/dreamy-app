@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import React from "react";
 import DashboardHeader from "./DashboardHeader";
 import Sidebar from "./Sidebar";
@@ -16,7 +15,7 @@ const Layout: React.FC<Props> = ({ children }) => {
     <SidebarProvider className="min-h-screen">
       <div className="flex">
         <Sidebar />
-        <SidebarInset className={cn("flex-1 min-h-screen bg-gradient-to-br from-black via-gray-900 to-black")}>
+        <SidebarInset className="flex-1 min-h-screen">
           <DashboardHeader />
           <main className="w-full">{children}</main>
         </SidebarInset>

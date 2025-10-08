@@ -55,7 +55,7 @@ const Signup: React.FC = () => {
             >
               <CardHeader>
                 <CardTitle className="text-white text-center">Create your account</CardTitle>
-                <CardDescription className="text-slate-300 text-center">Sign up to start generating images with Dreamy.</CardDescription>
+                <CardDescription className="text-slate-300 text-center">Sign up to start generating images with BlueWiz.</CardDescription>
               </CardHeader>
               <CardContent>
                 <form onSubmit={submit} className="grid gap-4">

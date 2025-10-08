@@ -30,8 +30,7 @@ const DashboardHeader = () => {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* <div className="h-7 w-7 rounded-md bg-gradient-to-br from-[#a48fff] via-[#00bcd4] to-[#7afcff] opacity-90 shadow-sm" />
-            <Logo className="text-xl" /> */}
+           
             <SidebarTrigger />
           </div>
           <div className="flex items-center gap-2">

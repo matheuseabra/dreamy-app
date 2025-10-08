@@ -60,7 +60,7 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <SidebarPrimitive className="z-20 border-border" collapsible="icon">
+    <SidebarPrimitive className="bg-background z-20 border-border" collapsible="icon">
       <SidebarHeader className="px-3 py-4">
         <div className="flex items-center justify-between">
           <Logo className="text-4xl" />

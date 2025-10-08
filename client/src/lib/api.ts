@@ -90,3 +90,15 @@ class ApiClient {
 }
 
 export const apiClient = new ApiClient();
+
+// Public images API (no authentication required)
+export const fetchPublicImages = async () => {
+  const response = await fetch(`${config.API_URL}/api/public-images`);
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(errorText || `HTTP error! status: ${response.status}`);
+  }
+  
+  return response.json();
+};

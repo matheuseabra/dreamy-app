@@ -10,6 +10,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
+import Explore from "./pages/Explore";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
@@ -35,6 +36,16 @@ const App = () => (
                   <ProtectedRoute>
                     <Layout>
                       <Dashboard />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/explore"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Explore />
                     </Layout>
                   </ProtectedRoute>
                 }
