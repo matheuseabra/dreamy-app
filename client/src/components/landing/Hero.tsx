@@ -1,16 +1,19 @@
+import moonBg from "@/assets/moon-bg.webp";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Hero = () => {
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
   return (
-    <section className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+    <section 
+      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
+      style={{
+        backgroundImage: `url(${moonBg})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}
+    >
       <div className="container mx-auto text-center relative">
         <div className="max-w-4xl mx-auto">
           <div
@@ -27,23 +30,23 @@ export const Hero = () => {
           >
             <Sparkles className="w-4 h-4 mr-2 text-purple-300" />
             <span className="text-sm font-medium bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
-              AI-Powered Image Generation
+              New Release
             </span>
           </div>
 
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight">
-            Create Stunning Images with{" "}
+            Turn Ideas Into{" "}
             <span className="bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
-              AI Magic
+              Masterpieces
             </span>
           </h1>
 
           <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Transform your ideas into breathtaking visuals using cutting-edge AI
-            models. From concept to creation in seconds, not hours.
+            Create breathtaking visuals from simple text prompts. Our advanced AI models bring your wildest 
+            imaginations to life with photorealistic precision and artistic flair.
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
+          <div className="flex justify-center">
             <Link to="/signup">
               <Button
                 size="lg"
@@ -58,15 +61,6 @@ export const Hero = () => {
                 <ArrowRight className="ml-2 w-5 h-5" />
               </Button>
             </Link>
-            <Button
-              variant="outline"
-              size="lg"
-              className="text-lg px-8 py-6 border-purple-400/50 text-purple-300 hover:bg-purple-900/20"
-              onClick={() => scrollToSection("features")}
-            >
-              <Zap className="mr-2 w-5 h-5" />
-              See Features
-            </Button>
           </div>
         </div>
       </div>

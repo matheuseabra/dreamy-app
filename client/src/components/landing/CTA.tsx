@@ -33,12 +33,12 @@ export const CTA = () => {
               </div>
 
               {/* Heading */}
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
                 Ready to Create Something Amazing?
               </h2>
 
               {/* Description */}
-              <p className="text-xl text-slate-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
                 Join thousands of creators who are already using Dreamy Studio
                 to bring their ideas to life. Start generating stunning AI
                 images today.

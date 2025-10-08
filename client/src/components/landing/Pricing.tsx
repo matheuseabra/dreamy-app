@@ -68,10 +68,10 @@ export const Pricing = () => {
       
       <div className="container mx-auto relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
             Choose the plan that fits your creative needs. Upgrade or downgrade at any time.
           </p>
         </div>

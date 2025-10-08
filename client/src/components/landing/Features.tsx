@@ -60,7 +60,7 @@ export const Features = () => {
       
       <div className="container mx-auto relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Powerful Features for Creative Professionals
           </h2>
           <p className="text-xl text-slate-300 max-w-2xl mx-auto">

@@ -48,10 +48,10 @@ export const FAQ = () => {
     <section id="faq" className="py-20 px-4 relative"> 
       <div className="container mx-auto max-w-4xl relative">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-slate-300">
+          <p className="text-lg text-slate-300">
             Everything you need to know about Dreamy Studio
           </p>
         </div>
