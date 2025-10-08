@@ -24,10 +24,15 @@ const Login: React.FC = () => {
 
   return (
     <div className="bg-gradient-to-br from-black via-gray-900 to-black min-h-screen flex items-center justify-center px-4 relative">
-      {/* Background gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black/30 via-gray-900/20 to-black/30 pointer-events-none" />
+      {/* Purple Radial Glow Background */}
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
+        }}
+      />
       
-      <div className="w-full max-w-md relative">
+      <div className="w-full max-w-md relative z-10">
         <div className="flex justify-center mb-6">
           <Logo />
         </div>
