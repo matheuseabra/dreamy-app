@@ -13,7 +13,7 @@ type Props = {
 
 const Layout: React.FC<Props> = ({ children }) => {
   return (
-    <SidebarProvider className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black">
+    <SidebarProvider className="min-h-screen">
       <div className="flex">
         <Sidebar />
         <SidebarInset className={cn("flex-1 min-h-screen bg-gradient-to-br from-black via-gray-900 to-black")}>

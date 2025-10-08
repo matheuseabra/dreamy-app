@@ -3,14 +3,14 @@ import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import {
-    SidebarContent,
-    SidebarGroup,
-    SidebarHeader,
-    SidebarMenu,
-    SidebarMenuButton,
-    SidebarMenuItem,
-    Sidebar as SidebarPrimitive,
-    SidebarSeparator
+  SidebarContent,
+  SidebarGroup,
+  SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+  Sidebar as SidebarPrimitive,
+  SidebarSeparator
 } from "./ui/sidebar";
 
 const Sidebar: React.FC = () => {

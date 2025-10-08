@@ -1,19 +1,10 @@
-import moonBg from "@/assets/moon-bg.webp";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Hero = () => {
   return (
-    <section 
-      className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden"
-      style={{
-        backgroundImage: `url(${moonBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}
-    >
+    <section className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
       <div className="container mx-auto text-center relative">
         <div className="max-w-4xl mx-auto">
           <div
@@ -42,8 +33,9 @@ export const Hero = () => {
           </h1>
 
           <p className="text-xl md:text-2xl text-slate-300 mb-8 max-w-3xl mx-auto leading-relaxed">
-            Create breathtaking visuals from simple text prompts. Our advanced AI models bring your wildest 
-            imaginations to life with photorealistic precision and artistic flair.
+            Create breathtaking visuals from simple text prompts. Our advanced
+            AI models bring your wildest imaginations to life with
+            photorealistic precision and artistic flair.
           </p>
 
           <div className="flex justify-center">
