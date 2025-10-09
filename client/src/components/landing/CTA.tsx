@@ -18,8 +18,8 @@ export const CTA = () => {
           style={{
             border: "1px solid transparent",
             backgroundImage: `
-              linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
-              linear-gradient(135deg, rgb(168 85 247 / 0.4), rgb(59 130 246 / 0.4), rgb(147 197 253 / 0.4))
+              linear-gradient(to bottom, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.8)),
+              linear-gradient(to bottom, rgba(164, 143, 255, 0.5), rgba(164, 143, 255, 1))
             `,
             backgroundOrigin: "border-box",
             backgroundClip: "padding-box, border-box",

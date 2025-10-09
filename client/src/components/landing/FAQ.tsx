@@ -45,16 +45,8 @@ export const FAQ = () => {
             <AccordionItem 
               key={index} 
               value={`item-${index}`}
-              className="backdrop-blur-sm rounded-lg px-6"
-              style={{
-                border: "1px solid transparent",
-                backgroundImage: `
-                  linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
-                  linear-gradient(135deg, rgb(168 85 247 / 0.2), rgb(59 130 246 / 0.2), rgb(147 197 253 / 0.2))
-                `,
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-              }}
+              className="border border-primary/20 backdrop-blur-sm rounded-lg px-6"
+       
             >
               <AccordionTrigger className="text-left hover:no-underline py-6">
                 <span className="text-lg font-medium text-white">

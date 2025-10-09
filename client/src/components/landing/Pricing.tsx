@@ -87,12 +87,12 @@ export const Pricing = () => {
                 border: "1px solid transparent",
                 backgroundImage: plan.popular 
                   ? `
-                    linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
-                    linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
+                    linear-gradient(to bottom, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.8)),
+                    linear-gradient(to bottom, rgba(164, 143, 255, 0.5), rgba(164, 143, 255, 1))
                   `
                   : `
                     linear-gradient(to bottom, rgba(10, 10, 10, 0.8), rgba(10, 10, 10, 0.8)),
-                    linear-gradient(135deg, rgb(168 85 247 / 0.3), rgb(59 130 246 / 0.3), rgb(147 197 253 / 0.3))
+                    linear-gradient(to bottom, rgb(224 187 228 / 0.3), rgb(160 196 255 / 0.3))
                   `,
                 backgroundOrigin: "border-box",
                 backgroundClip: "padding-box, border-box",
