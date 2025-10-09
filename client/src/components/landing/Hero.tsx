@@ -2,8 +2,6 @@ import generated1 from "@/assets/generated-1.jpg";
 import generated2 from "@/assets/generated-2.jpg";
 import generated3 from "@/assets/generated-3.jpg";
 import generated4 from "@/assets/generated-4.jpg";
-import generated5 from "@/assets/generated-5.jpg";
-import generated6 from "@/assets/generated-6.jpg";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
@@ -11,7 +9,6 @@ import { Link } from "react-router-dom";
 export const Hero = () => {
   return (
     <section className="min-h-screen flex items-center px-4 relative overflow-hidden">
-
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
@@ -67,8 +64,8 @@ export const Hero = () => {
 
           {/* Right Column - Image Showcase Grid */}
           <div className="flex justify-center lg:justify-end">
-            <div className="grid grid-cols-3 gap-3 h-[500px] w-full max-w-lg">
-              {/* Top Left - Square */}
+            <div className="grid grid-cols-2 gap-4 h-[500px] w-full max-w-lg">
+              {/* Top Left - Small Square */}
               <div className="rounded-lg overflow-hidden">
                 <img 
                   src={generated1} 
@@ -77,7 +74,7 @@ export const Hero = () => {
                 />
               </div>
               
-              {/* Top Center - Square */}
+              {/* Top Right - Wide Rectangle (largest) */}
               <div className="rounded-lg overflow-hidden">
                 <img 
                   src={generated2} 
@@ -86,8 +83,8 @@ export const Hero = () => {
                 />
               </div>
               
-              {/* Top Right - Tall Rectangle (spans 2 rows) */}
-              <div className="rounded-lg overflow-hidden row-span-2">
+              {/* Bottom Left - Larger Square */}
+              <div className="rounded-lg overflow-hidden">
                 <img 
                   src={generated3} 
                   alt="AI Generated Image 3" 
@@ -95,29 +92,11 @@ export const Hero = () => {
                 />
               </div>
               
-              {/* Bottom Left - Square */}
+              {/* Bottom Right - Square (similar to top-left) */}
               <div className="rounded-lg overflow-hidden">
                 <img 
                   src={generated4} 
                   alt="AI Generated Image 4" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              
-              {/* Bottom Center - Square */}
-              <div className="rounded-lg overflow-hidden">
-                <img 
-                  src={generated5} 
-                  alt="AI Generated Image 5" 
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                />
-              </div>
-              
-              {/* Bottom Right - Square */}
-              <div className="rounded-lg overflow-hidden">
-                <img 
-                  src={generated6} 
-                  alt="AI Generated Image 6" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
