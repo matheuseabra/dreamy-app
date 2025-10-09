@@ -9,6 +9,12 @@ import { Link } from "react-router-dom";
 export const Hero = () => {
   return (
     <section className="min-h-screen flex items-center px-4 relative overflow-hidden">
+      <div
+        className="absolute inset-0 z-0"
+        style={{
+          backgroundImage: `radial-gradient(circle 600px at 78% 400px, rgba(164, 143, 255, 0.34), transparent)`,
+        }}
+      />
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
@@ -32,7 +38,7 @@ export const Hero = () => {
             </div>
 
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-normal">
-            Awaken Your Inner {" "}
+              Awaken Your Inner{" "}
               <span className="bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
                 Creativity
               </span>
@@ -67,36 +73,36 @@ export const Hero = () => {
             <div className="grid grid-cols-2 gap-4 h-[500px] w-full max-w-lg">
               {/* Top Left - Small Square */}
               <div className="rounded-lg overflow-hidden">
-                <img 
-                  src={generated1} 
-                  alt="AI Generated Image" 
+                <img
+                  src={generated1}
+                  alt="AI Generated Image"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              
+
               {/* Top Right - Wide Rectangle (largest) */}
               <div className="rounded-lg overflow-hidden">
-                <img 
-                  src={generated2} 
-                  alt="AI Generated Image 2" 
+                <img
+                  src={generated2}
+                  alt="AI Generated Image 2"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              
+
               {/* Bottom Left - Larger Square */}
               <div className="rounded-lg overflow-hidden">
-                <img 
-                  src={generated3} 
-                  alt="AI Generated Image 3" 
+                <img
+                  src={generated3}
+                  alt="AI Generated Image 3"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
-              
+
               {/* Bottom Right - Square (similar to top-left) */}
               <div className="rounded-lg overflow-hidden">
-                <img 
-                  src={generated4} 
-                  alt="AI Generated Image 4" 
+                <img
+                  src={generated4}
+                  alt="AI Generated Image 4"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>
