@@ -170,9 +170,7 @@ const Dashboard = () => {
           }}
         /> */}
       <div className="container mx-auto px-4 py-6">
-        <div className="mt-12 mb-16 text-center">
-          <h1 className="text-3xl font-bold">What are you dreaming of?</h1>
-        </div>
+       
         <div className="mb-6">
           <PromptBar
             prompt={prompt}

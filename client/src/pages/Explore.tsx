@@ -1,3 +1,4 @@
+
 import { ImageGrid } from '@/components/ImageGrid';
 import { ImageModal } from '@/components/ImageModal';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -81,18 +82,6 @@ export default function Explore() {
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-8">
-        <div className="text-center space-y-6 mb-12">
-          <h1 className="text-4xl font-bold text-foreground">Explore</h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            Discover amazing AI-generated images from our community. Get inspired and create your own masterpieces.
-          </p>
-          {imagesData && (
-            <p className="text-sm text-muted-foreground">
-              {imagesData.total} images available
-            </p>
-          )}
-        </div>
-
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {Array.from({ length: 12 }).map((_, index) => (

@@ -1,3 +1,4 @@
+import { AIModelsShowcase } from "./landing/AIModelsShowcase";
 import { CTA } from "./landing/CTA";
 import { FAQ } from "./landing/FAQ";
 import { Features } from "./landing/Features";
@@ -12,6 +13,7 @@ export const LandingPage = () => {
       <Navbar />
       <main>
         <Hero />
+        <AIModelsShowcase />
         <Features />
         <Pricing />
         <FAQ />
