@@ -1,5 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;700;800&display=swap");
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -38,9 +38,9 @@
     --sidebar-accent-foreground: 240 27.5862% 22.7451%;
     --sidebar-border: 240 34.7826% 90.9804%;
     --sidebar-ring: 251.9008 55.7604% 57.4510%;
-    --font-sans: Inter, sans-serif;
-    --font-serif: Georgia, serif;
-    --font-mono: JetBrains Mono, monospace;
+    --font-sans: DM Sans, sans-serif;
+    --font-serif: Libre Baskerville, serif;
+    --font-mono: Inter mono, monospace;
     --radius: 0.5rem;
     --shadow-x: 0px;
     --shadow-y: 4px;
@@ -93,9 +93,9 @@
     --sidebar-accent-foreground: 240 48.7179% 92.3529%;
     --sidebar-border: 240 26.1538% 25.4902%;
     --sidebar-ring: 251.2500 100% 78.0392%;
-    --font-sans: Inter, sans-serif;
-    --font-serif: Georgia, serif;
-    --font-mono: JetBrains Mono, monospace;
+    --font-sans: DM Sans, sans-serif;
+    --font-serif: Libre Baskerville, serif;
+    --font-mono: Inter mono, monospace;
     --radius: 0.5rem;
     --shadow-x: 0px;
     --shadow-y: 4px;
@@ -124,7 +124,7 @@
   h4,
   h5,
   h6 {
-    font-family: DM Sans, sans-serif;
+    font-family: Libre Baskerville, serif;
     font-weight: 700;
   }
 
@@ -145,6 +145,11 @@
 
   input {
     font-family: DM Sans, sans-serif;
+    font-weight: 400;
+  }
+
+  .font-serif {
+    font-family: Libre Baskerville, serif;
     font-weight: 400;
   }
 }

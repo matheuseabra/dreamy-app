@@ -25,41 +25,18 @@ export const FAQ = () => {
     {
       question: "Is my data secure and private?",
       answer: "Absolutely. We use enterprise-grade encryption for all data transmission and storage. Your prompts and generated images are private and never shared with third parties."
-    },
-    {
-      question: "Do you offer API access?",
-      answer: "Yes! Pro and Enterprise users get API access to integrate our AI image generation into their own applications and workflows."
-    },
-    {
-      question: "What if I'm not satisfied with the results?",
-      answer: "We offer a 30-day money-back guarantee for all paid plans. If you're not completely satisfied, contact our support team for a full refund."
-    },
-    {
-      question: "Can I edit existing images with AI?",
-      answer: "Yes! Our Image-to-Image feature allows you to transform existing images using AI. Upload an image and describe how you want to modify it."
-    },
-    {
-      question: "How do I get started?",
-      answer: "Simply sign up for a free account and start generating images immediately. No credit card required for the free plan. You can upgrade anytime as your needs grow."
     }
   ];
 
   return (
-    <section id="faq" className="py-20 px-4 relative">
-      {/* Purple Radial Glow Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
-        }}
-      />
-      <div className="container mx-auto max-w-4xl relative z-10">
+    <section id="faq" className="py-20 px-4">
+      <div className="container mx-auto max-w-4xl">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-slate-300">
-            Everything you need to know about Dreamy Studio
+            Everything you need to know about MageMind
           </p>
         </div>
 

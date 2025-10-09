@@ -1,4 +1,4 @@
-import vibrantCityBg from "@/assets/vibrant-city-bg.jpg";
+import backgroundImage from "@/assets/wizard-bg-4.jpg";
 import Logo from "@/components/Logo";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -44,8 +44,8 @@ const Signup: React.FC = () => {
               <h1 className="text-3xl font-bold text-white mb-2">
                 Create your account
               </h1>
-              <p className="text-lg text-slate-300">
-                Sign up to start generating images with Wizr.
+              <p className="text-md text-slate-300">
+                Sign up to start generating images with MageMind.
               </p>
             </div>
 
@@ -111,7 +111,7 @@ const Signup: React.FC = () => {
       </div>
       <div className="relative hidden lg:block">
         <img
-          src={vibrantCityBg}
+          src={backgroundImage}
           alt="Dreamy Studio"
           className="absolute inset-0 h-full w-full object-cover"
         />

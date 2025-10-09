@@ -1,4 +1,3 @@
-import { AIModelsShowcase } from "./landing/AIModelsShowcase";
 import { CTA } from "./landing/CTA";
 import { FAQ } from "./landing/FAQ";
 import { Features } from "./landing/Features";
@@ -9,12 +8,12 @@ import { Pricing } from "./landing/Pricing";
 
 export const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-[#010101]">
+    <div className="min-h-screen bg-background">
       <Navbar />
       <main>
         <Hero />
-        <AIModelsShowcase />
         <Features />
+        {/* <AIModelsShowcase /> */}
         <Pricing />
         <FAQ />
         <CTA />

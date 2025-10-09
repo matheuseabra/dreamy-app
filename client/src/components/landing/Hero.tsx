@@ -11,13 +11,7 @@ import { Link } from "react-router-dom";
 export const Hero = () => {
   return (
     <section className="min-h-screen flex items-center px-4 relative overflow-hidden">
-      {/* Purple Radial Glow Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
-        }}
-      />
+
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}

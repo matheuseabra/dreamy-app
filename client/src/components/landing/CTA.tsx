@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { ArrowRight, Sparkles, Zap } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const CTA = () => {
@@ -11,15 +11,8 @@ export const CTA = () => {
     }
   };
   return (
-    <section className="py-20 px-4 relative">
-      {/* Purple Radial Glow Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
-        }}
-      />
-      <div className="container mx-auto relative z-10">
+    <section className="py-20 px-4">
+      <div className="container mx-auto">
         <Card
           className="overflow-hidden"
           style={{
@@ -67,31 +60,6 @@ export const CTA = () => {
                     <ArrowRight className="ml-2 w-5 h-5" />
                   </Button>
                 </Link>
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="text-lg px-8 py-6 border-purple-400/50 text-purple-300 hover:bg-purple-900/20"
-                  onClick={() => scrollToSection("pricing")}
-                >
-                  <Zap className="mr-2 w-5 h-5" />
-                  View Pricing
-                </Button>
-              </div>
-
-              {/* Trust indicators */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-8 text-sm text-slate-300">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                  No credit card required
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                  Free forever plan available
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-green-400 rounded-full mr-2"></div>
-                  Cancel anytime
-                </div>
               </div>
             </div>
           </CardContent>

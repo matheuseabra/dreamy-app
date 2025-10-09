@@ -1,4 +1,4 @@
-import blueWizLogo from "@/assets/bluewizard-icon.png";
+import blueWizLogo from "@/assets/wizr-logo-icon.webp";
 import React from "react";
 
 const Logo: React.FC<{ className?: string }> = ({ className = "" }) => {
@@ -7,9 +7,9 @@ const Logo: React.FC<{ className?: string }> = ({ className = "" }) => {
       <img
         src={blueWizLogo}
         alt="bluewizard logo"
-        className={`h-6 w-auto ${className}`} // Apply className and set a default height
+        className={`h-10 w-auto ${className}`} // Apply className and set a default height
       />
-      <span className="text-xl font-bold">Wizr</span>
+      <span className="text-xl font-serif">MageMind</span>
     </div>
   );
 };

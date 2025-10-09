@@ -1,13 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-  Clock,
-  Download,
-  Layers,
-  Palette,
-  Shield,
-  Sparkles,
-  Wand2,
-  Zap
+    Clock,
+    Download,
+    Layers,
+    Palette,
+    Shield,
+    Sparkles,
+    Wand2,
+    Zap
 } from "lucide-react";
 
 export const Features = () => {
@@ -55,15 +55,8 @@ export const Features = () => {
   ];
 
   return (
-    <section id="features" className="py-20 px-4 relative">
-      {/* Purple Radial Glow Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
-        }}
-      />
-      <div className="container mx-auto relative z-10">
+    <section id="features" className="py-20 px-4">
+      <div className="container mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
             Powerful Features for Creative Professionals
