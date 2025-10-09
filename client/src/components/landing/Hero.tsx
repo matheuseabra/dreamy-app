@@ -34,10 +34,10 @@ export const Hero = () => {
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
-              Turn Ideas Into{" "}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-normal">
+            Awaken Your Inner {" "}
               <span className="bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
-                Masterpieces
+                Creativity
               </span>
             </h1>
 
@@ -72,7 +72,7 @@ export const Hero = () => {
               <div className="rounded-lg overflow-hidden">
                 <img 
                   src={generated1} 
-                  alt="AI Generated Image 1" 
+                  alt="AI Generated Image" 
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                 />
               </div>

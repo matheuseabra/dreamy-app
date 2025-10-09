@@ -26,12 +26,12 @@ const Login: React.FC = () => {
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="bg-background flex flex-col gap-4 p-6 md:p-10 relative">
         {/* Purple Radial Glow Background */}
-        {/* <div
+        <div
           className="absolute inset-0 z-0"
           style={{
-            backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
+            backgroundImage: `radial-gradient(circle 300px at 50% 400px, rgba(164, 143, 255, 0.34), transparent)`,
           }}
-        /> */}
+        />
 
         <div className="flex justify-center gap-2 md:justify-start relative z-10">
           <Link to="/" className="flex items-center gap-2 font-medium">
@@ -41,27 +41,27 @@ const Login: React.FC = () => {
         <div className="w-[400px] mx-auto flex flex-1 items-center justify-center relative z-10">
           <div className="w-full max-w-md">
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-white mb-2">
-                Welcome to MageMind
+              <h1 className="text-3xl leading-normal font-bold text-white mb-2">
+                Harness the Power <br /> of AI Sorcery.
               </h1>
               <p className="text-md text-slate-300">
-                Enter your email and password to continue.
+                Log in to create the extraordinary.
               </p>
             </div>
 
-            <form onSubmit={submit} className="space-y-3">
+            <form onSubmit={submit} className="space-y-4">
               <Input
                 placeholder="Email Address"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="h-12 text-base bg-background border-slate-600 text-white placeholder:text-slate-400 focus:border-purple-400"
+                className="h-12 text-base bg-background text-white"
               />
               <Input
                 type="Password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="h-12 text-base bg-background border-slate-600 text-white placeholder:text-slate-400 focus:border-purple-400"
+                className="h-12 text-base bg-background text-white"
               />
               {error && <div className="text-base text-red-400">{error}</div>}
               <Button
@@ -101,7 +101,7 @@ const Login: React.FC = () => {
 
             <Button
               onClick={signInWithGoogle}
-              className="w-full h-12 text-base font-semibold mt-4 bg-slate-800 text-white border border-slate-700 hover:bg-slate-700 flex items-center justify-center gap-2"
+              className="w-full h-12 text-base font-semibold mt-4 bg-background hover:bg-background/10 text-white border border-input flex items-center justify-center gap-2"
             >
               <FcGoogle />
               Sign in with Google

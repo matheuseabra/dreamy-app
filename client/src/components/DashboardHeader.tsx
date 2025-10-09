@@ -9,6 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { SidebarTrigger } from "./ui/sidebar";
 
 const DashboardHeader = () => {
   const { user, signOut } = useAuth();
@@ -29,7 +30,7 @@ const DashboardHeader = () => {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            {/* <SidebarTrigger /> */}
+            <SidebarTrigger />
           </div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="h-9 w-9">

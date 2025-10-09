@@ -1,13 +1,13 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import {
-    Clock,
-    Download,
-    Layers,
-    Palette,
-    Shield,
-    Sparkles,
-    Wand2,
-    Zap
+  Clock,
+  Download,
+  Layers,
+  Palette,
+  Shield,
+  Sparkles,
+  Wand2,
+  Zap
 } from "lucide-react";
 
 export const Features = () => {
