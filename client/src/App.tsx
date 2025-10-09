@@ -12,9 +12,11 @@ import Assets from "./pages/Assets";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Explore from "./pages/Explore";
+import Feedback from "./pages/Feedback";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
+import Support from "./pages/Support";
 
 const queryClient = new QueryClient();
 
@@ -57,6 +59,26 @@ const App = () => (
                   <ProtectedRoute>
                     <Layout>
                       <Assets />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/support"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Support />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/feedback"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Feedback />
                     </Layout>
                   </ProtectedRoute>
                 }

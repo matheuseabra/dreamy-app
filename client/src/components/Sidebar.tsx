@@ -1,9 +1,10 @@
-import { Compass, FolderOpen, LibraryBig, Sparkles, Star } from "lucide-react";
+import { Compass, FolderOpen, HelpCircle, LibraryBig, MessageSquare, Sparkles, Star } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
 import {
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupLabel,
   SidebarHeader,
@@ -50,8 +51,21 @@ const Sidebar: React.FC = () => {
     },
   ];
 
+  const supportItems = [
+    {
+      path: "/support",
+      icon: HelpCircle,
+      label: "Support",
+    },
+    {
+      path: "/feedback",
+      icon: MessageSquare,
+      label: "Feedback",
+    },
+  ];
+
   return (
-    <SidebarPrimitive className="bg-background z-20 border-border" collapsible="none">
+    <SidebarPrimitive className="bg-background z-20 border-border fixed left-0 top-0 h-screen hidden md:flex" collapsible="none">
       <SidebarHeader className="py-6 px-7">
         <div className="flex items-center justify-between">
           <Logo className="text-4xl" />
@@ -66,6 +80,7 @@ const Sidebar: React.FC = () => {
                 <SidebarMenuButton
                   asChild
                   isActive={isActive(item.path)}
+                  className="h-10 text-md font-medium"
                 >
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />
@@ -76,11 +91,33 @@ const Sidebar: React.FC = () => {
             ))}
           </SidebarMenu>
         </SidebarGroup>
-        <SidebarSeparator className="opacity-30" />
+        {/* <SidebarSeparator className="opacity-30" /> */}
         <SidebarGroup>
           <SidebarGroupLabel>Library</SidebarGroupLabel>
           <SidebarMenu>
             {libraryItems.map((item) => (
+              <SidebarMenuItem key={item.path}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={isActive(item.path)}
+                  className="h-10 text-md font-medium"
+                >
+                  <Link to={item.path}>
+                    <item.icon className="h-5 w-5" />
+                    <span>{item.label}</span>
+                  </Link>
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+      
+      <SidebarFooter className="px-4 py-4">
+        <SidebarSeparator className="opacity-30 mb-4" />
+        <SidebarGroup>
+          <SidebarMenu>
+            {supportItems.map((item) => (
               <SidebarMenuItem key={item.path}>
                 <SidebarMenuButton
                   asChild
@@ -95,7 +132,7 @@ const Sidebar: React.FC = () => {
             ))}
           </SidebarMenu>
         </SidebarGroup>
-      </SidebarContent>
+      </SidebarFooter>
     </SidebarPrimitive>
   );
 };
