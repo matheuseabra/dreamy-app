@@ -19,9 +19,9 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
     <div className="w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h3 className="text-xl font-semibold">
+          {/* <h3 className="text-xl font-semibold">
             {isLoading ? "Loading..." : generatedImages.length > 0 ? "Your Generations" : "No Generations"}
-          </h3>
+          </h3> */}
           {generatedImages.length > 0 && !isLoading && (
             <p className="text-sm text-muted-foreground mt-1">
               {generatedImages.length} saved image{generatedImages.length !== 1 ? 's' : ''}
@@ -39,7 +39,7 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
         // When the API returns no images, show the mock ImageGallery to help users get started
         <ImageGallery onImageClick={() => {}} />
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-3">
+        <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-1">
           {allImages.map((image) => (
             <ImageCard
               key={image.id}

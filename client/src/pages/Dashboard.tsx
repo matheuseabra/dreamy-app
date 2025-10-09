@@ -161,16 +161,11 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen">
-       {/* Purple Radial Glow Background
-       <div
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
-          }}
-        /> */}
+    <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4 py-6">
-       
+        <div className="mb-12 text-center">
+          <h1 className="text-3xl font-bold">What are you dreaming of?</h1>
+        </div>
         <div className="mb-6">
           <PromptBar
             prompt={prompt}
@@ -199,7 +194,6 @@ const Dashboard = () => {
           />
         </div>
       </div>
-
       <ImageModal
         open={modalOpen}
         onOpenChange={setModalOpen}

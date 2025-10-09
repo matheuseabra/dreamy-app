@@ -8,6 +8,7 @@ import { LandingPage } from "./components/LandingPage";
 import Layout from "./components/Layout";
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import Assets from "./pages/Assets";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import Explore from "./pages/Explore";
@@ -46,6 +47,16 @@ const App = () => (
                   <ProtectedRoute>
                     <Layout>
                       <Explore />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/assets"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Assets />
                     </Layout>
                   </ProtectedRoute>
                 }

@@ -1,13 +1,12 @@
-
-import { ImageGrid } from '@/components/ImageGrid';
-import { ImageModal } from '@/components/ImageModal';
-import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
-import { Skeleton } from '@/components/ui/skeleton';
-import { fetchPublicImages } from '@/lib/api';
-import { useQuery } from '@tanstack/react-query';
-import { AlertCircle, RefreshCw } from 'lucide-react';
-import { useState } from 'react';
+import { ImageGrid } from "@/components/ImageGrid";
+import { ImageModal } from "@/components/ImageModal";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
+import { fetchPublicImages } from "@/lib/api";
+import { useQuery } from "@tanstack/react-query";
+import { AlertCircle, RefreshCw } from "lucide-react";
+import { useState } from "react";
 
 interface PublicImage {
   name: string;
@@ -41,9 +40,9 @@ export default function Explore() {
     isLoading,
     error,
     refetch,
-    isRefetching
+    isRefetching,
   } = useQuery<PublicImagesResponse>({
-    queryKey: ['public-images'],
+    queryKey: ["public-images"],
     queryFn: fetchPublicImages,
     staleTime: 5 * 60 * 1000, // 5 minutes
     refetchOnWindowFocus: false,
@@ -70,7 +69,9 @@ export default function Explore() {
               </AlertDescription>
             </Alert>
             <Button onClick={() => refetch()} disabled={isRefetching}>
-              <RefreshCw className={`h-4 w-4 mr-2 ${isRefetching ? 'animate-spin' : ''}`} />
+              <RefreshCw
+                className={`h-4 w-4 mr-2 ${isRefetching ? "animate-spin" : ""}`}
+              />
               Try Again
             </Button>
           </div>
@@ -81,6 +82,9 @@ export default function Explore() {
 
   return (
     <div className="min-h-screen bg-background">
+      <div className="mb-6 text-center">
+        <h1 className="text-3xl font-bold">Explore</h1>
+      </div>
       <div className="container mx-auto px-4 py-8">
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -117,9 +121,9 @@ export default function Explore() {
             image={{
               src: selectedImage.publicUrl,
               prompt: selectedImage.name,
-              model: 'AI Generated',
+              model: "AI Generated",
               createdAt: selectedImage.created_at,
-              aspectRatio: '1:1'
+              aspectRatio: "1:1",
             }}
           />
         )}
