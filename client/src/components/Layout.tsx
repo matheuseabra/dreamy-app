@@ -1,10 +1,7 @@
 import React from "react";
 import DashboardHeader from "./DashboardHeader";
 import Sidebar from "./Sidebar";
-import {
-  SidebarInset,
-  SidebarProvider
-} from "./ui/sidebar";
+import { SidebarInset, SidebarProvider } from "./ui/sidebar";
 
 type Props = {
   children: React.ReactNode;
