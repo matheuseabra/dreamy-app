@@ -80,10 +80,10 @@ export default function Explore() {
   }
 
   return (
-    <div className="bg-background">
-      <div className="container mx-auto px-4 py-6">
-        <div className="mb-6 text-center">
-          <h1 className="text-3xl font-bold">Explore</h1>
+    <div className="bg-background relative">
+      <div className="container mx-auto">
+        <div className="mb-6">
+          <h1 className="text-xl font-bold">Explore</h1>
         </div>
         {isLoading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">

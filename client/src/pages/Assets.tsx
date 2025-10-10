@@ -48,13 +48,14 @@ const Assets = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <CombinedGallery
-        onImageClick={handleImageClick}
-        generatedImages={imagesData || []}
-        isLoading={imagesLoading}
-      />
-
+    <div className="min-h-screen">
+      <div className="container mx-auto">
+        <CombinedGallery
+          onImageClick={handleImageClick}
+          generatedImages={imagesData || []}
+          isLoading={imagesLoading}
+        />
+      </div>
       <ImageModal
         open={modalOpen}
         onOpenChange={setModalOpen}

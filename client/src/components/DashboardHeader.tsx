@@ -33,15 +33,17 @@ const DashboardHeader = () => {
             <Button variant="ghost" size="icon" className="h-9 w-9">
               <Bell className="h-5 w-5" />
             </Button>
-            <Button
-              variant="secondary"
-              className="h-9 rounded-xl px-6 text-sm font-semibold relative overflow-hidden"
-            >
-              <div className="flex items-center gap-2">
-                <span>Subscribe</span>
-                <Sparkles className="h-4 w-4 text-white" />
+              <div className="rounded-xl p-px bg-gradient-to-r from-purple-500 to-blue-500">
+                <Button
+                  variant="outline"
+                  className="h-9 px-6 text-sm font-semibold relative overflow-hidden rounded-xl bg-background hover:bg-muted"
+                >
+                  <div className="flex items-center gap-2">
+                    <span>Subscribe</span>
+                    <Sparkles className="h-4 w-4" />
+                  </div>
+                </Button>
               </div>
-            </Button>
             <div className="mx-1 h-5 w-px bg-border" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

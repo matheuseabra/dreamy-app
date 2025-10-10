@@ -164,25 +164,18 @@ const Dashboard = () => {
 
   return (
     <div className="relative min-h-screen">
-      <div className="px-4 py-6 pb-24">
-        <div className="mb-12 text-center">
-          <h1 className="text-3xl font-bold">
-              Imagine
-          </h1>
-        </div>
-        <div className="p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
-          <CombinedGallery
-            onImageClick={handleImageClick}
-            generatedImages={
-              generatedImagesLocal.length > 0
-                ? generatedImagesLocal
-                : imagesData || []
-            }
-            isLoading={imagesLoading}
-          />
-        </div>
+      <div className="container mx-auto">
+        <CombinedGallery
+          onImageClick={handleImageClick}
+          generatedImages={
+            generatedImagesLocal.length > 0
+              ? generatedImagesLocal
+              : imagesData || []
+          }
+          isLoading={imagesLoading}
+        />
       </div>
-      
+
       {/* Fixed PromptBar at bottom center */}
       <div className="fixed bottom-8 left-0 right-0 z-50">
         <div className="container mx-auto px-4">
@@ -202,7 +195,7 @@ const Dashboard = () => {
           />
         </div>
       </div>
-      
+
       <ImageModal
         open={modalOpen}
         onOpenChange={setModalOpen}
