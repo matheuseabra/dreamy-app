@@ -165,6 +165,11 @@ const Dashboard = () => {
   return (
     <div className="relative min-h-screen">
       <div className="container mx-auto">
+        <div className="mt-12 mb-6 text-center">
+          <h1 className="text-3xl font-bold">
+              What are you dreaming of?
+          </h1>
+        </div>
         <CombinedGallery
           onImageClick={handleImageClick}
           generatedImages={

@@ -1,4 +1,4 @@
-import { Compass, FolderOpen, HelpCircle, LibraryBig, MessageSquare, Sparkles, Star } from "lucide-react";
+import { Compass, Edit3, FolderOpen, HelpCircle, MessageSquare, Sparkles, Star } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
@@ -32,9 +32,9 @@ const Sidebar: React.FC = () => {
       label: "Imagine",
     },
     {
-      path: "/project",
-      icon: LibraryBig,
-      label: "Project",
+      path: "/edit",
+      icon: Edit3,
+      label: "Edit",
     },
   ];
 
@@ -65,7 +65,7 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <SidebarPrimitive className="sticky top-0 h-screen bg-background" collapsible="none">
+    <SidebarPrimitive className="sticky top-0 h-screen bg-background border-r border-border" collapsible="none">
       <SidebarHeader className="py-6 px-7">
         <div className="flex items-center justify-between">
           <Logo className="text-4xl" />
@@ -84,14 +84,14 @@ const Sidebar: React.FC = () => {
                 >
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />
-                    <span>{item.label}</span>
+                    <span className="font-medium font-serif">{item.label}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
             ))}
           </SidebarMenu>
         </SidebarGroup>
-        {/* <SidebarSeparator className="opacity-30" /> */}
+        <SidebarSeparator className="opacity-30" />
         <SidebarGroup>
           <SidebarGroupLabel>Library</SidebarGroupLabel>
           <SidebarMenu>
@@ -104,7 +104,7 @@ const Sidebar: React.FC = () => {
                 >
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />
-                    <span>{item.label}</span>
+                    <span className="font-medium font-serif">{item.label}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>

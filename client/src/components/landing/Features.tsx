@@ -1,99 +1,63 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Clock,
-  Download,
-  Layers,
-  Palette,
-  Shield,
-  Sparkles,
-  Wand2,
-  Zap
-} from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { ArrowRight } from "lucide-react";
+
+const features = [
+  {
+    category: "For Creators",
+    title: "Create production-quality visual assets",
+    details:
+      "Generate stunning visual content for your projects with unprecedented quality, speed, and style-consistency. From concept art to marketing materials, bring your creative vision to life with our advanced AI models.",
+    tutorialLink: "#",
+  },
+  {
+    category: "For Teams",
+    title: "Bring your team's best ideas to life at scale",
+    details:
+      "Collaborate seamlessly with our intuitive AI-first creative suite designed for teamwork and built for business. Share galleries, manage projects, and maintain brand consistency across all your creative outputs.",
+    tutorialLink: "#",
+  },
+  {
+    category: "For Developers",
+    title: "Experience content creation excellence with our API",
+    details:
+      "Integrate powerful AI image generation into your applications with unmatched scalability. Effortlessly tailor outputs to your brand guidelines and create custom workflows that fit your development needs.",
+    tutorialLink: "#",
+  },
+];
 
 export const Features = () => {
-  const features = [
-    {
-      icon: <Palette className="w-8 h-8" />,
-      title: "Multiple AI Models",
-      description: "Choose from 10+ cutting-edge AI models including Flux, Recraft, and Ideogram for different styles and use cases."
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "Lightning Fast",
-      description: "Generate high-quality images in seconds with our optimized infrastructure and advanced caching system."
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Secure & Private",
-      description: "Your images and prompts are encrypted and stored securely. We never share your data with third parties."
-    },
-    {
-      icon: <Download className="w-8 h-8" />,
-      title: "High Resolution",
-      description: "Download images in multiple formats and resolutions up to 4K for professional use."
-    },
-    {
-      icon: <Sparkles className="w-8 h-8" />,
-      title: "Advanced Controls",
-      description: "Fine-tune your generations with style, quality, and size controls for perfect results every time."
-    },
-    {
-      icon: <Clock className="w-8 h-8" />,
-      title: "Real-time Processing",
-      description: "Watch your images generate in real-time with our live preview and progress tracking."
-    },
-    {
-      icon: <Layers className="w-8 h-8" />,
-      title: "Image to Image",
-      description: "Transform existing images with AI-powered editing and style transfer capabilities."
-    },
-    {
-      icon: <Wand2 className="w-8 h-8" />,
-      title: "Smart Prompts",
-      description: "Get AI-powered prompt suggestions and improvements to enhance your creative process."
-    }
-  ];
-
   return (
     <section id="features" className="py-20 px-4">
-      <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Powerful Features for Creative Professionals
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="max-w-6xl w-full py-10 px-6">
+          <h2 className="text-4xl md:text-[2.75rem] md:leading-[1.2] font-semibold tracking-[-0.03em] sm:max-w-xl text-pretty sm:mx-auto sm:text-center text-white">
+            Creativity, Unleashed.
           </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
-            Everything you need to create stunning AI-generated images with professional-grade quality and control.
+          <p className="mt-2 text-slate-300 text-lg sm:text-xl sm:text-center">
+            Leverage generative AI with a unique suite of tools to convey your ideas to the world.
           </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {features.map((feature, index) => (
-            <Card 
-              key={index} 
-              className="group hover:shadow-lg hover:scale-105 transition-all duration-300 border-0 bg-slate-800/40 backdrop-blur-sm"
-              style={{
-                border: "1px solid transparent",
-                backgroundImage: `
-                  linear-gradient(to bottom, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.8)),
-                  linear-gradient(to bottom, rgba(164, 143, 255, 0.5), rgba(164, 143, 255, 1))
-                `,
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-              }}
-            >
-              <CardHeader className="text-center pb-4">
-                <div className="mx-auto mb-4 p-3 rounded-lg bg-gradient-to-br from-purple-500/20 to-blue-500/20 text-purple-300 group-hover:from-purple-400/30 group-hover:to-blue-400/30 transition-all duration-300 w-fit">
-                  {feature.icon}
+          <div className="mt-8 md:mt-16 w-full mx-auto space-y-20">
+            {features.map((feature) => (
+              <div
+                key={feature.category}
+                className="flex flex-col md:flex-row items-center gap-x-12 gap-y-6 md:even:flex-row-reverse"
+              >
+                <div className="w-full aspect-[4/3] bg-slate-800/40 backdrop-blur-sm rounded-xl border border-slate-700/50 basis-1/2" />
+                <div className="basis-1/2 shrink-0">
+                  <span className="uppercase font-medium text-sm text-slate-400">
+                    {feature.category}
+                  </span>
+                  <h4 className="my-3 text-2xl font-semibold tracking-tight text-white">
+                    {feature.title}
+                  </h4>
+                  <p className="text-slate-300">{feature.details}</p>
+                  <Button variant="outline" size="lg" className="mt-6 rounded-full gap-3 border-purple-500/50 text-purple-300 hover:bg-purple-500/10 hover:border-purple-400/70">
+                    Learn More <ArrowRight className="w-4 h-4" />
+                  </Button>
                 </div>
-                <CardTitle className="text-lg text-white">{feature.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="text-center text-slate-300">
-                  {feature.description}
-                </CardDescription>
-              </CardContent>
-            </Card>
-          ))}
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
