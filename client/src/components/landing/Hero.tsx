@@ -9,27 +9,14 @@ import { Link } from "react-router-dom";
 export const Hero = () => {
   return (
     <section className="min-h-screen flex items-center px-4 relative overflow-hidden">
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `radial-gradient(circle 600px at 78% 400px, rgba(164, 143, 255, 0.34), transparent)`,
-        }}
-      />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_400px_at_78%_330px,hsl(var(--primary)/0.34),transparent)]" />
       <div className="container mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Text Content */}
           <div className="text-left">
             <div
               className="inline-flex items-center px-4 py-2 rounded-full mb-8 animate-pulse"
-              style={{
-                border: "1px solid transparent",
-                backgroundImage: `
-                  linear-gradient(to bottom, rgba(10, 10, 10, 0.9), rgba(10, 10, 10, 0.9)),
-                  linear-gradient(135deg, rgb(168 85 247), rgb(59 130 246), rgb(147 197 253))
-                `,
-                backgroundOrigin: "border-box",
-                backgroundClip: "padding-box, border-box",
-              }}
+              
             >
               <Sparkles className="w-4 h-4 mr-2 text-purple-300" />
               <span className="text-sm font-medium bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">

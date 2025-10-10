@@ -26,13 +26,7 @@ const Login: React.FC = () => {
     <div className="grid min-h-svh lg:grid-cols-2">
       <div className="bg-background flex flex-col gap-4 p-6 md:p-10 relative">
         {/* Purple Radial Glow Background */}
-        <div
-          className="absolute inset-0 z-0"
-          style={{
-            backgroundImage: `radial-gradient(circle 300px at 50% 400px, rgba(164, 143, 255, 0.34), transparent)`,
-          }}
-        />
-
+        <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_300px_at_50%_400px,hsl(var(--primary)/0.34),transparent)]" />
         <div className="flex justify-center gap-2 md:justify-start relative z-10">
           <Link to="/" className="flex items-center gap-2 font-medium">
             <Logo />

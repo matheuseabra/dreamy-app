@@ -1,12 +1,12 @@
 
 import { Button } from "@/components/ui/button";
 import {
-    ArrowUp,
-    Github,
-    Heart,
-    Linkedin,
-    Mail,
-    Twitter
+  ArrowUp,
+  Github,
+  Heart,
+  Linkedin,
+  Mail,
+  Twitter
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import Logo from "../Logo";
@@ -19,12 +19,7 @@ export const Footer = () => {
   return (
     <footer className="bg-background border-t border-border relative">
       {/* Purple Radial Glow Background */}
-      <div
-        className="absolute inset-0 z-0"
-        style={{
-          backgroundImage: `radial-gradient(circle 700px at 50% 500px, rgba(139, 92, 246, 0.34), transparent)`,
-        }}
-      />
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_700px_at_50%_500px,hsl(var(--primary)/0.34),transparent)]" />
       <div className="container mx-auto px-4 py-12 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Brand */}
