@@ -28,22 +28,19 @@ const DashboardHeader = () => {
     <header className="border-none bg-background backdrop-blur-md sticky top-0 z-50 shadow-sm">
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            
-          </div>
+          <div className="flex items-center gap-3"></div>
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" className="h-9 w-9">
               <Bell className="h-5 w-5" />
             </Button>
             <Button
-              className="h-9 rounded-full px-6 text-sm text-black font-semibold"
-              style={{
-                background: "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
-                border: "none",
-              }}
+              variant="secondary"
+              className="h-9 rounded-xl px-6 text-sm font-semibold relative overflow-hidden"
             >
-              Subscribe
-              <Sparkles className="h-4 w-4 ml-1" />
+              <div className="flex items-center gap-2">
+                <span>Subscribe</span>
+                <Sparkles className="h-4 w-4 text-white" />
+              </div>
             </Button>
             <div className="mx-1 h-5 w-px bg-border" />
             <DropdownMenu>

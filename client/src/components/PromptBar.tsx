@@ -201,12 +201,12 @@ export function PromptBar({
   );
 
   return (
-    <div className="w-full">
-      <div className="flex items-center gap-2 rounded-xl border border-border bg-transparent px-3 py-2 shadow-sm">
+    <div className="w-full max-w-4xl mx-auto">
+      <div className="bg-background flex items-center gap-2 rounded-xl border border-primary px-3 py-2 shadow-sm">
         <Button
           variant="ghost"
           size="icon"
-          className="h-8 w-8 text-muted-foreground bg-transparent hover:bg-transparent"
+          className="h-8 w-8 text-muted-foreground"
           disabled
         >
           <ImageDown className="h-4 w-4" />
@@ -216,7 +216,7 @@ export function PromptBar({
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
           placeholder="Describe the scene you imagine, with details."
-          className="border-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1 bg-transparent"
+          className="bg-background border-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1"
         />
 
         {/* Model selector */}
@@ -225,7 +225,7 @@ export function PromptBar({
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-2 text-muted-foreground bg-transparent hover:bg-transparent"
+              className="h-8 px-2 text-muted-foreground bg-muted/50 hover:bg-muted/70"
             >
               <span className="text-xs">{selectedModelData.name}</span>
             </Button>
@@ -254,7 +254,7 @@ export function PromptBar({
             <Button
               variant="ghost"
               size="sm"
-              className="h-8 px-2 text-muted-foreground bg-transparent hover:bg-transparent"
+              className="h-8 px-2 text-muted-foreground bg-muted/50 hover:bg-muted/70"
             >
               <Ratio className="h-4 w-4 mr-1" />
               <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
@@ -284,7 +284,7 @@ export function PromptBar({
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-muted-foreground bg-transparent hover:bg-transparent"
+              className="h-8 w-8 text-muted-foreground bg-muted/50 hover:bg-muted/70"
             >
               <Settings2 className="h-4 w-4" />
             </Button>
@@ -313,7 +313,7 @@ export function PromptBar({
           onClick={onGenerate}
           disabled={isGenerating || !prompt.trim()}
           size="sm"
-          className="h-8 px-4 rounded-xl bg-transparent hover:bg-transparent border border-border"
+          className="h-8 px-4 rounded-xl bg-muted/50 hover:bg-muted/70 border border-border"
         >
           <span className="bg-gradient-to-r from-pink-300 via-blue-300 to-white bg-clip-text text-transparent font-sans text-sm">
             {isGenerating ? "Generating" : "Generate"}

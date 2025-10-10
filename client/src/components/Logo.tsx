@@ -9,7 +9,7 @@ const Logo: React.FC<{ className?: string }> = ({ className = "" }) => {
         alt="bluewizard logo"
         className={`h-10 w-auto ${className}`} // Apply className and set a default height
       />
-      <span className="text-xl font-serif">MageMind</span>
+      <h4>MageMind</h4>
     </div>
   );
 };

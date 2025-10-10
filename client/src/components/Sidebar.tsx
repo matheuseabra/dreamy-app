@@ -27,9 +27,9 @@ const Sidebar: React.FC = () => {
       label: "Explore",
     },
     {
-      path: "/generate",
+      path: "/imagine",
       icon: Sparkles,
-      label: "Generate",
+      label: "Imagine",
     },
     {
       path: "/project",

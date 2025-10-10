@@ -10,9 +10,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import Assets from "./pages/Assets";
 import Contact from "./pages/Contact";
-import Dashboard from "./pages/Dashboard";
 import Explore from "./pages/Explore";
 import Feedback from "./pages/Feedback";
+import Generate from "./pages/Generate";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import Signup from "./pages/Signup";
@@ -47,11 +47,11 @@ const App = () => (
               <Route path="/signup" element={<Signup />} />
               <Route path="/contact" element={<Contact />} />
               <Route
-                path="/generate"
+                path="/imagine"
                 element={
                   <ProtectedRoute>
                     <Layout>
-                      <Dashboard />
+                      <Generate />
                     </Layout>
                   </ProtectedRoute>
                 }

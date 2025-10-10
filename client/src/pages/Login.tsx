@@ -19,7 +19,7 @@ const Login: React.FC = () => {
     setError(null);
     const res = await signIn(email, password);
     if (res.error) setError(res.error);
-    else navigate("/generate");
+    else navigate("/imagine");
   };
 
   return (
