@@ -1,6 +1,7 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
 import { apiClient } from "@/lib/api";
+import { QUERY_KEYS, createQueryOptions } from "@/lib/query-config";
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 
@@ -19,7 +20,7 @@ const Assets = () => {
     GeneratedImage[],
     Error
   >({
-    queryKey: ["getImages"],
+    queryKey: QUERY_KEYS.images,
     queryFn: async () => {
       try {
         const response = await apiClient.get("/api/gallery");
@@ -38,6 +39,7 @@ const Assets = () => {
         );
       }
     },
+    ...createQueryOptions(),
   });
 
   const handleImageClick = (image) => {
@@ -46,16 +48,12 @@ const Assets = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-3">        
-        <div className="border border-none rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
-          <CombinedGallery
-            onImageClick={handleImageClick}
-            generatedImages={imagesData || []}
-            isLoading={imagesLoading}
-          />
-        </div>
-      </div>
+    <div className="min-h-screen bg-background">
+      <CombinedGallery
+        onImageClick={handleImageClick}
+        generatedImages={imagesData || []}
+        isLoading={imagesLoading}
+      />
 
       <ImageModal
         open={modalOpen}

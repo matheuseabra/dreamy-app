@@ -2,6 +2,7 @@ import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
 import { PromptBar } from "@/components/PromptBar";
 import { apiClient } from "@/lib/api";
+import { QUERY_KEYS, createQueryOptions } from "@/lib/query-config";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -44,7 +45,7 @@ const Dashboard = () => {
     GeneratedImage[],
     Error
   >({
-    queryKey: ["getImages"],
+    queryKey: QUERY_KEYS.images,
     queryFn: async () => {
       try {
         const response = await apiClient.get("/api/gallery");
@@ -63,6 +64,7 @@ const Dashboard = () => {
         );
       }
     },
+    ...createQueryOptions(),
   });
 
   // sync local cache when query data arrives
@@ -161,7 +163,7 @@ const Dashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="bg-background">
       <div className="container mx-auto px-4 py-6">
         <div className="mb-12 text-center">
           <h1 className="text-3xl font-bold">What are you dreaming of?</h1>
@@ -182,7 +184,7 @@ const Dashboard = () => {
             onStyleChange={setStyle}
           />
         </div>
-        <div className="border border-none rounded-lg p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
+        <div className="p-6 shadow-sm hover:shadow-md transition-shadow duration-200 scrollbar-thin">
           <CombinedGallery
             onImageClick={handleImageClick}
             generatedImages={

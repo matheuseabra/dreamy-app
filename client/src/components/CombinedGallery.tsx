@@ -19,9 +19,6 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
     <div className="w-full">
       <div className="flex items-center justify-between mb-6">
         <div>
-          {/* <h3 className="text-xl font-semibold">
-            {isLoading ? "Loading..." : generatedImages.length > 0 ? "Your Generations" : "No Generations"}
-          </h3> */}
           {generatedImages.length > 0 && !isLoading && (
             <p className="text-sm text-muted-foreground mt-1">
               {generatedImages.length} saved image{generatedImages.length !== 1 ? 's' : ''}
@@ -30,13 +27,12 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
         </div>
       </div>
       {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          {[1, 2, 3, 4, 5, 6].map((i) => (
-            <div key={i} className="aspect-square bg-gray-100 animate-pulse rounded-lg" />
+        <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-1">
+          {Array.from({ length: 8 }).map((_, index) => (
+            <div key={index} className="aspect-square bg-muted/20 rounded-lg animate-pulse" />
           ))}
         </div>
       ) : generatedImages.length === 0 ? (
-        // When the API returns no images, show the mock ImageGallery to help users get started
         <ImageGallery onImageClick={() => {}} />
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-1">

@@ -10,13 +10,11 @@ type Props = {
 const Layout: React.FC<Props> = ({ children }) => {
   return (
     <SidebarProvider className="min-h-screen">
-      <div className="flex">
-        <Sidebar />
-        <SidebarInset className="min-h-screen ml-0 md:ml-64">
-          <DashboardHeader />
-          <main className="w-full">{children}</main>
-        </SidebarInset>
-      </div>
+      <Sidebar />
+      <SidebarInset>
+        <DashboardHeader />
+        <main>{children}</main>
+      </SidebarInset>
     </SidebarProvider>
   );
 };

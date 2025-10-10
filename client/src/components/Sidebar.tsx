@@ -65,7 +65,7 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <SidebarPrimitive className="bg-background z-20 border-border fixed left-0 top-0 h-screen hidden md:flex" collapsible="none">
+    <SidebarPrimitive className="sticky top-0 h-screen bg-background" collapsible="none">
       <SidebarHeader className="py-6 px-7">
         <div className="flex items-center justify-between">
           <Logo className="text-4xl" />

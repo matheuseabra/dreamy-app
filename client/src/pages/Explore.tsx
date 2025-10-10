@@ -2,8 +2,8 @@ import { ImageGrid } from "@/components/ImageGrid";
 import { ImageModal } from "@/components/ImageModal";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { Skeleton } from "@/components/ui/skeleton";
 import { fetchPublicImages } from "@/lib/api";
+import { QUERY_KEYS, createQueryOptions } from "@/lib/query-config";
 import { useQuery } from "@tanstack/react-query";
 import { AlertCircle, RefreshCw } from "lucide-react";
 import { useState } from "react";
@@ -42,10 +42,9 @@ export default function Explore() {
     refetch,
     isRefetching,
   } = useQuery<PublicImagesResponse>({
-    queryKey: ["public-images"],
+    queryKey: QUERY_KEYS.publicImages,
     queryFn: fetchPublicImages,
-    staleTime: 5 * 60 * 1000, // 5 minutes
-    refetchOnWindowFocus: false,
+    ...createQueryOptions(),
   });
 
   const handleImageClick = (image: PublicImage) => {
@@ -81,20 +80,16 @@ export default function Explore() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="mb-6 text-center">
-        <h1 className="text-3xl font-bold">Explore</h1>
-      </div>
-      <div className="container mx-auto px-4 py-8">
+    <div className="bg-background">
+      <div className="container mx-auto px-4 py-6">
+        <div className="mb-6 text-center">
+          <h1 className="text-3xl font-bold">Explore</h1>
+        </div>
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
             {Array.from({ length: 12 }).map((_, index) => (
-              <div key={index} className="space-y-3">
-                <Skeleton className="aspect-square w-full rounded-lg" />
-                <div className="space-y-2">
-                  <Skeleton className="h-4 w-3/4" />
-                  <Skeleton className="h-3 w-1/2" />
-                </div>
+              <div key={index} className="space-y-1">
+                <div className="aspect-square bg-muted/20 rounded-lg animate-pulse" />
               </div>
             ))}
           </div>
