@@ -223,8 +223,8 @@ export function PromptBar({
   }, [prompt]);
 
   return (
-    <div className="w-full max-w-3xl mx-auto">
-      <div className="bg-background gap-2 rounded-xl border border-border px-3 py-2 shadow-sm">
+    <div className="w-full max-w-3xl mx-auto shadow-lg">
+      <div className="bg-background/90 backdrop-blur-md gap-2 rounded-xl border border-border px-3 py-2 shadow-sm">
         <Textarea
           ref={textareaRef}
           value={prompt}

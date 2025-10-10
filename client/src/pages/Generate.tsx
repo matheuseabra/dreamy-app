@@ -166,9 +166,7 @@ const Dashboard = () => {
     <div className="relative min-h-screen">
       <div className="container mx-auto">
         <div className="mt-12 mb-6 text-center">
-          <h1 className="text-3xl font-bold">
-              What are you dreaming of?
-          </h1>
+          <h1 className="text-3xl font-bold">What are you dreaming of?</h1>
         </div>
         <CombinedGallery
           onImageClick={handleImageClick}
@@ -180,25 +178,22 @@ const Dashboard = () => {
           isLoading={imagesLoading}
         />
       </div>
-
-      {/* Fixed PromptBar at bottom center */}
+      
       <div className="fixed bottom-8 left-0 right-0 z-50">
-        <div className="container mx-auto px-4">
-          <PromptBar
-            prompt={prompt}
-            onPromptChange={setPrompt}
-            onGenerate={handleGenerate}
-            isGenerating={isGenerating}
-            selectedModel={selectedModel}
-            onModelChange={setSelectedModel}
-            size={size}
-            onSizeChange={setSize}
-            quality={quality}
-            onQualityChange={setQuality}
-            style={style}
-            onStyleChange={setStyle}
-          />
-        </div>
+        <PromptBar
+          prompt={prompt}
+          onPromptChange={setPrompt}
+          onGenerate={handleGenerate}
+          isGenerating={isGenerating}
+          selectedModel={selectedModel}
+          onModelChange={setSelectedModel}
+          size={size}
+          onSizeChange={setSize}
+          quality={quality}
+          onQualityChange={setQuality}
+          style={style}
+          onStyleChange={setStyle}
+        />
       </div>
 
       <ImageModal

@@ -5,10 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Copy,
-  Download,
-  Star,
-  ThumbsDown,
-  ThumbsUp,
+  Download
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -104,9 +101,14 @@ export const ImageModal = ({
           <div className="w-80 bg-card border-l border-border flex flex-col">
             <div className="p-4 border-b border-border">
               <div className="flex items-center justify-between">
-                <div>
-                  <br />
-                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-muted-foreground hover:text-foreground"
+                  onClick={handleDownload}
+                >
+                  Download <Download className="h-4 w-4" />
+                </Button>
               </div>
             </div>
             <div className="flex-1 p-4 space-y-6 overflow-y-auto scrollbar-thin">
@@ -155,41 +157,6 @@ export const ImageModal = ({
                     <span className="text-foreground">Off</span>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            {/* Footer */}
-            <div className="p-4 border-t border-border">
-              <div className="flex items-center justify-center gap-3">
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <ThumbsUp className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <ThumbsDown className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-muted-foreground hover:text-foreground"
-                  onClick={handleDownload}
-                >
-                  <Download className="h-4 w-4" />
-                </Button>
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="text-muted-foreground hover:text-foreground"
-                >
-                  <Star className="h-4 w-4" />
-                </Button>
               </div>
             </div>
           </div>
