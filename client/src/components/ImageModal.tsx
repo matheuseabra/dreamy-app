@@ -38,7 +38,7 @@ export const ImageModal = ({
 
   const handleCopyPrompt = () => {
     navigator.clipboard.writeText(image.prompt);
-    toast.success("Prompt copied to clipboard!");
+    toast.info("Prompt copied to clipboard!");
   };
 
   const handleDownload = () => {
@@ -104,10 +104,10 @@ export const ImageModal = ({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="text-muted-foreground hover:text-foreground"
+                  className="font-medium text-xs rounded-md bg-transparent"
                   onClick={handleDownload}
                 >
-                  Download <Download className="h-4 w-4" />
+                  <Download className="h-3 w-3" /> Download 
                 </Button>
               </div>
             </div>

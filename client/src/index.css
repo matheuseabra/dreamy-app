@@ -39,8 +39,8 @@
     --sidebar-accent-foreground: 240 5.8824% 10%;
     --sidebar-border: 240 5.8824% 90%;
     --sidebar-ring: 262.1229 83.2558% 57.8431%;
-    --font-sans: sans-serif;
-    --font-serif: serif;
+    --font-sans: DM Sans, sans-serif;
+    --font-serif: Libre Baskerville, serif;
     --font-mono: monospace;
     --radius: 0.5rem;
     --shadow-x: 0rem;
@@ -94,8 +94,8 @@
     --sidebar-accent-foreground: 240 5.8824% 90%;
     --sidebar-border: 261.8182 12.0879% 17.8431%;
     --sidebar-ring: 262.1229 83.2558% 57.8431%;
-    --font-sans: sans-serif;
-    --font-serif: serif;
+    --font-sans: DM Sans,   sans-serif;
+    --font-serif: Libre Baskerville, serif;
     --font-mono: monospace;
     --radius: 0.5rem;
     --shadow-x: 0rem;
@@ -115,7 +115,7 @@
   }
 
   body {
-    font-family: Geist, sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 400;
   }
 
@@ -125,32 +125,32 @@
   h4,
   h5,
   h6 {
-    font-family: Libre Baskerville, serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 700;
   }
 
   p {
-    font-family: Geist, sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 300;
   }
 
   a {
-    font-family: Geist, sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 400;
   }
 
   button {
-    font-family: Geist, sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 400;
   }
 
   input {
-    font-family: Geist, sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 400;
   }
 
   .font-serif {
-    font-family: Libre Baskerville, serif;
+    font-family: var(--font-serif), serif;
     font-weight: 600;
   }
 }

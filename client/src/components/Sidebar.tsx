@@ -1,4 +1,12 @@
-import { Compass, Edit3, FolderOpen, HelpCircle, MessageSquare, Sparkles, Star } from "lucide-react";
+import {
+  Compass,
+  Edit3,
+  FolderOpen,
+  HelpCircle,
+  MessageSquare,
+  Sparkles,
+  Star,
+} from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Logo from "./Logo";
@@ -12,7 +20,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   Sidebar as SidebarPrimitive,
-  SidebarSeparator
+  SidebarSeparator,
 } from "./ui/sidebar";
 
 const Sidebar: React.FC = () => {
@@ -65,7 +73,10 @@ const Sidebar: React.FC = () => {
   ];
 
   return (
-    <SidebarPrimitive className="sticky top-0 h-screen bg-background border-r border-border" collapsible="none">
+    <SidebarPrimitive
+      className="sticky top-0 h-screen bg-background border-r border-border"
+      collapsible="none"
+    >
       <SidebarHeader className="py-6 px-7">
         <div className="flex items-center justify-between">
           <Logo className="text-4xl" />
@@ -84,7 +95,7 @@ const Sidebar: React.FC = () => {
                 >
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />
-                    <span className="font-medium font-serif">{item.label}</span>
+                    <span className="font-medium">{item.label}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -104,7 +115,7 @@ const Sidebar: React.FC = () => {
                 >
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />
-                    <span className="font-medium font-serif">{item.label}</span>
+                    <span className="font-medium">{item.label}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
@@ -112,17 +123,14 @@ const Sidebar: React.FC = () => {
           </SidebarMenu>
         </SidebarGroup>
       </SidebarContent>
-      
+
       <SidebarFooter className="px-4 py-4">
         <SidebarSeparator className="opacity-30 mb-4" />
         <SidebarGroup>
           <SidebarMenu>
             {supportItems.map((item) => (
               <SidebarMenuItem key={item.path}>
-                <SidebarMenuButton
-                  asChild
-                  isActive={isActive(item.path)}
-                >
+                <SidebarMenuButton asChild isActive={isActive(item.path)}>
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />
                     <span>{item.label}</span>
