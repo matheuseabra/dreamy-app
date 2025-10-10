@@ -8,20 +8,22 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Brush,
   Crown,
   Gauge,
   ImageDown,
+  LoaderCircleIcon,
   Ratio,
   Rocket,
+  SendHorizonalIcon,
   Settings2,
   Sparkles,
   Star,
   Zap,
 } from "lucide-react";
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef } from "react";
 
 const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
   const iconProps = {
@@ -74,7 +76,7 @@ const SettingsDropdown = ({
 }) => (
   <DropdownMenu>
     <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-    <DropdownMenuContent align="end" className={className}>
+    <DropdownMenuContent align="start" className={className}>
       <DropdownMenuLabel>{label}</DropdownMenuLabel>
       <DropdownMenuSeparator />
       {children}
@@ -82,8 +84,12 @@ const SettingsDropdown = ({
   </DropdownMenu>
 );
 
-const ModelItem = ({ model, isSelected, onSelect }: {
-  model: typeof AI_MODELS[0];
+const ModelItem = ({
+  model,
+  isSelected,
+  onSelect,
+}: {
+  model: (typeof AI_MODELS)[0];
   isSelected: boolean;
   onSelect: () => void;
 }) => {
@@ -200,125 +206,162 @@ export function PromptBar({
     [selectedModel]
   );
 
-  return (
-    <div className="w-full max-w-4xl mx-auto">
-      <div className="bg-background flex items-center gap-2 rounded-xl border border-primary px-3 py-2 shadow-sm">
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 text-muted-foreground"
-          disabled
-        >
-          <ImageDown className="h-4 w-4" />
-        </Button>
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-        <Input
+  useEffect(() => {
+    const textarea = textareaRef.current;
+    if (textarea) {
+      textarea.style.height = "auto";
+
+      const scrollHeight = textarea.scrollHeight;
+      const minHeight = 40;
+      const maxHeight = 200;
+
+      const newHeight = Math.min(Math.max(scrollHeight, minHeight), maxHeight);
+      textarea.style.height = `${newHeight}px`;
+    }
+  }, [prompt]);
+
+  return (
+    <div className="w-full max-w-3xl mx-auto">
+      <div className="bg-background gap-2 rounded-xl border border-border px-3 py-2 shadow-sm">
+        <Textarea
+          ref={textareaRef}
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
           placeholder="Describe the scene you imagine, with details."
-          className="bg-background border-0 h-auto focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1"
+          className="bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1 resize-none overflow-y-auto min-h-[40px] max-h-[200px]"
+          rows={1}
         />
 
-        {/* Model selector */}
-        <SettingsDropdown
-          trigger={
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 px-2 text-muted-foreground bg-muted/50 hover:bg-muted/70"
-            >
-              <span className="text-xs">{selectedModelData.name}</span>
-            </Button>
-          }
-          label="Models"
-          className="w-72 max-h-120 overflow-y-auto border border-border"
-        >
-          <DropdownMenuRadioGroup
-            value={selectedModel}
-            onValueChange={onModelChange}
-          >
-            {AI_MODELS.map((model) => (
-              <ModelItem
-                key={model.id}
-                model={model}
-                isSelected={model.id === selectedModel}
-                onSelect={() => onModelChange(model.id)}
-              />
-            ))}
-          </DropdownMenuRadioGroup>
-        </SettingsDropdown>
-
-        {/* Aspect ratio selector */}
-        <SettingsDropdown
-          trigger={
-            <Button
-              variant="ghost"
-              size="sm"
-              className="h-8 px-2 text-muted-foreground bg-muted/50 hover:bg-muted/70"
-            >
-              <Ratio className="h-4 w-4 mr-1" />
-              <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
-            </Button>
-          }
-          label="Aspect Ratio"
-          className="w-40 border border-border"
-        >
-          <DropdownMenuRadioGroup value={size} onValueChange={onSizeChange}>
-            {Object.entries(SIZE_LABEL).map(([value, label]) => (
-              <DropdownMenuRadioItem
-                key={value}
-                value={value}
-                className="cursor-pointer"
-              >
-                <div className="flex items-center gap-2">
-                  <AspectRatioIcon ratio={value} />
-                  <span>{label}</span>
-                </div>
-              </DropdownMenuRadioItem>
-            ))}
-          </DropdownMenuRadioGroup>
-        </SettingsDropdown>
-
-        <SettingsDropdown
-          trigger={
+        <div className="flex items-center gap-2 justify-between">
+          <div className="flex items-center gap-2">
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8 text-muted-foreground bg-muted/50 hover:bg-muted/70"
+              className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+              disabled
             >
-              <Settings2 className="h-4 w-4" />
+              <ImageDown className="h-4 w-4" />
             </Button>
-          }
-          label="Settings"
-        >
-          <DropdownMenuLabel>Quality</DropdownMenuLabel>
-          <DropdownMenuRadioGroup
-            value={quality}
-            onValueChange={onQualityChange}
-          >
-            <DropdownMenuRadioItem value="standard">Standard</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="hd">HD</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="ultra">Ultra HD</DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-          <DropdownMenuSeparator />
-          <DropdownMenuLabel>Style</DropdownMenuLabel>
-          <DropdownMenuRadioGroup value={style} onValueChange={onStyleChange}>
-            <DropdownMenuRadioItem value="natural">Natural</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="vivid">Vivid</DropdownMenuRadioItem>
-            <DropdownMenuRadioItem value="artistic">Artistic</DropdownMenuRadioItem>
-          </DropdownMenuRadioGroup>
-        </SettingsDropdown>
 
-        <Button
-          onClick={onGenerate}
-          disabled={isGenerating || !prompt.trim()}
-          size="sm"
-          className="h-8 px-4 rounded-xl bg-muted/50 hover:bg-muted/70 border border-border"
-        >
-          <span className="bg-gradient-to-r from-pink-300 via-blue-300 to-white bg-clip-text text-transparent font-sans text-sm">
-            {isGenerating ? "Generating" : "Generate"}
-          </span>
-        </Button>
+            <SettingsDropdown
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 px-2 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                >
+                  <span className="text-xs">{selectedModelData.name}</span>
+                </Button>
+              }
+              label="Models"
+              className="w-72 max-h-120 overflow-y-auto border border-border"
+            >
+              <DropdownMenuRadioGroup
+                value={selectedModel}
+                onValueChange={onModelChange}
+              >
+                {AI_MODELS.map((model) => (
+                  <ModelItem
+                    key={model.id}
+                    model={model}
+                    isSelected={model.id === selectedModel}
+                    onSelect={() => onModelChange(model.id)}
+                  />
+                ))}
+              </DropdownMenuRadioGroup>
+            </SettingsDropdown>
+
+            {/* Aspect ratio selector */}
+            <SettingsDropdown
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  className="h-8 px-2 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                >
+                  <Ratio className="h-4 w-4 mr-1" />
+                  <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
+                </Button>
+              }
+              label="Aspect Ratio"
+              className="w-40 border border-border"
+            >
+              <DropdownMenuRadioGroup value={size} onValueChange={onSizeChange}>
+                {Object.entries(SIZE_LABEL).map(([value, label]) => (
+                  <DropdownMenuRadioItem
+                    key={value}
+                    value={value}
+                    className="cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2">
+                      <AspectRatioIcon ratio={value} />
+                      <span>{label}</span>
+                    </div>
+                  </DropdownMenuRadioItem>
+                ))}
+              </DropdownMenuRadioGroup>
+            </SettingsDropdown>
+
+            <SettingsDropdown
+              trigger={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                >
+                  <Settings2 className="h-4 w-4" />
+                </Button>
+              }
+              label="Settings"
+            >
+              <DropdownMenuLabel>Quality</DropdownMenuLabel>
+              <DropdownMenuRadioGroup
+                value={quality}
+                onValueChange={onQualityChange}
+              >
+                <DropdownMenuRadioItem value="standard">
+                  Standard
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="hd">HD</DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="ultra">
+                  Ultra HD
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuLabel>Style</DropdownMenuLabel>
+              <DropdownMenuRadioGroup
+                value={style}
+                onValueChange={onStyleChange}
+              >
+                <DropdownMenuRadioItem value="natural">
+                  Natural
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="vivid">
+                  Vivid
+                </DropdownMenuRadioItem>
+                <DropdownMenuRadioItem value="artistic">
+                  Artistic
+                </DropdownMenuRadioItem>
+              </DropdownMenuRadioGroup>
+            </SettingsDropdown>
+          </div>
+          <div className="flex items-center">
+            <Button
+              onClick={onGenerate}
+              disabled={isGenerating || !prompt.trim()}
+              size="sm"
+              className="h-8 px-4 rounded-lg bg-muted/50 hover:bg-muted/70 border border-border mt-1 flex-shrink-0"
+            >
+              {isGenerating ? (
+                <LoaderCircleIcon className="h-4 w-4 animate-spin" />
+              ) : (
+                <SendHorizonalIcon className="h-4 w-4" />
+              )}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );

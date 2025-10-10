@@ -68,9 +68,9 @@ export const ImageModal = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden bg-gradient-to-br from-black via-gray-900 to-black border-0">
+      <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden border-0">
         <div className="flex h-full">
-          <div className="flex-1 relative bg-gradient-to-br from-black via-gray-900 to-black flex items-center justify-center">
+          <div className="flex-1 relative flex items-center justify-center">
             {hasPrevious && (
               <Button
                 variant="ghost"
