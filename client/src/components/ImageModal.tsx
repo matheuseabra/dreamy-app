@@ -8,7 +8,7 @@ import {
   Download,
   Star,
   ThumbsDown,
-  ThumbsUp
+  ThumbsUp,
 } from "lucide-react";
 import { toast } from "sonner";
 
@@ -93,10 +93,11 @@ export const ImageModal = ({
               </Button>
             )}
 
-            <img
-              src={image.src}
-              alt={image.prompt}
-              className="max-w-full max-h-full object-contain"
+            <div
+              aria-label={image.prompt}
+              role="img"
+              className="w-full h-full bg-center bg-contain bg-no-repeat"
+              style={{ backgroundImage: `url(${image.src})` }}
             />
           </div>
 
