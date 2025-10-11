@@ -72,7 +72,7 @@ const Edit = () => {
               </Card>
             ))}
           </div>
-          <div className="fixed w-full max-w-3xl mx-auto bottom-8 right-0 left-0 z-50">
+          <div className="fixed w-full max-w-2xl mx-auto bottom-8 right-0 left-0 z-50">
             <PromptBar
               prompt={prompt}
               onPromptChange={setPrompt}
