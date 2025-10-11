@@ -49,7 +49,7 @@ const Assets = () => {
 
   return (
     <div className="min-h-screen">
-      <div className="container mx-auto">
+      <div className="container mx-auto mt-4">
         <CombinedGallery
           onImageClick={handleImageClick}
           generatedImages={imagesData || []}

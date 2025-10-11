@@ -38,17 +38,27 @@ export const ImageModal = ({
 
   const handleCopyPrompt = () => {
     navigator.clipboard.writeText(image.prompt);
-    toast.info("Prompt copied to clipboard!");
+    toast.success("Prompt copied to clipboard!");
   };
 
-  const handleDownload = () => {
-    const link = document.createElement("a");
-    link.href = image.src;
-    link.download = `dreamforge-${Date.now()}.png`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    toast.success("Image download started!");
+  const handleDownload = async () => {
+    try {
+      const response = await fetch(image.src, { mode: "cors" });
+      if (!response.ok) throw new Error("Failed to download image");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `image-${Date.now()}.png`;
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download error:", error);
+      toast.error("Failed to download image. Please try again.");
+    }
   };
 
   const formatDate = (dateString?: string) => {
@@ -104,7 +114,7 @@ export const ImageModal = ({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="font-medium text-xs rounded-md bg-transparent"
+                  className="font-medium text-xs rounded-md bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                   onClick={handleDownload}
                 >
                   <Download className="h-3 w-3" /> Download 
