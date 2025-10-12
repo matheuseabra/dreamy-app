@@ -32,6 +32,7 @@ export const generateImageSchema = z.object({
   controlnet_conditioning_scale: z.number().min(0).max(2).optional(),
   expand_prompt: z.boolean().optional(),
   format: z.enum(['jpeg', 'png']).optional(),
+  source_image_url: z.string().url().optional(),
 });
 
 export type GenerateImageInput = z.infer<typeof generateImageSchema>;

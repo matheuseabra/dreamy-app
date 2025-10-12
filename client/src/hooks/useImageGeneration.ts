@@ -30,6 +30,8 @@ export const useImageGeneration = () => {
   const [size, setSize] = useState("square");
   const [quality, setQuality] = useState("hd");
   const [style, setStyle] = useState("vivid");
+  const [sourceImageUrl, setSourceImageUrl] = useState<string | null>(null);
+  const [strength, setStrength] = useState(0.8);
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedImagesLocal, setGeneratedImagesLocal] = useState<
     GeneratedImage[]
@@ -59,7 +61,7 @@ export const useImageGeneration = () => {
 
   const generateImageMutation = useMutation<ServerResponse, Error, void>({
     mutationFn: async (): Promise<ServerResponse> => {
-      const data = await apiClient.post("/api/generate", {
+      const requestData: any = {
         prompt,
         model: selectedModel,
         image_size: size,
@@ -67,7 +69,15 @@ export const useImageGeneration = () => {
         style,
         sync_mode: true,
         num_images: 1,
-      });
+      };
+
+      // Add image-to-image specific parameters
+      if (sourceImageUrl) {
+        requestData.image_url = sourceImageUrl;
+        requestData.strength = strength;
+      }
+
+      const data = await apiClient.post("/api/generate", requestData);
       return data as ServerResponse;
     },
     onMutate: async () => {
@@ -115,7 +125,23 @@ export const useImageGeneration = () => {
       toast.error("Please enter a prompt");
       return;
     }
+
+    // Check if image-to-image model requires source image
+    const isImageToImageModel = selectedModel.includes("image-to-image") || selectedModel.includes("character");
+    if (isImageToImageModel && !sourceImageUrl) {
+      toast.error("Please upload a source image for image-to-image generation");
+      return;
+    }
+
     generateImageMutation.mutate();
+  };
+
+  const handleSourceImageChange = (url: string | null) => {
+    setSourceImageUrl(url);
+  };
+
+  const handleStrengthChange = (value: number) => {
+    setStrength(value);
   };
 
   return {
@@ -129,6 +155,10 @@ export const useImageGeneration = () => {
     setQuality,
     style,
     setStyle,
+    sourceImageUrl,
+    handleSourceImageChange,
+    strength,
+    handleStrengthChange,
     isGenerating,
     handleGenerate,
     generatedImagesLocal,

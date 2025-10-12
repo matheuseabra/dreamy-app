@@ -9,21 +9,28 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
+import { config } from "@/config";
+import useAuth from "@/hooks/useAuth";
 import {
   Brush,
   Crown,
   Gauge,
+  Image,
   ImageDown,
   LoaderCircleIcon,
+  Palette,
   Ratio,
   Rocket,
   SendHorizonalIcon,
   Settings2,
   Sparkles,
   Star,
+  Upload,
+  User,
+  X,
   Zap,
 } from "lucide-react";
-import { useEffect, useMemo, useRef } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
   const iconProps = {
@@ -125,6 +132,10 @@ type PromptBarProps = {
   onQualityChange: (value: string) => void;
   style: string;
   onStyleChange: (value: string) => void;
+  sourceImageUrl?: string;
+  onSourceImageChange?: (url: string | null) => void;
+  strength?: number;
+  onStrengthChange?: (value: number) => void;
 };
 
 const AI_MODELS = [
@@ -133,48 +144,92 @@ const AI_MODELS = [
     name: "Flux Dev",
     description: "High quality text-to-image generation",
     icon: Sparkles,
+    type: "text-to-image",
   },
   {
     id: "fal-ai/flux/schnell",
     name: "Flux Schnell",
     description: "Fast text-to-image generation",
     icon: Zap,
+    type: "text-to-image",
   },
   {
     id: "fal-ai/flux-pro/kontext",
     name: "Flux Pro Kontext",
     description: "Professional context-aware generation",
     icon: Crown,
+    type: "text-to-image",
   },
   {
     id: "fal-ai/flux-pro/kontext/max",
     name: "Flux Pro Kontext Max",
     description: "Maximum quality context generation",
     icon: Star,
+    type: "text-to-image",
   },
   {
     id: "fal-ai/recraft/v3/text-to-image",
     name: "Recraft V3",
     description: "Advanced text-to-image generation",
     icon: Brush,
+    type: "text-to-image",
   },
   {
     id: "fal-ai/ideogram/v3",
     name: "Ideogram V3",
     description: "Latest text rendering capabilities",
     icon: Rocket,
+    type: "text-to-image",
   },
   {
     id: "fal-ai/nano-banana",
     name: "Nano Banana",
     description: "Lightweight fast generation",
     icon: Zap,
+    type: "text-to-image",
   },
   {
     id: "fal-ai/wan/v2.2-5b/text-to-image",
     name: "WAN V2.2",
     description: "5B parameter text-to-image model",
     icon: Gauge,
+    type: "text-to-image",
+  },
+  // Image-to-Image Models
+  {
+    id: "fal-ai/flux/dev/image-to-image", 
+    name: "Flux Dev I2I",
+    description: "FLUX.1 [dev] image-to-image endpoint",
+    icon: Image,
+    type: "image-to-image",
+  },
+  {
+    id: "fal-ai/flux-general/image-to-image",
+    name: "Flux General I2I",
+    description: "FLUX.1 [dev] with ControlNets / LoRAs",
+    icon: Palette,
+    type: "image-to-image",
+  },
+  {
+    id: "fal-ai/flux-lora/image-to-image",
+    name: "Flux LoRA I2I",
+    description: "FLUX.1 [dev] + LoRA adaptation I2I",
+    icon: Sparkles,
+    type: "image-to-image",
+  },
+  {
+    id: "fal-ai/ideogram/character",
+    name: "Ideogram Character",
+    description: "Ideogram V3 Character I2I (consistent characters)",
+    icon: User,
+    type: "image-to-image",
+  },
+  {
+    id: "fal-ai/recraft/v3/image-to-image",
+    name: "Recraft V3 I2I",
+    description: "Recraft V3 image-to-image endpoint",
+    icon: Brush,
+    type: "image-to-image",
   },
 ];
 
@@ -200,13 +255,22 @@ export function PromptBar({
   onQualityChange,
   style,
   onStyleChange,
+  sourceImageUrl,
+  onSourceImageChange,
+  strength = 0.8,
+  onStrengthChange,
 }: PromptBarProps) {
+  const authToken = useAuth().session?.access_token;
   const selectedModelData = useMemo(
     () => AI_MODELS.find((m) => m.id === selectedModel) || AI_MODELS[0],
     [selectedModel]
   );
 
+  const isImageToImage = selectedModelData?.type === "image-to-image";
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+  const [isUploading, setIsUploading] = useState(false);
+  const [dragActive, setDragActive] = useState(false);
 
   useEffect(() => {
     const textarea = textareaRef.current;
@@ -222,28 +286,181 @@ export function PromptBar({
     }
   }, [prompt]);
 
+  const handleFileUpload = useCallback(
+    async (file: File) => {
+      if (!file) return;
+
+      // Validate file type
+      const allowedTypes = [
+        "image/png",
+        "image/jpg",
+        "image/jpeg",
+        "image/webp",
+      ];
+      if (!allowedTypes.includes(file.type)) {
+        alert(
+          "Invalid file type. Please upload PNG, JPG, JPEG, or WEBP files."
+        );
+        return;
+      }
+
+      // Validate file size (10MB limit)
+      if (file.size > 10 * 1024 * 1024) {
+        alert("File size too large. Please upload files smaller than 10MB.");
+        return;
+      }
+
+      setIsUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append("image", file);
+
+        const response = await fetch(`${config.API_URL}/api/upload`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${authToken}`,
+          },
+          body: formData,
+        });
+
+        if (!response.ok) {
+          throw new Error("Failed to upload image");
+        }
+
+        const result = await response.json();
+        if (result.success && onSourceImageChange) {
+          onSourceImageChange(result.data.url);
+        }
+      } catch (error) {
+        console.error("Upload error:", error);
+        alert("Failed to upload image. Please try again.");
+      } finally {
+        setIsUploading(false);
+      }
+    },
+    [onSourceImageChange]
+  );
+
+  const handleDrag = useCallback((e: React.DragEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (e.type === "dragenter" || e.type === "dragover") {
+      setDragActive(true);
+    } else if (e.type === "dragleave") {
+      setDragActive(false);
+    }
+  }, []);
+
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActive(false);
+
+      if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+        handleFileUpload(e.dataTransfer.files[0]);
+      }
+    },
+    [handleFileUpload]
+  );
+
+  const handleFileInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      e.preventDefault();
+      if (e.target.files && e.target.files[0]) {
+        handleFileUpload(e.target.files[0]);
+      }
+    },
+    [handleFileUpload]
+  );
+
+  const handleRemoveImage = useCallback(() => {
+    if (onSourceImageChange) {
+      onSourceImageChange(null);
+    }
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  }, [onSourceImageChange]);
+
   return (
     <>
       <div className="bg-background/90 backdrop-blur-md gap-2 rounded-xl border border-border px-3 py-2 shadow-lg">
+        {isImageToImage && sourceImageUrl && (
+          <div className="relative">
+            <div className="relative inline-block">
+              <img
+                src={sourceImageUrl}
+                alt="Source"
+                className="h-12 w-12 object-cover rounded-lg border border-border"
+              />
+              <Button
+                variant="ghost"
+                size="icon"
+                className="absolute -top-1 -right-1 h-6 w-6 bg-background border border-border shadow-sm"
+                onClick={handleRemoveImage}
+              >
+                <X className="h-1 w-1" />
+              </Button>
+            </div>
+          </div>
+        )}
         <Textarea
           ref={textareaRef}
           value={prompt}
           onChange={(e) => onPromptChange(e.target.value)}
-          placeholder="Describe the scene you imagine, with details."
+          placeholder={
+            isImageToImage
+              ? "Describe how you want to transform the image..."
+              : "Describe the scene you imagine, with details."
+          }
           className="bg-transparent border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-sm flex-1 resize-none overflow-y-auto min-h-[40px] max-h-[200px]"
           rows={1}
         />
 
         <div className="flex items-center gap-2 justify-between">
           <div className="flex items-center gap-2">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
-              disabled
-            >
-              <ImageDown className="h-4 w-4" />
-            </Button>
+            {/* Upload Button for I2I Models */}
+            {isImageToImage ? (
+              <div className="relative">
+                <input
+                  ref={fileInputRef}
+                  type="file"
+                  accept="image/png,image/jpg,image/jpeg,image/webp"
+                  onChange={handleFileInputChange}
+                  className="hidden"
+                />
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                  onClick={() => fileInputRef.current?.click()}
+                  disabled={isUploading}
+                  onDragEnter={handleDrag}
+                  onDragLeave={handleDrag}
+                  onDragOver={handleDrag}
+                  onDrop={handleDrop}
+                >
+                  {isUploading ? (
+                    <LoaderCircleIcon className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Upload className="h-4 w-4" />
+                  )}
+                </Button>
+                {dragActive && (
+                  <div className="absolute inset-0 bg-primary/20 rounded border-2 border-dashed border-primary pointer-events-none" />
+                )}
+              </div>
+            ) : (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                disabled
+              >
+                <ImageDown className="h-4 w-4" />
+              </Button>
+            )}
 
             <SettingsDropdown
               trigger={
@@ -316,6 +533,30 @@ export function PromptBar({
               }
               label="Settings"
             >
+              {isImageToImage && onStrengthChange && (
+                <>
+                  <DropdownMenuLabel>Strength</DropdownMenuLabel>
+                  <div className="px-2 py-2">
+                    <input
+                      type="range"
+                      min="0.1"
+                      max="1"
+                      step="0.1"
+                      value={strength}
+                      onChange={(e) =>
+                        onStrengthChange(parseFloat(e.target.value))
+                      }
+                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                    />
+                    <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                      <span>0.1</span>
+                      <span>{strength}</span>
+                      <span>1.0</span>
+                    </div>
+                  </div>
+                  <DropdownMenuSeparator />
+                </>
+              )}
               <DropdownMenuLabel>Quality</DropdownMenuLabel>
               <DropdownMenuRadioGroup
                 value={quality}

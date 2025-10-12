@@ -26,6 +26,10 @@ const Dashboard = () => {
     setQuality,
     style,
     setStyle,
+    sourceImageUrl,
+    handleSourceImageChange,
+    strength,
+    handleStrengthChange,
     isGenerating,
     handleGenerate,
     generatedImagesLocal,
@@ -89,20 +93,24 @@ const Dashboard = () => {
       </div>
       
       <div className="fixed w-full max-w-2xl mx-auto bottom-8 right-0 left-0 z-50">
-        <PromptBar
-          prompt={prompt}
-          onPromptChange={setPrompt}
-          onGenerate={handleGenerate}
-          isGenerating={isGenerating}
-          selectedModel={selectedModel}
-          onModelChange={setSelectedModel}
-          size={size}
-          onSizeChange={setSize}
-          quality={quality}
-          onQualityChange={setQuality}
-          style={style}
-          onStyleChange={setStyle}
-        />
+          <PromptBar
+            prompt={prompt}
+            onPromptChange={setPrompt}
+            onGenerate={handleGenerate}
+            isGenerating={isGenerating}
+            selectedModel={selectedModel}
+            onModelChange={setSelectedModel}
+            size={size}
+            onSizeChange={setSize}
+            quality={quality}
+            onQualityChange={setQuality}
+            style={style}
+            onStyleChange={setStyle}
+            sourceImageUrl={sourceImageUrl}
+            onSourceImageChange={handleSourceImageChange}
+            strength={strength}
+            onStrengthChange={handleStrengthChange}
+          />
       </div>
 
       <ImageModal

@@ -54,6 +54,7 @@ router.post(
           model_options: input.modelOptions || {},
           status: "pending",
           credits_used: creditsRequired,
+          source_image_url: input.source_image_url || null,
         })
         .select()
         .single();

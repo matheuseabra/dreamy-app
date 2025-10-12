@@ -8,6 +8,7 @@ import authRoutes from './routes/auth';
 import creditsRoutes from './routes/credits';
 import galleryRoutes from './routes/gallery';
 import generateRoutes from './routes/generate';
+import uploadRoutes from './routes/upload';
 import webhookRoutes from './routes/webhook';
 import supabaseAdmin from './supabase/client';
 
@@ -40,6 +41,7 @@ app.use('/api/auth', authRoutes);
 app.use('/api/generate', generateRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/credits', creditsRoutes);
+app.use('/api/upload', uploadRoutes);
 app.use('/api/webhooks', webhookRoutes);
 
 app.get('/api/public-images', async (req, res) => {
