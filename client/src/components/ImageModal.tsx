@@ -8,6 +8,7 @@ import {
   Download
 } from "lucide-react";
 import { toast } from "sonner";
+import { useState } from "react";
 
 interface ImageModalProps {
   open: boolean;
@@ -73,6 +74,14 @@ export const ImageModal = ({
     });
   };
 
+  const [showFullPrompt, setShowFullPrompt] = useState(false);
+  const MAX_PROMPT_LENGTH = 200;
+  const isTruncated = image.prompt.length > MAX_PROMPT_LENGTH;
+  const displayPrompt =
+    !showFullPrompt && isTruncated
+      ? image.prompt.slice(0, MAX_PROMPT_LENGTH) + "..."
+      : image.prompt;
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden border-0">
@@ -122,21 +131,29 @@ export const ImageModal = ({
               </div>
             </div>
             <div className="flex-1 p-4 space-y-6 overflow-y-auto scrollbar-thin">
-              <div className="space-y-2">
-                <div className="flex items-start justify-between">
-                  <p className="text-sm text-muted-foreground leading-relaxed">
-                    {image.prompt}
-                  </p>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-muted-foreground hover:text-foreground ml-2"
-                    onClick={handleCopyPrompt}
-                  >
-                    <Copy className="h-4 w-4" />
-                  </Button>
+                <div className="space-y-2">
+                  <div className={`flex items-start justify-between ${showFullPrompt ? 'max-h-60 overflow-auto scrollbar-thin' : 'max-h-48 overflow-hidden'}`}>
+                    <p className="text-sm text-muted-foreground leading-relaxed">
+                      {displayPrompt}
+                      {isTruncated && (
+                        <button
+                          onClick={() => setShowFullPrompt(!showFullPrompt)}
+                          className="text-primary underline ml-1"
+                        >
+                          {showFullPrompt ? "See less" : "See more"}
+                        </button>
+                      )}
+                    </p>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="text-muted-foreground hover:text-foreground ml-2"
+                      onClick={handleCopyPrompt}
+                    >
+                      <Copy className="h-4 w-4" />
+                    </Button>
+                  </div>
                 </div>
-              </div>
               <div className="space-y-3">
                 <div className="flex gap-2">
                   <Badge
