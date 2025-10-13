@@ -73,7 +73,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <SidebarPrimitive
-      className="sticky top-0 h-screen bg-background border border-none w-60"
+      className="sticky top-0 h-screen bg-background border border-none w-50"
       collapsible="none"
     >
       <SidebarHeader className="py-6 px-7">
@@ -90,7 +90,7 @@ const Sidebar: React.FC = () => {
                 <SidebarMenuButton
                   asChild
                   isActive={isActive(item.path)}
-                  className="h-10 text-md font-medium"
+                  className="h-10 text-md font-medium hover:rounded-lg hover:bg-accent"
                 >
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />

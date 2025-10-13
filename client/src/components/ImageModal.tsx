@@ -1,14 +1,9 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import {
-  ChevronLeft,
-  ChevronRight,
-  Copy,
-  Download
-} from "lucide-react";
-import { toast } from "sonner";
+import { ChevronLeft, ChevronRight, Copy, Download } from "lucide-react";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface ImageModalProps {
   open: boolean;
@@ -35,7 +30,16 @@ export const ImageModal = ({
   hasPrevious = false,
   hasNext = false,
 }: ImageModalProps) => {
+  const [showFullPrompt, setShowFullPrompt] = useState(false);
+
   if (!image) return null;
+
+  const MAX_PROMPT_LENGTH = 200;
+  const isTruncated = image.prompt.length > MAX_PROMPT_LENGTH;
+  const displayPrompt =
+    !showFullPrompt && isTruncated
+      ? image.prompt.slice(0, MAX_PROMPT_LENGTH) + "..."
+      : image.prompt;
 
   const handleCopyPrompt = () => {
     navigator.clipboard.writeText(image.prompt);
@@ -74,14 +78,6 @@ export const ImageModal = ({
     });
   };
 
-  const [showFullPrompt, setShowFullPrompt] = useState(false);
-  const MAX_PROMPT_LENGTH = 200;
-  const isTruncated = image.prompt.length > MAX_PROMPT_LENGTH;
-  const displayPrompt =
-    !showFullPrompt && isTruncated
-      ? image.prompt.slice(0, MAX_PROMPT_LENGTH) + "..."
-      : image.prompt;
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden border-0">
@@ -118,7 +114,7 @@ export const ImageModal = ({
           </div>
 
           <div className="w-80 bg-card border-l border-border flex flex-col">
-            <div className="p-4 border-b border-border">
+            <div className="p-4 border-b border-none">
               <div className="flex items-center justify-between">
                 <Button
                   variant="outline"
@@ -126,34 +122,40 @@ export const ImageModal = ({
                   className="font-medium text-xs rounded-md bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
                   onClick={handleDownload}
                 >
-                  <Download className="h-3 w-3" /> Download 
+                  <Download className="h-3 w-3" /> Download
                 </Button>
               </div>
             </div>
             <div className="flex-1 p-4 space-y-6 overflow-y-auto scrollbar-thin">
-                <div className="space-y-2">
-                  <div className={`flex items-start justify-between ${showFullPrompt ? 'max-h-60 overflow-auto scrollbar-thin' : 'max-h-48 overflow-hidden'}`}>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
-                      {displayPrompt}
-                      {isTruncated && (
-                        <button
-                          onClick={() => setShowFullPrompt(!showFullPrompt)}
-                          className="text-primary underline ml-1"
-                        >
-                          {showFullPrompt ? "See less" : "See more"}
-                        </button>
-                      )}
-                    </p>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="text-muted-foreground hover:text-foreground ml-2"
-                      onClick={handleCopyPrompt}
-                    >
-                      <Copy className="h-4 w-4" />
-                    </Button>
-                  </div>
+              <div className="space-y-2">
+                <div
+                  className={`flex items-start justify-between ${
+                    showFullPrompt
+                      ? "max-h-60 overflow-auto scrollbar-thin"
+                      : "max-h-48 overflow-hidden"
+                  }`}
+                >
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {displayPrompt}
+                    {isTruncated && (
+                      <button
+                        onClick={() => setShowFullPrompt(!showFullPrompt)}
+                        className="text-primary underline ml-1"
+                      >
+                        {showFullPrompt ? "See less" : "See more"}
+                      </button>
+                    )}
+                  </p>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="text-muted-foreground hover:text-foreground ml-2"
+                    onClick={handleCopyPrompt}
+                  >
+                    <Copy className="h-4 w-4" />
+                  </Button>
                 </div>
+              </div>
               <div className="space-y-3">
                 <div className="flex gap-2">
                   <Badge
