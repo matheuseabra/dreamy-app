@@ -43,7 +43,7 @@ const Login: React.FC = () => {
               </p>
             </div>
 
-            <form onSubmit={submit} className="space-y-4">
+            <form onSubmit={submit} className="space-y-2">
               <Input
                 placeholder="Email Address"
                 value={email}

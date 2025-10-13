@@ -39,8 +39,8 @@
     --sidebar-accent-foreground: 240 5.8824% 10%;
     --sidebar-border: 240 5.8824% 90%;
     --sidebar-ring: 253.6765 62.3853% 57.2549%;
-    --font-sans: sans-serif;
-    --font-serif: serif;
+    --font-sans: DM Sans, sans-serif;
+    --font-serif: Libre Baskerville, serif;
     --font-mono: monospace;
     --radius: 0.5rem;
     --shadow-x: 0rem;
@@ -94,8 +94,8 @@
     --sidebar-accent-foreground: 240 5.8824% 90%;
     --sidebar-border: 240 3.7037% 15.8824%;
     --sidebar-ring: 253.6765 62.3853% 57.2549%;
-    --font-sans: sans-serif;
-    --font-serif: serif;
+    --font-sans: DM Sans, sans-serif;
+    --font-serif: Libre Baskerville, serif;
     --font-mono: monospace;
     --radius: 0.5rem;
     --shadow-x: 0rem;
@@ -125,7 +125,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-sans), sans-serif;
+    font-family: var(--font-serif), sans-serif;
     font-weight: 700;
   }
 
