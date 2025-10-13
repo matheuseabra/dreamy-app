@@ -25,10 +25,9 @@ import {
   Settings2,
   Sparkles,
   Star,
-  Upload,
   User,
   X,
-  Zap,
+  Zap
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
@@ -63,6 +62,24 @@ const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
       return (
         <svg {...iconProps}>
           <rect x="5" y="2" width="6" height="12" {...rectProps} />
+        </svg>
+      );
+    case "landscape_4_3":
+      return (
+        <svg {...iconProps}>
+          <rect x="2" y="4" width="12" height="8" {...rectProps} />
+        </svg>
+      );
+    case "portrait_4_3":
+      return (
+        <svg {...iconProps}>
+          <rect x="4" y="2" width="8" height="12" {...rectProps} />
+        </svg>
+      );
+    case "square_hd":
+      return (
+        <svg {...iconProps}>
+          <rect x="2" y="2" width="12" height="12" {...rectProps} />
         </svg>
       );
     default:
@@ -197,7 +214,7 @@ const AI_MODELS = [
   },
   // Image-to-Image Models
   {
-    id: "fal-ai/flux/dev/image-to-image", 
+    id: "fal-ai/flux/dev/image-to-image",
     name: "Flux Dev I2I",
     description: "FLUX.1 [dev] image-to-image endpoint",
     icon: Image,
@@ -420,7 +437,6 @@ export function PromptBar({
 
         <div className="flex items-center gap-2 justify-between">
           <div className="flex items-center gap-2">
-            {/* Upload Button for I2I Models */}
             {isImageToImage ? (
               <div className="relative">
                 <input
@@ -444,7 +460,7 @@ export function PromptBar({
                   {isUploading ? (
                     <LoaderCircleIcon className="h-4 w-4 animate-spin" />
                   ) : (
-                    <Upload className="h-4 w-4" />
+                    <ImageDown className="h-4 w-4" />
                   )}
                 </Button>
                 {dragActive && (
@@ -473,7 +489,7 @@ export function PromptBar({
                 </Button>
               }
               label="Models"
-              className="w-72 max-h-120 overflow-y-auto border border-border"
+              className="w-100 max-h-[400px] overflow-y-auto border border-border"
             >
               <DropdownMenuRadioGroup
                 value={selectedModel}

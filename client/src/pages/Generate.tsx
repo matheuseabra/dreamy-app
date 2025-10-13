@@ -91,26 +91,26 @@ const Dashboard = () => {
           isLoading={imagesLoading}
         />
       </div>
-      
-      <div className="fixed w-full max-w-2xl mx-auto bottom-8 right-0 left-0 z-50">
-          <PromptBar
-            prompt={prompt}
-            onPromptChange={setPrompt}
-            onGenerate={handleGenerate}
-            isGenerating={isGenerating}
-            selectedModel={selectedModel}
-            onModelChange={setSelectedModel}
-            size={size}
-            onSizeChange={setSize}
-            quality={quality}
-            onQualityChange={setQuality}
-            style={style}
-            onStyleChange={setStyle}
-            sourceImageUrl={sourceImageUrl}
-            onSourceImageChange={handleSourceImageChange}
-            strength={strength}
-            onStrengthChange={handleStrengthChange}
-          />
+
+      <div className="fixed w-full max-w-3xl z-99 bottom-2 mx-auto right-0 left-[240px]">
+        <PromptBar
+          prompt={prompt}
+          onPromptChange={setPrompt}
+          onGenerate={handleGenerate}
+          isGenerating={isGenerating}
+          selectedModel={selectedModel}
+          onModelChange={setSelectedModel}
+          size={size}
+          onSizeChange={setSize}
+          quality={quality}
+          onQualityChange={setQuality}
+          style={style}
+          onStyleChange={setStyle}
+          sourceImageUrl={sourceImageUrl}
+          onSourceImageChange={handleSourceImageChange}
+          strength={strength}
+          onStrengthChange={handleStrengthChange}
+        />
       </div>
 
       <ImageModal
