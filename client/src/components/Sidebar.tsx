@@ -19,8 +19,7 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  Sidebar as SidebarPrimitive,
-  SidebarSeparator,
+  Sidebar as SidebarPrimitive
 } from "./ui/sidebar";
 
 const Sidebar: React.FC = () => {
@@ -74,7 +73,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <SidebarPrimitive
-      className="sticky top-0 h-screen bg-background border-r border-border"
+      className="sticky top-0 h-screen bg-background border border-none w-60"
       collapsible="none"
     >
       <SidebarHeader className="py-6 px-7">
@@ -102,7 +101,7 @@ const Sidebar: React.FC = () => {
             ))}
           </SidebarMenu>
         </SidebarGroup>
-        <SidebarSeparator className="opacity-30" />
+
         <SidebarGroup>
           <SidebarGroupLabel>Library</SidebarGroupLabel>
           <SidebarMenu>
@@ -125,7 +124,6 @@ const Sidebar: React.FC = () => {
       </SidebarContent>
 
       <SidebarFooter className="px-4 py-4">
-        <SidebarSeparator className="opacity-30 mb-4" />
         <SidebarGroup>
           <SidebarMenu>
             {supportItems.map((item) => (
