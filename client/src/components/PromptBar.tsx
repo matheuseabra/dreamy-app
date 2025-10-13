@@ -539,68 +539,70 @@ export function PromptBar({
 
             <SettingsDropdown
               trigger={
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
-                >
-                  <Settings2 className="h-4 w-4" />
-                </Button>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+              >
+                <Settings2 className="h-4 w-4" />
+              </Button>
               }
               label="Settings"
             >
               {isImageToImage && onStrengthChange && (
-                <>
-                  <DropdownMenuLabel>Strength</DropdownMenuLabel>
-                  <div className="px-2 py-2">
-                    <input
-                      type="range"
-                      min="0.1"
-                      max="1"
-                      step="0.1"
-                      value={strength}
-                      onChange={(e) =>
-                        onStrengthChange(parseFloat(e.target.value))
-                      }
-                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
-                    />
-                    <div className="flex justify-between text-xs text-muted-foreground mt-1">
-                      <span>0.1</span>
-                      <span>{strength}</span>
-                      <span>1.0</span>
-                    </div>
-                  </div>
-                  <DropdownMenuSeparator />
-                </>
+              <>
+                <DropdownMenuLabel>Strength</DropdownMenuLabel>
+                <div className="px-2 py-2">
+                <input
+                  type="range"
+                  min="0.1"
+                  max="1"
+                  step="0.1"
+                  value={strength}
+                  onChange={(e) =>
+                  onStrengthChange(parseFloat(e.target.value))
+                  }
+                  className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                />
+                <div className="flex justify-between text-xs text-muted-foreground mt-1">
+                  <span>0.1</span>
+                  <span>{strength}</span>
+                  <span>1.0</span>
+                </div>
+                </div>
+                <DropdownMenuSeparator />
+              </>
               )}
+
               <DropdownMenuLabel>Quality</DropdownMenuLabel>
               <DropdownMenuRadioGroup
-                value={quality}
-                onValueChange={onQualityChange}
+              value={quality}
+              onValueChange={onQualityChange}
               >
-                <DropdownMenuRadioItem value="standard">
-                  Standard
+              {[
+                { value: "standard", label: "Standard" },
+                { value: "hd", label: "HD" },
+                { value: "ultra", label: "Ultra HD" },
+              ].map((opt) => (
+                <DropdownMenuRadioItem key={opt.value} value={opt.value}>
+                {opt.label}
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="hd">HD</DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="ultra">
-                  Ultra HD
-                </DropdownMenuRadioItem>
+              ))}
               </DropdownMenuRadioGroup>
+
               <DropdownMenuSeparator />
+
               <DropdownMenuLabel>Style</DropdownMenuLabel>
-              <DropdownMenuRadioGroup
-                value={style}
-                onValueChange={onStyleChange}
-              >
-                <DropdownMenuRadioItem value="natural">
-                  Natural
+              <DropdownMenuRadioGroup value={style} onValueChange={onStyleChange}>
+              {[
+                { value: "natural", label: "Natural" },
+                { value: "vivid", label: "Vivid" },
+                { value: "artistic", label: "Artistic" },
+              ].map((opt) => (
+                <DropdownMenuRadioItem key={opt.value} value={opt.value}>
+                {opt.label}
                 </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="vivid">
-                  Vivid
-                </DropdownMenuRadioItem>
-                <DropdownMenuRadioItem value="artistic">
-                  Artistic
-                </DropdownMenuRadioItem>
+              ))}
               </DropdownMenuRadioGroup>
             </SettingsDropdown>
           </div>
