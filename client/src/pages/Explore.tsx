@@ -83,7 +83,7 @@ export default function Explore() {
     <div className="bg-background relative">
       <div className="container mx-auto">
         <div className="my-12 text-center">
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold bg-gradient-to-b from-white  to-zinc-400 bg-clip-text text-transparent">
             Unleash Your Imagination
           </h1>
         </div>

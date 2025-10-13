@@ -40,7 +40,7 @@ const DashboardHeader = () => {
                 <div className="rounded-xl">
                   <Button
                     variant="outline"
-                    className="h-9 px-6 text-sm font-medium relative overflow-hidden rounded-xl"
+                    className="h-9 px-6 text-sm font-medium relative overflow-hidden rounded-full"
                     style={{
                       border: "1px solid transparent",
                       backgroundImage: `
@@ -52,7 +52,7 @@ const DashboardHeader = () => {
                     }}
                   >
                     <div className="flex items-center gap-2">
-                      <span>Subscribe</span>
+                      <span className="text-md font-medium">Subscribe</span>
                       <Sparkles className="h-4 w-4" />
                     </div>
                   </Button>

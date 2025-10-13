@@ -99,8 +99,8 @@
     --sidebar-accent-foreground: 240 5.8824% 90%;
     --sidebar-border: 240 3.7037% 15.8824%;
     --sidebar-ring: 253.6765 62.3853% 57.2549%;
-    --font-sans: DM Sans, ui-sans-serif, sans-serif, system-ui;
-    --font-serif: Libre Baskerville, ui-serif, serif;
+    --font-sans: DM Sans, sans-serif;
+    --font-serif: Libre Baskerville, serif;
     --font-mono: monospace;
     --radius: 0.5rem;
     --shadow-x: 0rem;
