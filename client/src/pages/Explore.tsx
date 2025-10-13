@@ -88,7 +88,7 @@ export default function Explore() {
           </h1>
         </div>
         {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1">
             {Array.from({ length: 12 }).map((_, index) => (
               <div key={index} className="space-y-1">
                 <div className="aspect-square bg-muted/20 rounded-lg animate-pulse" />

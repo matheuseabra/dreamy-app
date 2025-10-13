@@ -1,7 +1,9 @@
 import useAuth from "@/hooks/useAuth";
 import { Bell, LogOut, Sparkles } from "lucide-react";
+import { Pricing } from "./landing/Pricing";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "./ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -33,17 +35,33 @@ const DashboardHeader = () => {
             <Button variant="ghost" size="icon" className="h-9 w-9">
               <Bell className="h-5 w-5" />
             </Button>
-              <div className="rounded-xl p-px bg-gradient-to-r from-purple-500 to-blue-500">
-                <Button
-                  variant="outline"
-                  className="h-9 px-6 text-sm font-semibold relative overflow-hidden rounded-xl bg-background hover:bg-muted"
-                >
-                  <div className="flex items-center gap-2">
-                    <span>Subscribe</span>
-                    <Sparkles className="h-4 w-4" />
-                  </div>
-                </Button>
-              </div>
+            <Dialog>
+              <DialogTrigger asChild>
+                <div className="rounded-xl">
+                  <Button
+                    variant="outline"
+                    className="h-9 px-6 text-sm font-medium relative overflow-hidden rounded-xl"
+                    style={{
+                      border: "1px solid transparent",
+                      backgroundImage: `
+                    linear-gradient(to bottom, rgba(10, 10, 10, 1), rgba(10, 10, 10, 0.8)),
+                    linear-gradient(to bottom, rgba(164, 143, 255, 0.5), rgba(164, 143, 255, 1))
+                  `,
+                      backgroundOrigin: "border-box",
+                      backgroundClip: "padding-box, border-box",
+                    }}
+                  >
+                    <div className="flex items-center gap-2">
+                      <span>Subscribe</span>
+                      <Sparkles className="h-4 w-4" />
+                    </div>
+                  </Button>
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-full border border-none w-full h-[100vh] sm:h-[100vh] sm:max-h-[100vh] mt-0">
+                <Pricing />
+              </DialogContent>
+            </Dialog>
             <div className="mx-1 h-5 w-px bg-border" />
             <DropdownMenu>
               <DropdownMenuTrigger asChild>

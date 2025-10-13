@@ -16,8 +16,8 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
   const allImages = [...generatedImages];
 
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between mb-6">
+    <div className="w-full mt-12">
+      {/* <div className="flex items-center justify-between mb-6">
         <div>
           {generatedImages.length > 0 && !isLoading && (
             <p className="text-sm text-muted-foreground mt-1">
@@ -25,7 +25,7 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
             </p>
           )}
         </div>
-      </div>
+      </div> */}
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-1">
           {Array.from({ length: 8 }).map((_, index) => (
