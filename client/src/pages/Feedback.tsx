@@ -58,8 +58,6 @@ const Feedback = () => {
 
   return (
     <div className="relative min-h-screen">
-      {/* Purple Radial Glow Background */}
-      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_400px_at_50%_400px,hsl(var(--primary)/0.34),transparent)]" />
       <div className="container mx-auto relative z-10">
         <div className="my-12 text-center">
           <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent flex items-center justify-center gap-2 mb-2">
