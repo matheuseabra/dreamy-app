@@ -67,27 +67,29 @@ const Support = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-6">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-2">
+    <div className="relative min-h-screen">
+      {/* Purple Radial Glow Background */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_400px_at_50%_400px,hsl(var(--primary)/0.34),transparent)]" />
+      <div className="container mx-auto relative z-10">
+        <div className="my-12 text-center">
+          <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent flex items-center justify-center gap-2 mb-2">
             <HelpCircle className="h-8 w-8" />
             Support Center
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Get help with Dreamy Studio or contact our support team
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           {/* Contact Form */}
-          <Card>
+          <Card className="bg-card/50 backdrop-blur border-border/50 shadow-lg">
             <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Mail className="h-5 w-5" />
+              <CardTitle className="flex items-center gap-2 text-xl">
+                <Mail className="h-5 w-5 text-primary" />
                 Contact Support
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-muted-foreground">
                 Send us a message and we'll get back to you as soon as possible
               </CardDescription>
             </CardHeader>
@@ -162,47 +164,59 @@ const Support = () => {
 
           {/* FAQ Section */}
           <div className="space-y-6">
-            <Card>
+            <Card className="bg-card/50 backdrop-blur border-border/50 shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <BookOpen className="h-5 w-5 text-primary" />
                   Frequently Asked Questions
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-muted-foreground">
                   Quick answers to common questions
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {faqItems.map((item, index) => (
-                    <div key={index} className="border-l-2 border-primary/20 pl-4">
-                      <h4 className="font-medium text-foreground mb-1">{item.question}</h4>
-                      <p className="text-sm text-muted-foreground">{item.answer}</p>
+                    <div 
+                      key={index} 
+                      className="border-l-2 border-primary/20 pl-4 hover:border-primary/40 transition-colors"
+                    >
+                      <h4 className="font-medium text-foreground mb-2">{item.question}</h4>
+                      <p className="text-sm text-muted-foreground leading-relaxed">{item.answer}</p>
                     </div>
                   ))}
                 </div>
               </CardContent>
             </Card>
 
-            <Card>
+            <Card className="bg-card/50 backdrop-blur border-border/50 shadow-lg">
               <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <AlertCircle className="h-5 w-5" />
+                <CardTitle className="flex items-center gap-2 text-xl">
+                  <AlertCircle className="h-5 w-5 text-primary" />
                   Quick Help
                 </CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <Button variant="outline" className="w-full justify-start">
-                    <BookOpen className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary/10 transition-colors"
+                  >
+                    <BookOpen className="h-4 w-4 mr-2 text-primary" />
                     View Documentation
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <MessageSquare className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary/10 transition-colors"
+                  >
+                    <MessageSquare className="h-4 w-4 mr-2 text-primary" />
                     Join Community Discord
                   </Button>
-                  <Button variant="outline" className="w-full justify-start">
-                    <Mail className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    className="w-full justify-start hover:bg-primary/10 transition-colors"
+                  >
+                    <Mail className="h-4 w-4 mr-2 text-primary" />
                     Email: support@dreamystudio.com
                   </Button>
                 </div>

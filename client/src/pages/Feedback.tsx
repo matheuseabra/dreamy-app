@@ -57,23 +57,25 @@ const Feedback = () => {
   ];
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-6">
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold text-foreground mb-2 flex items-center gap-2">
+    <div className="relative min-h-screen">
+      {/* Purple Radial Glow Background */}
+      <div className="absolute inset-0 z-0 bg-[radial-gradient(circle_400px_at_50%_400px,hsl(var(--primary)/0.34),transparent)]" />
+      <div className="container mx-auto relative z-10">
+        <div className="my-12 text-center">
+          <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent flex items-center justify-center gap-2 mb-2">
             <MessageSquare className="h-8 w-8" />
             Feedback & Suggestions
           </h1>
-          <p className="text-muted-foreground">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Help us improve Dreamy Studio by sharing your thoughts and suggestions
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Card>
+          <Card className="bg-card/50 backdrop-blur border-border/50 shadow-lg">
             <CardHeader>
-              <CardTitle>Share Your Feedback</CardTitle>
-              <CardDescription>
+              <CardTitle className="text-xl">Share Your Feedback</CardTitle>
+              <CardDescription className="text-muted-foreground">
                 Your input helps us make Dreamy Studio better for everyone
               </CardDescription>
             </CardHeader>
@@ -109,19 +111,19 @@ const Feedback = () => {
                     {feedbackTypes.map((type) => (
                       <Card 
                         key={type.value}
-                        className={`cursor-pointer transition-all hover:shadow-md ${
+                        className={`cursor-pointer transition-all hover:shadow-lg backdrop-blur border-border/50 ${
                           formData.type === type.value 
-                            ? 'ring-2 ring-primary bg-primary/5' 
-                            : 'hover:bg-muted/50'
+                            ? 'ring-2 ring-primary bg-primary/10 border-primary' 
+                            : 'hover:bg-card/80 hover:border-primary/50'
                         }`}
                         onClick={() => handleInputChange("type", type.value)}
                       >
                         <CardContent className="p-4">
                           <div className="flex items-center gap-3">
-                            <type.icon className="h-5 w-5 text-primary" />
+                            <type.icon className="h-6 w-6 text-primary" />
                             <div>
-                              <h4 className="font-medium">{type.label}</h4>
-                              <p className="text-sm text-muted-foreground">{type.description}</p>
+                              <h4 className="font-medium text-white">{type.label}</h4>
+                              <p className="text-sm text-muted-foreground mt-1">{type.description}</p>
                             </div>
                           </div>
                         </CardContent>
@@ -139,15 +141,15 @@ const Feedback = () => {
                       onValueChange={(value) => handleInputChange("rating", value)}
                       className="flex gap-6 mt-3"
                     >
-                      <div className="flex items-center space-x-2">
+                      <div className="flex items-center space-x-2 group cursor-pointer hover:opacity-90 transition-opacity">
                         <RadioGroupItem value="5" id="rating-5" />
                         <Label htmlFor="rating-5" className="flex items-center gap-1 cursor-pointer">
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                          <span className="ml-2">Excellent</span>
+                          <Star className="h-5 w-5 fill-yellow-400 text-yellow-400 transition-transform group-hover:scale-110" />
+                          <Star className="h-5 w-5 fill-yellow-400 text-yellow-400 transition-transform group-hover:scale-110" />
+                          <Star className="h-5 w-5 fill-yellow-400 text-yellow-400 transition-transform group-hover:scale-110" />
+                          <Star className="h-5 w-5 fill-yellow-400 text-yellow-400 transition-transform group-hover:scale-110" />
+                          <Star className="h-5 w-5 fill-yellow-400 text-yellow-400 transition-transform group-hover:scale-110" />
+                          <span className="ml-2 text-white">Excellent</span>
                         </Label>
                       </div>
                       <div className="flex items-center space-x-2">

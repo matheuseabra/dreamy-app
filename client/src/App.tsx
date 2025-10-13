@@ -48,6 +48,26 @@ const App = () => (
               <Route path="/signup" element={<Signup />} />
               <Route path="/contact" element={<Contact />} />
               <Route
+                path="/support"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Support />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/feedback"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Feedback />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
                 path="/imagine"
                 element={
                   <ProtectedRoute>

@@ -58,7 +58,7 @@ const DashboardHeader = () => {
                   </Button>
                 </div>
               </DialogTrigger>
-              <DialogContent className="max-w-full border border-none w-full h-[100vh] sm:h-[100vh] sm:max-h-[100vh] mt-0">
+              <DialogContent className="max-w-full w-full max-h-screen sm:max-h-screen mt-0 overflow-auto border-none">
                 <Pricing />
               </DialogContent>
             </Dialog>
