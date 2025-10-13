@@ -1,8 +1,10 @@
 import { createError } from "../middleware/error-handler";
 import supabaseAdmin from "../supabase/client";
+import { ImageOptimizer } from "./image-optimizer";
 
 export class StorageService {
   private bucket = 'generated-images';
+  private imageOptimizer = new ImageOptimizer();
 
   async uploadFromUrl(
     userId: string,
@@ -10,7 +12,7 @@ export class StorageService {
     imageId: string,
     imageUrl: string,
     index: number = 0
-  ): Promise<string> {
+  ): Promise<{ originalPath: string; webpPath: string; metadata: { width: number; height: number; size: number } }> {
     try {
       // Download image from fal URL
       const response = await fetch(imageUrl);
@@ -19,27 +21,38 @@ export class StorageService {
       }
 
       const arrayBuffer = await response.arrayBuffer();
-      const buffer = new Uint8Array(arrayBuffer);
+      const originalBuffer = Buffer.from(arrayBuffer);
 
-      // Determine file extension from content-type
+      // Determine original file extension
       const contentType = response.headers.get('content-type') || 'image/png';
       const extension = contentType.includes('jpeg') ? 'jpg' : 'png';
 
-      // Create storage path
-      const fileName = `${imageId}_${String(index).padStart(3, '0')}.${extension}`;
-      const path = `${userId}/${generationId}/${fileName}`;
+      // Optimize to WebP
+      const { webpBuffer, metadata } = await this.imageOptimizer.optimizeToWebP(originalBuffer);
 
-      // Upload to Supabase Storage
-      const { error } = await supabaseAdmin.storage
-        .from(this.bucket)
-        .upload(path, buffer, {
+      // Create storage paths
+      const originalFileName = `${imageId}_${String(index).padStart(3, '0')}.${extension}`;
+      const webpFileName = `${imageId}_${String(index).padStart(3, '0')}.webp`;
+      const basePath = `${userId}/${generationId}`;
+      const originalPath = `${basePath}/${originalFileName}`;
+      const webpPath = `${basePath}/${webpFileName}`;
+
+      // Upload both versions to Supabase Storage
+      const [originalUpload, webpUpload] = await Promise.all([
+        supabaseAdmin.storage.from(this.bucket).upload(originalPath, originalBuffer, {
           contentType,
           upsert: false,
-        });
+        }),
+        supabaseAdmin.storage.from(this.bucket).upload(webpPath, webpBuffer, {
+          contentType: 'image/webp',
+          upsert: false,
+        }),
+      ]);
 
-      if (error) throw error;
+      if (originalUpload.error) throw originalUpload.error;
+      if (webpUpload.error) throw webpUpload.error;
 
-      return path;
+      return { originalPath, webpPath, metadata };
     } catch (error: any) {
       console.error('Storage upload error:', error);
       throw createError(`Failed to upload image: ${error.message}`, 500);

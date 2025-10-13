@@ -31,9 +31,10 @@ router.get(
       if (error) throw error;
 
       const imagesWithUrls = await Promise.all(
-        (images || []).map(async (img) => ({
+        (images).map(async (img) => ({
           id: img.id,
-          url: await storageService.getSignedUrl(img.storage_path, 3600),
+          url: await storageService.getSignedUrl(img.webp_path || img.storage_path, 3600),
+          downloadUrl: await storageService.getSignedUrl(img.storage_path, 3600),
           width: img.width,
           height: img.height,
           prompt: img.generations?.prompt,
@@ -83,13 +84,15 @@ router.get('/:id', authenticateUser, async (req: AuthRequest, res) => {
       });
     }
 
-    const url = await storageService.getSignedUrl(image.storage_path, 3600);
+    const url = await storageService.getSignedUrl(image.webp_path || image.storage_path, 3600);
+    const downloadUrl = await storageService.getSignedUrl(image.storage_path, 3600);
 
     res.json({
       success: true,
       image: {
         id: image.id,
         url,
+        downloadUrl,
         width: image.width,
         height: image.height,
         isFavorited: image.is_favorited,
@@ -160,7 +163,7 @@ router.delete('/:id', authenticateUser, async (req: AuthRequest, res) => {
 
     const { data: image, error: fetchError } = await supabaseAdmin
       .from('images')
-      .select('storage_path')
+      .select('storage_path, webp_path')
       .eq('id', imageId)
       .eq('user_id', userId)
       .single();
@@ -172,8 +175,12 @@ router.delete('/:id', authenticateUser, async (req: AuthRequest, res) => {
       });
     }
 
-    // Delete from storage
-    await storageService.deleteImage(image.storage_path);
+    // Delete from storage (both original and WebP versions)
+    const deletePromises = [storageService.deleteImage(image.storage_path)];
+    if (image.webp_path) {
+      deletePromises.push(storageService.deleteImage(image.webp_path));
+    }
+    await Promise.all(deletePromises);
 
     // Delete from database
     const { error: deleteError } = await supabaseAdmin
@@ -213,7 +220,8 @@ router.get('/favorites/list', authenticateUser, async (req: AuthRequest, res) =>
     const imagesWithUrls = await Promise.all(
       (images || []).map(async (img) => ({
         id: img.id,
-        url: await storageService.getSignedUrl(img.storage_path, 3600),
+        url: await storageService.getSignedUrl(img.webp_path || img.storage_path, 3600),
+        downloadUrl: await storageService.getSignedUrl(img.storage_path, 3600),
         width: img.width,
         height: img.height,
         prompt: img.generations?.prompt,

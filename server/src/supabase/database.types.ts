@@ -33,6 +33,7 @@ export type Database = {
           prompt: string
           queue_position: number | null
           seed: number | null
+          source_image_url: string | null
           started_at: string
           status: string
           updated_at: string
@@ -56,6 +57,7 @@ export type Database = {
           prompt: string
           queue_position?: number | null
           seed?: number | null
+          source_image_url?: string | null
           started_at?: string
           status?: string
           updated_at?: string
@@ -79,6 +81,7 @@ export type Database = {
           prompt?: string
           queue_position?: number | null
           seed?: number | null
+          source_image_url?: string | null
           started_at?: string
           status?: string
           updated_at?: string
@@ -130,11 +133,13 @@ export type Database = {
           id: string
           is_favorited: boolean
           is_public: boolean
+          optimized_size: number | null
           storage_bucket: string
           storage_path: string
           updated_at: string
           url: string | null
           user_id: string
+          webp_path: string | null
           width: number | null
         }
         Insert: {
@@ -148,11 +153,13 @@ export type Database = {
           id?: string
           is_favorited?: boolean
           is_public?: boolean
+          optimized_size?: number | null
           storage_bucket?: string
           storage_path: string
           updated_at?: string
           url?: string | null
           user_id: string
+          webp_path?: string | null
           width?: number | null
         }
         Update: {
@@ -166,11 +173,13 @@ export type Database = {
           id?: string
           is_favorited?: boolean
           is_public?: boolean
+          optimized_size?: number | null
           storage_bucket?: string
           storage_path?: string
           updated_at?: string
           url?: string | null
           user_id?: string
+          webp_path?: string | null
           width?: number | null
         }
         Relationships: [

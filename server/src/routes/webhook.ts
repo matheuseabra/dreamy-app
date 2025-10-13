@@ -40,8 +40,8 @@ router.post("/fal/:generationId", async (req, res) => {
         const image = images[i];
         const imageId = crypto.randomUUID();
 
-        // Upload to storage from fal URL
-        const storagePath = await storageService.uploadFromUrl(
+        // Upload to storage from fal URL (now returns both paths)
+        const { originalPath, webpPath, metadata } = await storageService.uploadFromUrl(
           generation.user_id,
           generationId,
           imageId,
@@ -49,15 +49,17 @@ router.post("/fal/:generationId", async (req, res) => {
           i
         );
 
-        // Create image record
+        // Create image record with both paths
         await supabaseAdmin.from("images").insert({
           id: imageId,
           generation_id: generationId,
           user_id: generation.user_id,
-          storage_path: storagePath,
+          storage_path: originalPath,
+          webp_path: webpPath,
+          optimized_size: metadata.size,
           url: image.url,
-          width: image.width,
-          height: image.height,
+          width: metadata.width || image.width,
+          height: metadata.height || image.height,
           content_type: image.content_type,
           fal_metadata: {
             seed: webhookData.seed,
