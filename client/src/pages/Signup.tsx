@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
 import React, { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import { LoaderCircleIcon } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Signup: React.FC = () => {
@@ -13,11 +14,14 @@ const Signup: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const { signUp, signInWithGoogle } = useAuth();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setLoading(true);
     const res = await signUp(email, password);
+    setLoading(false);
     if (res.error) setError(res.error);
     else navigate("/imagine");
   };
@@ -58,17 +62,22 @@ const Signup: React.FC = () => {
                 className="h-12 text-base bg-background text-white"
               />
               {error && <div className="text-base text-red-400">{error}</div>}
-              <Button
-                type="submit"
-                className="w-full h-12 text-base font-semibold text-black"
-                style={{
-                  background:
-                    "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
-                  border: "none",
-                }}
-              >
-                Create account
-              </Button>
+               <Button
+                 type="submit"
+                 className="w-full h-12 text-base font-semibold text-black"
+                 style={{
+                   background:
+                     "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
+                   border: "none",
+                 }}
+                 disabled={loading}
+               >
+                 {loading ? (
+                   <LoaderCircleIcon className="h-4 w-4 animate-spin" />
+                 ) : (
+                   "Create account"
+                 )}
+               </Button>
             </form>
 
             <div className="text-center mt-6">

@@ -26,7 +26,7 @@ router.get(
         .select('*, generations(prompt, model)', { count: 'exact' })
         .eq('user_id', userId)
         .order('created_at', { ascending: false })
-        .range(offset, offset + limit - 1);
+        // .range(offset, offset + limit - 1);
 
       if (error) throw error;
 

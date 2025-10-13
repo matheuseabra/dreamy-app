@@ -131,7 +131,7 @@ export const ImageModal = ({
                 <div
                   className={`flex items-start justify-between ${
                     showFullPrompt
-                      ? "max-h-60 overflow-auto scrollbar-thin"
+                      ? "max-h-80 overflow-auto scrollbar-thin"
                       : "max-h-48 overflow-hidden"
                   }`}
                 >

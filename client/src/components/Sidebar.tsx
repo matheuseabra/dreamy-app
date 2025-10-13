@@ -90,11 +90,11 @@ const Sidebar: React.FC = () => {
                 <SidebarMenuButton
                   asChild
                   isActive={isActive(item.path)}
-                  className="h-10 text-md font-medium hover:rounded-lg hover:bg-accent"
+                  className="h-10 text-md font-medium"
                 >
                   <Link to={item.path}>
                     <item.icon className="h-5 w-5" />
-                    <span className="font-medium">{item.label}</span>
+                    <span>{item.label}</span>
                   </Link>
                 </SidebarMenuButton>
               </SidebarMenuItem>
