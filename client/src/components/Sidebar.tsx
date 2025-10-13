@@ -1,11 +1,10 @@
 import {
   Compass,
-  Edit3,
   FolderOpen,
   HelpCircle,
   MessageSquare,
   Sparkles,
-  Star,
+  Star
 } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -37,12 +36,7 @@ const Sidebar: React.FC = () => {
       path: "/imagine",
       icon: Sparkles,
       label: "Imagine",
-    },
-    {
-      path: "/edit",
-      icon: Edit3,
-      label: "Edit",
-    },
+    }
   ];
 
   const libraryItems = [

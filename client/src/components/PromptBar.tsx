@@ -254,7 +254,7 @@ const SIZE_LABEL: Record<string, string> = {
   square_hd: "1:1 HD",
   square: "1:1",
   portrait_4_3: "3:4",
-  portrait_16_9: "9:16",
+  portrait_9_16: "9:16",
   landscape_4_3: "4:3",
   landscape_16_9: "16:9",
 };
@@ -526,7 +526,7 @@ export function PromptBar({
                   <DropdownMenuRadioItem
                     key={value}
                     value={value}
-                    className="cursor-pointer"
+                    className="cursor-pointer p-2"
                   >
                     <div className="flex items-center gap-2">
                       <AspectRatioIcon ratio={value} />
