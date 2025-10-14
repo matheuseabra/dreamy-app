@@ -191,7 +191,7 @@ export function PromptBar({
 
   return (
     <>
-      <div className="bg-background/90 backdrop-blur-md gap-2 rounded-xl border-none px-3 py-2 shadow-lg">
+      <div className="bg-card/90 backdrop-blur-md gap-2 rounded-xl border border-border px-3 py-2 shadow-lg">
         {isImageToImage && sourceImageUrl && (
           <div className="relative">
             <div className="relative inline-block">
@@ -203,7 +203,7 @@ export function PromptBar({
               <Button
                 variant="ghost"
                 size="icon"
-                className="absolute -top-1 -right-1 h-6 w-6 bg-background border border-border shadow-sm"
+                className="absolute -top-1 -right-1 h-6 w-6 border border-border shadow-sm"
                 onClick={handleRemoveImage}
               >
                 <X className="h-1 w-1" />
@@ -238,7 +238,7 @@ export function PromptBar({
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                  className="h-8 w-8 mt-1 flex-shrink-0 border border-border"
                   onClick={() => fileInputRef.current?.click()}
                   disabled={isUploading}
                   onDragEnter={handleDrag}
@@ -260,7 +260,7 @@ export function PromptBar({
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                className="h-8 w-8 mt-1 flex-shrink-0 border border-border"
                 disabled
               >
                 <ImageDown className="h-4 w-4" />
@@ -272,7 +272,7 @@ export function PromptBar({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-8 px-2 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                  className="h-8 px-2 mt-1 flex-shrink-0 border border-border"
                 >
                   <span className="text-xs">{selectedModelData.name}</span>
                 </Button>
@@ -311,7 +311,7 @@ export function PromptBar({
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-8 px-2 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                  className="h-8 px-2 mt-1 flex-shrink-0 border border-border"
                 >
                   <Ratio className="h-4 w-4 mr-1" />
                   <span className="text-xs">{SIZE_LABEL[size] || "1:1"}</span>
@@ -341,7 +341,7 @@ export function PromptBar({
                 <Button
                   variant="ghost"
                   size="icon"
-                  className="h-8 w-8 border border-border text-muted-foreground bg-muted/50 hover:bg-muted/70 mt-1 flex-shrink-0"
+                  className="h-8 w-8 mt-1 flex-shrink-0 border border-border"
                 >
                   <Settings2 className="h-4 w-4" />
                 </Button>
@@ -361,7 +361,7 @@ export function PromptBar({
                       onChange={(e) =>
                         onStrengthChange(parseFloat(e.target.value))
                       }
-                      className="w-full h-2 bg-muted rounded-lg appearance-none cursor-pointer"
+                      className="w-full h-2 bg-muted/30 rounded-lg appearance-none cursor-pointer"
                     />
                     <div className="flex justify-between text-xs text-muted-foreground mt-1">
                       <span>0.1</span>
@@ -418,10 +418,11 @@ export function PromptBar({
           </div>
           <div className="flex items-center">
             <Button
+              variant="outline"
               onClick={onGenerate}
               disabled={isGenerating || !prompt.trim()}
               size="sm"
-              className="h-8 px-4 rounded-lg bg-muted/50 hover:bg-muted/70 border border-border mt-1 flex-shrink-0"
+              className="h-8 px-4 rounded-lg mt-1 flex-shrink-0"
             >
               {isGenerating ? (
                 <LoaderCircleIcon className="h-4 w-4 animate-spin" />

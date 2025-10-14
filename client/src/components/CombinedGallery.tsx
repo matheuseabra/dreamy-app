@@ -1,5 +1,4 @@
 import { ImageCard } from "./ImageCard";
-import { ImageGallery } from "./ImageGallery";
 
 interface CombinedGalleryProps {
   onImageClick: (image) => void;
