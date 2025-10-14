@@ -47,8 +47,6 @@ SUPABASE_ANON_KEY=your_supabase_anon_key
 
 # AI Service API Keys
 FAL_API_KEY=your_fal_api_key
-OPENAI_API_KEY=your_openai_api_key
-REPLICATE_API_KEY=your_replicate_api_key
 
 # Webhook Configuration
 WEBHOOK_BASE_URL=http://localhost:9000

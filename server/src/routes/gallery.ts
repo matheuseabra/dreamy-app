@@ -10,7 +10,6 @@ import { paginationSchema, updateImageSchema } from '../types/validation';
 const router = Router();
 const storageService = new StorageService();
 
-// Get user's images (paginated)
 router.get(
   '/',
   authenticateUser,
@@ -35,6 +34,8 @@ router.get(
           id: img.id,
           url: await storageService.getSignedUrl(img.webp_path || img.storage_path, 3600),
           downloadUrl: await storageService.getSignedUrl(img.storage_path, 3600),
+          format: img.format,
+          fileSize: img.file_size_bytes,
           width: img.width,
           height: img.height,
           prompt: img.generations?.prompt,
