@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import { Bell, LogOut, Sparkles } from "lucide-react";
+import { Bell, LogOut } from "lucide-react";
 import { Pricing } from "./landing/Pricing";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -40,7 +40,7 @@ const DashboardHeader = () => {
                 <div className="rounded-xl">
                   <Button
                     variant="outline"
-                    className="h-9 px-6 text-sm font-medium relative overflow-hidden rounded-full"
+                    className="h-9 px-6 text-sm font-medium relative overflow-hidden rounded-xl"
                     style={{
                       border: "1px solid transparent",
                       backgroundImage: `
@@ -53,7 +53,6 @@ const DashboardHeader = () => {
                   >
                     <div className="flex items-center gap-2">
                       <span className="text-md font-medium">Subscribe</span>
-                      <Sparkles className="h-4 w-4" />
                     </div>
                   </Button>
                 </div>

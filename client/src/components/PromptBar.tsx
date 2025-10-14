@@ -191,7 +191,7 @@ export function PromptBar({
 
   return (
     <>
-      <div className="bg-card/90 backdrop-blur-md gap-2 rounded-xl border border-border px-3 py-2 shadow-lg">
+      <div className="bg-card/90 backdrop-blur-md gap-2 rounded-xl border border-none p-2 shadow-lg">
         {isImageToImage && sourceImageUrl && (
           <div className="relative">
             <div className="relative inline-block">

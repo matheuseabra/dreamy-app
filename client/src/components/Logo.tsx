@@ -7,9 +7,9 @@ const Logo: React.FC<{ className?: string }> = ({ className = "" }) => {
       <img
         src={magicMindLogo}
         alt="logo"
-        className={`h-10 w-auto ${className}`} // Apply className and set a default height
+        className={`h-10 w-auto ${className}`}
       />
-      <h4>MageMind</h4>
+      <h4>Wizzard</h4>
     </div>
   );
 };
