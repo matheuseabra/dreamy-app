@@ -1,5 +1,6 @@
 import useAuth from "@/hooks/useAuth";
-import { Bell, LogOut } from "lucide-react";
+import { Bell, LogOut, User } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Pricing } from "./landing/Pricing";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -77,7 +78,7 @@ const DashboardHeader = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="bg-background/50 backdrop-blur-md w-56 border border-border"
+                className="bg-card/90 backdrop-blur-md w-56 border border-border"
                 align="end"
                 forceMount
               >
@@ -95,6 +96,19 @@ const DashboardHeader = () => {
                     )}
                   </div>
                 </div>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem asChild>
+                  <Link to="/account" className="flex items-center gap-2 cursor-pointer">
+                    <User className="mr-2 h-4 w-4 text-primary" />
+                    <span className="text-sm">My Account</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to={user?.id ? `/profile/${user.id}` : "#"} className="flex items-center gap-2 cursor-pointer">
+                    <User className="mr-2 h-4 w-4 text-primary" />
+                    <span className="text-sm">Profile</span>
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
                   className="cursor-pointer"

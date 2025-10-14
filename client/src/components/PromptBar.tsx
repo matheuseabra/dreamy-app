@@ -17,10 +17,10 @@ import {
 } from "@/config/imageModels";
 import useAuth from "@/hooks/useAuth";
 import {
+  ArrowUp,
   ImageDown,
   LoaderCircleIcon,
   Ratio,
-  SendHorizonalIcon,
   Settings2,
   X
 } from "lucide-react";
@@ -422,12 +422,12 @@ export function PromptBar({
               onClick={onGenerate}
               disabled={isGenerating || !prompt.trim()}
               size="sm"
-              className="h-8 px-4 rounded-lg mt-1 flex-shrink-0"
+              className="h-10 rounded-xl mt-1 flex-shrink-0"
             >
               {isGenerating ? (
                 <LoaderCircleIcon className="h-4 w-4 animate-spin" />
               ) : (
-                <SendHorizonalIcon className="h-4 w-4" />
+                <ArrowUp className="h-8 w-8" />
               )}
             </Button>
           </div>

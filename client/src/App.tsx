@@ -8,6 +8,7 @@ import { LandingPage } from "./components/LandingPage";
 import Layout from "./components/Layout";
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
+import AccountPage from "./pages/Account";
 import Assets from "./pages/Assets";
 import Contact from "./pages/Contact";
 import Edit from "./pages/Edit";
@@ -16,6 +17,7 @@ import Feedback from "./pages/Feedback";
 import Generate from "./pages/Generate";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
+import ProfilePage from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Support from "./pages/Support";
 
@@ -123,6 +125,17 @@ const App = () => (
                   <ProtectedRoute>
                     <Layout>
                       <Feedback />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route path="/profile/:id" element={<ProfilePage />} />
+              <Route
+                path="/account"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <AccountPage />
                     </Layout>
                   </ProtectedRoute>
                 }
