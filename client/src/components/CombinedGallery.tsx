@@ -1,3 +1,4 @@
+import { Image } from "lucide-react";
 import { ImageCard } from "./ImageCard";
 
 interface CombinedGalleryProps {
@@ -34,19 +35,7 @@ export const CombinedGallery = ({ onImageClick, generatedImages, isLoading }: Co
       ) : generatedImages.length === 0 ? (
         <div className="flex flex-col items-center justify-center h-[400px] border border-dashed border-muted-foreground/20 rounded-lg">
           <div className="h-12 w-12 text-muted-foreground">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M21 5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5z" />
-              <circle cx="8.5" cy="8.5" r="1.5" />
-              <path d="m21 15-5-5L5 21" />
-            </svg>
+            <Image className="h-12 w-12" />
           </div>
           <p className="mt-4 text-sm text-muted-foreground">No images generated yet</p>
         </div>

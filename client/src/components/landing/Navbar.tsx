@@ -52,7 +52,7 @@ export const Navbar = () => {
               FAQ
             </button>
             <Link to="/login">
-              <Button variant="ghost" className="text-white hover:text-purple-300 hover:bg-white/10">Sign In</Button>
+              <Button variant="link" className="text-white text-md hover:text-purple-300 hover:no-underline transition-colors">Sign In</Button>
             </Link>
             <Link to="/signup">
               <Button 

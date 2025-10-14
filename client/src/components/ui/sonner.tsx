@@ -9,17 +9,17 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       toastOptions={{
-        style: {
-          background: "#1c1921",
-        },
         classNames: {
+          success: "text-green-600",
+          error: "text-red-600",
+          info: "text-blue-600",
+          toast: "border border-none bg-secondary",
           title: "text-white",
           description: "text-white",
         },
       }} 
       theme={theme as ToasterProps["theme"]}
       className="toaster group"
-      richColors
       {...props}
     />
   );
