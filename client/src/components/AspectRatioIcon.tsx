@@ -26,7 +26,7 @@ const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
           <rect x="2" y="5" width="12" height="6" {...rectProps} />
         </svg>
       );
-    case "portrait_9_16":
+    case "portrait_16_9":
       return (
         <svg {...iconProps}>
           <rect x="5" y="2" width="6" height="12" {...rectProps} />
