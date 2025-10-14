@@ -24,13 +24,10 @@ const ModelItem = ({
         />
       </div>
       <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
-        <span className="text-sm font-medium truncate">{model.name}</span>
+        <span className="text-sm font-bold truncate">{model.name}</span>
         <span className="text-xs text-muted-foreground truncate">
           {model.description}
         </span>
-        {/* <Badge variant="default" className="text-xs px-2 py-0 mt-1 w-fit self-start whitespace-nowrap bg-primary/20 text-primary border border-primary">
-          {model.type === "text-to-image" ? "text-to-image" : "image-to-image"}
-        </Badge> */}
       </div>
     </DropdownMenuRadioItem>
   );
