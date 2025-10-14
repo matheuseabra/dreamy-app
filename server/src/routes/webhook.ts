@@ -1,11 +1,13 @@
 import { Router } from "express";
 import { CreditService } from "../services/credit-service";
+import { ProfileService } from "../services/profile-service";
 import { StorageService } from "../services/storage-service";
 import supabaseAdmin from "../supabase/client";
 
 const router = Router();
 const creditService = new CreditService();
 const storageService = new StorageService();
+const profileService = new ProfileService();
 
 // Fal webhook handler
 router.post("/fal/:generationId", async (req, res) => {
@@ -105,6 +107,36 @@ router.post("/fal/:generationId", async (req, res) => {
     }
   } catch (error: any) {
     console.error("Webhook error:", error);
+    res.status(500).json({ error: error.message });
+  }
+});
+
+// Supabase auth webhook handler (to react to user signups)
+router.post('/supabase', async (req, res) => {
+  try {
+    const event = req.body;
+
+    // Supabase sends an 'event' object wrapper: { "credentials":..., "event": { "type": "...", "record": {...} } }
+    // But some setups post the event directly. Handle both shapes.
+    const payload = event.event || event;
+
+    const eventType = payload.type || payload.event_type || null;
+    const record = payload.record || payload.data || payload.user || payload;
+
+    // Only care about user signup/create events
+    if (eventType === 'user.created' || eventType === 'auth.user.created' || eventType === 'user_created') {
+      const user = record || payload;
+      try {
+        await profileService.createProfileOnSignup(user);
+      } catch (err: any) {
+        console.error('Failed to create profile on signup:', err.message || err);
+        // don't fail the webhook; log and return 200 to supabase
+      }
+    }
+
+    res.json({ success: true });
+  } catch (error: any) {
+    console.error('Supabase webhook handling error:', error);
     res.status(500).json({ error: error.message });
   }
 });

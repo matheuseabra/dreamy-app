@@ -16,11 +16,30 @@ router.get('/me', authenticateUser, async (req: AuthRequest, res) => {
       .eq('id', userId)
       .single();
 
-    if (error) {
-      return res.status(404).json({
-        success: false,
-        error: 'Profile not found',
-      });
+    // If profile not found, create a minimal one so clients always have a profile row.
+    if (error || !profile) {
+      const email: string = req.user!.email ?? '';
+      const username = email ? email.split('@')[0] : '';
+      const now = new Date().toISOString();
+
+      const { data: newProfile, error: insertError } = await supabaseAdmin
+        .from('profiles')
+        .upsert({
+          id: userId,
+          email: email,
+          full_name: null,
+          avatar_url: null,
+          created_at: now,
+          updated_at: now,
+        }, { onConflict: 'id' })
+        .select()
+        .single();
+
+      if (insertError) {
+        return res.status(500).json({ success: false, error: insertError.message });
+      }
+
+      return res.json({ success: true, user: newProfile });
     }
 
     res.json({
