@@ -78,9 +78,9 @@ const Dashboard = () => {
   return (
     <div className="relative min-h-screen">
       <div className="container mx-auto">
-        <div className="mt-12 mb-6 text-center">
+        {/* <div className="mt-12 mb-6 text-center">
           <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">What are you dreaming of?</h1>
-        </div>
+        </div> */}
         <CombinedGallery
           onImageClick={handleImageClick}
           generatedImages={
