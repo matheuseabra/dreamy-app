@@ -1,3 +1,11 @@
+import fluxDevThumb from "@/assets/flux-dev-thumb.webp";
+import fluxKontextThumb from "@/assets/flux-kontext-thumb.webp";
+import flexSchnellThumb from "@/assets/flux-schnell-thumb.webp";
+import gptImageThumb from "@/assets/gpt-image-1-thumb.webp";
+import ideogram3Thumb from "@/assets/ideogram-3-thumb.webp";
+import nanoBananaThumb from "@/assets/nano-banana-thumb.webp";
+import recraft3Thumb from "@/assets/recraft-thumb.webp";
+import wan22Thumb from "@/assets/wan-22-thumb.webp";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -29,14 +37,6 @@ import {
   X,
   Zap,
 } from "lucide-react";
-// Thumbnails for models (imported from src/assets)
-import flexSchnellThumb from "@/assets/flex-schnell-thumb.avif";
-import fluxDevThumb from "@/assets/flux-dev-thumb.avif";
-import fluxKontextThumb from "@/assets/flux-kontext-thumb.avif";
-import gptImageThumb from "@/assets/gpt-image-1-thumb.avif";
-import ideogramThumb from "@/assets/ideogram-thumb.jpg";
-import nanoBananaThumb from "@/assets/nano-banana-thumb.avif";
-import { Badge } from "@/components/ui/badge";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
@@ -121,7 +121,7 @@ const ModelItem = ({
   isSelected,
   onSelect,
 }: {
-  model: (typeof AI_MODELS)[0];
+  model: (typeof TEXT_TO_IMAGE_MODELS)[0] | (typeof IMAGE_TO_IMAGE_MODELS)[0];
   isSelected: boolean;
   onSelect: () => void;
 }) => {
@@ -130,15 +130,15 @@ const ModelItem = ({
     "fal-ai/flux/schnell": flexSchnellThumb,
     "fal-ai/flux-pro/kontext": fluxKontextThumb,
     "fal-ai/flux-pro/kontext/max": fluxKontextThumb,
-    "fal-ai/recraft/v3/text-to-image": gptImageThumb,
-    "fal-ai/ideogram/v3": ideogramThumb,
+    "fal-ai/recraft/v3/text-to-image": recraft3Thumb,
+    "fal-ai/ideogram/v3": ideogram3Thumb,
     "fal-ai/nano-banana": nanoBananaThumb,
-    "fal-ai/wan/v2.2-5b/text-to-image": gptImageThumb,
+    "fal-ai/wan/v2.2-5b/text-to-image": wan22Thumb,
     "fal-ai/flux/dev/image-to-image": fluxDevThumb,
     "fal-ai/flux-general/image-to-image": fluxKontextThumb,
     "fal-ai/flux-lora/image-to-image": fluxKontextThumb,
-    "fal-ai/ideogram/character": ideogramThumb,
-    "fal-ai/recraft/v3/image-to-image": gptImageThumb,
+    "fal-ai/ideogram/character": ideogram3Thumb,
+    "fal-ai/recraft/v3/image-to-image": ideogram3Thumb,
   };
   const thumb = thumbMap[model.id] || gptImageThumb;
   return (
@@ -146,11 +146,11 @@ const ModelItem = ({
       value={model.id}
       className="cursor-pointer h-20 flex items-center gap-3 px-3 py-2"
     >
-      <div className="flex items-center justify-center w-12 h-8">
+      <div className="flex items-center justify-center">
         <img
           src={thumb}
           alt={`${model.name} thumb`}
-          className="h-8 w-12 object-cover rounded-md"
+          className="h-10 w10 object-cover rounded-full"
         />
       </div>
       <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
@@ -158,9 +158,9 @@ const ModelItem = ({
         <span className="text-xs text-muted-foreground truncate">
           {model.description}
         </span>
-        <Badge variant="default" className="text-xs px-2 py-0 mt-1 w-fit self-start whitespace-nowrap bg-primary/20 text-primary border border-primary">
+        {/* <Badge variant="default" className="text-xs px-2 py-0 mt-1 w-fit self-start whitespace-nowrap bg-primary/20 text-primary border border-primary">
           {model.type === "text-to-image" ? "text-to-image" : "image-to-image"}
-        </Badge>
+        </Badge> */}
       </div>
     </DropdownMenuRadioItem>
   );
@@ -185,7 +185,7 @@ type PromptBarProps = {
   onStrengthChange?: (value: number) => void;
 };
 
-const AI_MODELS = [
+const TEXT_TO_IMAGE_MODELS = [
   {
     id: "fal-ai/flux/dev",
     name: "Flux Dev",
@@ -242,38 +242,40 @@ const AI_MODELS = [
     icon: Gauge,
     type: "text-to-image",
   },
-  // Image-to-Image Models
+];
+
+const IMAGE_TO_IMAGE_MODELS = [
   {
     id: "fal-ai/flux/dev/image-to-image",
-    name: "Flux Dev I2I",
+    name: "Flux Dev",
     description: "FLUX.1 [dev] image-to-image endpoint",
     icon: Image,
     type: "image-to-image",
   },
   {
     id: "fal-ai/flux-general/image-to-image",
-    name: "Flux General I2I",
+    name: "Flux General",
     description: "FLUX.1 [dev] with ControlNets / LoRAs",
     icon: Palette,
     type: "image-to-image",
   },
   {
     id: "fal-ai/flux-lora/image-to-image",
-    name: "Flux LoRA I2I",
-    description: "FLUX.1 [dev] + LoRA adaptation I2I",
+    name: "Flux LoRA",
+    description: "FLUX.1 [dev] + LoRA adaptation",
     icon: Sparkles,
     type: "image-to-image",
   },
   {
     id: "fal-ai/ideogram/character",
     name: "Ideogram Character",
-    description: "Ideogram V3 Character I2I (consistent characters)",
+    description: "Ideogram V3 Character (consistent characters)",
     icon: User,
     type: "image-to-image",
   },
   {
     id: "fal-ai/recraft/v3/image-to-image",
-    name: "Recraft V3 I2I",
+    name: "Recraft V3",
     description: "Recraft V3 image-to-image endpoint",
     icon: Brush,
     type: "image-to-image",
@@ -309,7 +311,10 @@ export function PromptBar({
 }: PromptBarProps) {
   const authToken = useAuth().session?.access_token;
   const selectedModelData = useMemo(
-    () => AI_MODELS.find((m) => m.id === selectedModel) || AI_MODELS[0],
+    () => {
+      const allModels = [...TEXT_TO_IMAGE_MODELS, ...IMAGE_TO_IMAGE_MODELS];
+      return allModels.find((m) => m.id === selectedModel) || TEXT_TO_IMAGE_MODELS[0];
+    },
     [selectedModel]
   );
 
@@ -525,7 +530,16 @@ export function PromptBar({
                 value={selectedModel}
                 onValueChange={onModelChange}
               >
-                {AI_MODELS.map((model) => (
+                {TEXT_TO_IMAGE_MODELS.map((model) => (
+                  <ModelItem
+                    key={model.id}
+                    model={model}
+                    isSelected={model.id === selectedModel}
+                    onSelect={() => onModelChange(model.id)}
+                  />
+                ))}
+                <DropdownMenuSeparator className="my-1" />
+                {IMAGE_TO_IMAGE_MODELS.map((model) => (
                   <ModelItem
                     key={model.id}
                     model={model}
