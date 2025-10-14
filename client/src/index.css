@@ -135,7 +135,7 @@
   h4,
   h5,
   h6 {
-    font-family: var(--font-serif), sans-serif;
+    font-family: var(--font-sans), sans-serif;
     font-weight: 700;
   }
 
