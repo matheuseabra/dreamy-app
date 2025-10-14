@@ -3,8 +3,8 @@ import {
   FolderOpen,
   HelpCircle,
   MessageSquare,
-  Sparkles,
-  Star
+  Star,
+  WandSparklesIcon
 } from "lucide-react";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -34,7 +34,7 @@ const Sidebar: React.FC = () => {
     },
     {
       path: "/imagine",
-      icon: Sparkles,
+      icon: WandSparklesIcon,
       label: "Imagine",
     }
   ];

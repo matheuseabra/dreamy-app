@@ -27,7 +27,9 @@ const DashboardHeader = () => {
   const credits = 0;
 
   return (
-    <header className="border-none sticky top-0 z-50 shadow-sm">
+    <header
+      className="border-none sticky top-0 z-50 backdrop-blur-md shadow-sm transition-colors duration-200"
+    >
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3"></div>
@@ -75,7 +77,7 @@ const DashboardHeader = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent
-                className="w-56 border border-border"
+                className="bg-background/50 backdrop-blur-md w-56 border border-border"
                 align="end"
                 forceMount
               >

@@ -1,4 +1,4 @@
-import magicMindLogo from "@/assets/mage-mind-logo.svg";
+import magicMindLogo from "@/assets/mage-mind-purple-logo.png";
 import React from "react";
 
 const Logo: React.FC<{ className?: string }> = ({ className = "" }) => {
@@ -9,7 +9,7 @@ const Logo: React.FC<{ className?: string }> = ({ className = "" }) => {
         alt="logo"
         className={`h-10 w-auto ${className}`}
       />
-      <h4>Wizzard</h4>
+      <h4 className="font-serif font-medium">Wizzard</h4>
     </div>
   );
 };

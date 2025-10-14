@@ -70,7 +70,7 @@ const Feedback = () => {
         </div>
 
         <div className="max-w-4xl mx-auto">
-          <Card className="bg-card/50 backdrop-blur border-border/50 shadow-lg">
+          <Card className="bg-background/50 backdrop-blur border-border/50 shadow-lg">
             <CardHeader>
               <CardTitle className="text-xl">Share Your Feedback</CardTitle>
               <CardDescription className="text-muted-foreground">
