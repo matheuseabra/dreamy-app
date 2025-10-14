@@ -1,170 +1,30 @@
-import fluxDevThumb from "@/assets/flux-dev-thumb.webp";
-import fluxKontextThumb from "@/assets/flux-kontext-thumb.webp";
-import flexSchnellThumb from "@/assets/flux-schnell-thumb.webp";
-import gptImageThumb from "@/assets/gpt-image-1-thumb.webp";
-import ideogram3Thumb from "@/assets/ideogram-3-thumb.webp";
-import nanoBananaThumb from "@/assets/nano-banana-thumb.webp";
-import recraft3Thumb from "@/assets/recraft-thumb.webp";
-import wan22Thumb from "@/assets/wan-22-thumb.webp";
+import AspectRatioIcon from "@/components/AspectRatioIcon";
+import ModelItem from "@/components/ModelItem";
+import SettingsDropdown from "@/components/SettingsDropdown";
 import { Button } from "@/components/ui/button";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuLabel,
   DropdownMenuRadioGroup,
   DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu";
 import { Textarea } from "@/components/ui/textarea";
 import { config } from "@/config";
+import {
+  IMAGE_TO_IMAGE_MODELS,
+  SIZE_LABEL,
+  TEXT_TO_IMAGE_MODELS,
+} from "@/config/imageModels";
 import useAuth from "@/hooks/useAuth";
 import {
-  Brush,
-  Crown,
-  Gauge,
-  Image,
   ImageDown,
   LoaderCircleIcon,
-  Palette,
   Ratio,
-  Rocket,
   SendHorizonalIcon,
   Settings2,
-  Sparkles,
-  Star,
-  User,
-  X,
-  Zap,
+  X
 } from "lucide-react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
-
-const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
-  const iconProps = {
-    width: "16",
-    height: "16",
-    viewBox: "0 0 16 16",
-    className: "text-muted-foreground",
-  };
-
-  const rectProps = {
-    fill: "none",
-    stroke: "currentColor",
-    strokeWidth: "1.5",
-  };
-
-  switch (ratio) {
-    case "square":
-      return (
-        <svg {...iconProps}>
-          <rect x="3" y="3" width="10" height="10" {...rectProps} />
-        </svg>
-      );
-    case "landscape_16_9":
-      return (
-        <svg {...iconProps}>
-          <rect x="2" y="5" width="12" height="6" {...rectProps} />
-        </svg>
-      );
-    case "portrait_9_16":
-      return (
-        <svg {...iconProps}>
-          <rect x="5" y="2" width="6" height="12" {...rectProps} />
-        </svg>
-      );
-    case "landscape_4_3":
-      return (
-        <svg {...iconProps}>
-          <rect x="2" y="4" width="12" height="8" {...rectProps} />
-        </svg>
-      );
-    case "portrait_4_3":
-      return (
-        <svg {...iconProps}>
-          <rect x="4" y="2" width="8" height="12" {...rectProps} />
-        </svg>
-      );
-    case "square_hd":
-      return (
-        <svg {...iconProps}>
-          <rect x="2" y="2" width="12" height="12" {...rectProps} />
-        </svg>
-      );
-    default:
-      return null;
-  }
-};
-
-const SettingsDropdown = ({
-  trigger,
-  label,
-  children,
-  className = "w-56 border border-border",
-}: {
-  trigger: React.ReactNode;
-  label: string;
-  children: React.ReactNode;
-  className?: string;
-}) => (
-  <DropdownMenu>
-    <DropdownMenuTrigger asChild>{trigger}</DropdownMenuTrigger>
-    <DropdownMenuContent align="start" className={className}>
-      <DropdownMenuLabel>{label}</DropdownMenuLabel>
-      <DropdownMenuSeparator />
-      {children}
-    </DropdownMenuContent>
-  </DropdownMenu>
-);
-
-const ModelItem = ({
-  model,
-  isSelected,
-  onSelect,
-}: {
-  model: (typeof TEXT_TO_IMAGE_MODELS)[0] | (typeof IMAGE_TO_IMAGE_MODELS)[0];
-  isSelected: boolean;
-  onSelect: () => void;
-}) => {
-  const thumbMap: Record<string, string> = {
-    "fal-ai/flux/dev": fluxDevThumb,
-    "fal-ai/flux/schnell": flexSchnellThumb,
-    "fal-ai/flux-pro/kontext": fluxKontextThumb,
-    "fal-ai/flux-pro/kontext/max": fluxKontextThumb,
-    "fal-ai/recraft/v3/text-to-image": recraft3Thumb,
-    "fal-ai/ideogram/v3": ideogram3Thumb,
-    "fal-ai/nano-banana": nanoBananaThumb,
-    "fal-ai/wan/v2.2-5b/text-to-image": wan22Thumb,
-    "fal-ai/flux/dev/image-to-image": fluxDevThumb,
-    "fal-ai/flux-general/image-to-image": fluxKontextThumb,
-    "fal-ai/flux-lora/image-to-image": fluxKontextThumb,
-    "fal-ai/ideogram/character": ideogram3Thumb,
-    "fal-ai/recraft/v3/image-to-image": ideogram3Thumb,
-  };
-  const thumb = thumbMap[model.id] || gptImageThumb;
-  return (
-    <DropdownMenuRadioItem
-      value={model.id}
-      className="cursor-pointer h-20 flex items-center gap-3 px-3 py-2"
-    >
-      <div className="flex items-center justify-center">
-        <img
-          src={thumb}
-          alt={`${model.name} thumb`}
-          className="h-10 w10 object-cover rounded-full"
-        />
-      </div>
-      <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
-        <span className="text-sm font-medium truncate">{model.name}</span>
-        <span className="text-xs text-muted-foreground truncate">
-          {model.description}
-        </span>
-        {/* <Badge variant="default" className="text-xs px-2 py-0 mt-1 w-fit self-start whitespace-nowrap bg-primary/20 text-primary border border-primary">
-          {model.type === "text-to-image" ? "text-to-image" : "image-to-image"}
-        </Badge> */}
-      </div>
-    </DropdownMenuRadioItem>
-  );
-};
 
 type PromptBarProps = {
   prompt: string;
@@ -183,112 +43,6 @@ type PromptBarProps = {
   onSourceImageChange?: (url: string | null) => void;
   strength?: number;
   onStrengthChange?: (value: number) => void;
-};
-
-const TEXT_TO_IMAGE_MODELS = [
-  {
-    id: "fal-ai/flux/dev",
-    name: "Flux Dev",
-    description: "High quality text-to-image generation",
-    icon: Sparkles,
-    type: "text-to-image",
-  },
-  {
-    id: "fal-ai/flux/schnell",
-    name: "Flux Schnell",
-    description: "Fast text-to-image generation",
-    icon: Zap,
-    type: "text-to-image",
-  },
-  {
-    id: "fal-ai/flux-pro/kontext",
-    name: "Flux Pro Kontext",
-    description: "Professional context-aware generation",
-    icon: Crown,
-    type: "text-to-image",
-  },
-  {
-    id: "fal-ai/flux-pro/kontext/max",
-    name: "Flux Pro Kontext Max",
-    description: "Maximum quality context generation",
-    icon: Star,
-    type: "text-to-image",
-  },
-  {
-    id: "fal-ai/recraft/v3/text-to-image",
-    name: "Recraft V3",
-    description: "Advanced text-to-image generation",
-    icon: Brush,
-    type: "text-to-image",
-  },
-  {
-    id: "fal-ai/ideogram/v3",
-    name: "Ideogram V3",
-    description: "Latest text rendering capabilities",
-    icon: Rocket,
-    type: "text-to-image",
-  },
-  {
-    id: "fal-ai/nano-banana",
-    name: "Nano Banana",
-    description: "Lightweight fast generation",
-    icon: Zap,
-    type: "text-to-image",
-  },
-  {
-    id: "fal-ai/wan/v2.2-5b/text-to-image",
-    name: "WAN V2.2",
-    description: "5B parameter text-to-image model",
-    icon: Gauge,
-    type: "text-to-image",
-  },
-];
-
-const IMAGE_TO_IMAGE_MODELS = [
-  {
-    id: "fal-ai/flux/dev/image-to-image",
-    name: "Flux Dev",
-    description: "FLUX.1 [dev] image-to-image endpoint",
-    icon: Image,
-    type: "image-to-image",
-  },
-  {
-    id: "fal-ai/flux-general/image-to-image",
-    name: "Flux General",
-    description: "FLUX.1 [dev] with ControlNets / LoRAs",
-    icon: Palette,
-    type: "image-to-image",
-  },
-  {
-    id: "fal-ai/flux-lora/image-to-image",
-    name: "Flux LoRA",
-    description: "FLUX.1 [dev] + LoRA adaptation",
-    icon: Sparkles,
-    type: "image-to-image",
-  },
-  {
-    id: "fal-ai/ideogram/character",
-    name: "Ideogram Character",
-    description: "Ideogram V3 Character (consistent characters)",
-    icon: User,
-    type: "image-to-image",
-  },
-  {
-    id: "fal-ai/recraft/v3/image-to-image",
-    name: "Recraft V3",
-    description: "Recraft V3 image-to-image endpoint",
-    icon: Brush,
-    type: "image-to-image",
-  },
-];
-
-const SIZE_LABEL: Record<string, string> = {
-  square_hd: "1:1 HD",
-  square: "1:1",
-  portrait_4_3: "3:4",
-  portrait_9_16: "9:16",
-  landscape_4_3: "4:3",
-  landscape_16_9: "16:9",
 };
 
 export function PromptBar({
@@ -523,7 +277,7 @@ export function PromptBar({
                   <span className="text-xs">{selectedModelData.name}</span>
                 </Button>
               }
-              label="Models"
+              label="Text-to-Image Models"
               className="w-100 max-h-[500px] overflow-y-auto border border-border"
             >
               <DropdownMenuRadioGroup
@@ -538,6 +292,7 @@ export function PromptBar({
                     onSelect={() => onModelChange(model.id)}
                   />
                 ))}
+                <DropdownMenuLabel>Image-to-Image Models</DropdownMenuLabel>
                 <DropdownMenuSeparator className="my-1" />
                 {IMAGE_TO_IMAGE_MODELS.map((model) => (
                   <ModelItem
