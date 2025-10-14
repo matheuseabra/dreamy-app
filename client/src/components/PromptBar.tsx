@@ -29,6 +29,14 @@ import {
   X,
   Zap,
 } from "lucide-react";
+// Thumbnails for models (imported from src/assets)
+import flexSchnellThumb from "@/assets/flex-schnell-thumb.avif";
+import fluxDevThumb from "@/assets/flux-dev-thumb.avif";
+import fluxKontextThumb from "@/assets/flux-kontext-thumb.avif";
+import gptImageThumb from "@/assets/gpt-image-1-thumb.avif";
+import ideogramThumb from "@/assets/ideogram-thumb.jpg";
+import nanoBananaThumb from "@/assets/nano-banana-thumb.avif";
+import { Badge } from "@/components/ui/badge";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 const AspectRatioIcon = ({ ratio }: { ratio: string }) => {
@@ -117,20 +125,42 @@ const ModelItem = ({
   isSelected: boolean;
   onSelect: () => void;
 }) => {
-  const Icon = model.icon;
+  const thumbMap: Record<string, string> = {
+    "fal-ai/flux/dev": fluxDevThumb,
+    "fal-ai/flux/schnell": flexSchnellThumb,
+    "fal-ai/flux-pro/kontext": fluxKontextThumb,
+    "fal-ai/flux-pro/kontext/max": fluxKontextThumb,
+    "fal-ai/recraft/v3/text-to-image": gptImageThumb,
+    "fal-ai/ideogram/v3": ideogramThumb,
+    "fal-ai/nano-banana": nanoBananaThumb,
+    "fal-ai/wan/v2.2-5b/text-to-image": gptImageThumb,
+    "fal-ai/flux/dev/image-to-image": fluxDevThumb,
+    "fal-ai/flux-general/image-to-image": fluxKontextThumb,
+    "fal-ai/flux-lora/image-to-image": fluxKontextThumb,
+    "fal-ai/ideogram/character": ideogramThumb,
+    "fal-ai/recraft/v3/image-to-image": gptImageThumb,
+  };
+  const thumb = thumbMap[model.id] || gptImageThumb;
   return (
     <DropdownMenuRadioItem
       value={model.id}
-      className="cursor-pointer h-16 flex items-center gap-3 px-3 py-2"
+      className="cursor-pointer h-20 flex items-center gap-3 px-3 py-2"
     >
-      <div className="flex items-center justify-center w-6 h-6">
-        <Icon className="h-4 w-4" />
+      <div className="flex items-center justify-center w-12 h-8">
+        <img
+          src={thumb}
+          alt={`${model.name} thumb`}
+          className="h-8 w-12 object-cover rounded-md"
+        />
       </div>
       <div className="flex flex-col justify-center gap-0.5 flex-1 min-w-0">
         <span className="text-sm font-medium truncate">{model.name}</span>
         <span className="text-xs text-muted-foreground truncate">
           {model.description}
         </span>
+        <Badge variant="default" className="text-xs px-2 py-0 mt-1 w-fit self-start whitespace-nowrap bg-primary/20 text-primary border border-primary">
+          {model.type === "text-to-image" ? "text-to-image" : "image-to-image"}
+        </Badge>
       </div>
     </DropdownMenuRadioItem>
   );
@@ -355,8 +385,8 @@ export function PromptBar({
         setIsUploading(false);
       }
     },
-    [onSourceImageChange]
-  );
+      [onSourceImageChange, authToken]
+    );
 
   const handleDrag = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -489,7 +519,7 @@ export function PromptBar({
                 </Button>
               }
               label="Models"
-              className="w-100 max-h-[400px] overflow-y-auto border border-border"
+              className="w-100 max-h-[500px] overflow-y-auto border border-border"
             >
               <DropdownMenuRadioGroup
                 value={selectedModel}
