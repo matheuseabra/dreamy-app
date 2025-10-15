@@ -2,8 +2,9 @@ import { ImageGrid } from "@/components/ImageGrid";
 import { ImageModal } from "@/components/ImageModal";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { usePublicImages } from "@/hooks/api";
-import { AlertCircle, RefreshCw } from "lucide-react";
+import { AlertCircle, RefreshCw, ImageOff } from "lucide-react";
 import { useState } from "react";
 
 interface PublicImage {
@@ -22,6 +23,14 @@ interface PublicImage {
     httpStatusCode: number;
   };
   publicUrl: string;
+}
+
+interface SelectedImageData {
+  src: string;
+  prompt: string;
+  model: string;
+  createdAt: string;
+  aspectRatio: string;
 }
 
 export default function Explore() {
@@ -43,23 +52,35 @@ export default function Explore() {
     setSelectedImage(null);
   };
 
+  // Transform selected image for modal
+  const modalImageData: SelectedImageData | null = selectedImage
+    ? {
+        src: selectedImage.publicUrl,
+        prompt: selectedImage.name,
+        model: "AI Generated",
+        createdAt: selectedImage.created_at,
+        aspectRatio: "1:1",
+      }
+    : null;
+
+  // Error state
   if (error) {
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center space-y-6">
             <h1 className="text-4xl font-bold text-foreground">Explore</h1>
-            <Alert className="max-w-md mx-auto">
+            <Alert variant="destructive" className="max-w-md mx-auto">
               <AlertCircle className="h-4 w-4" />
               <AlertDescription>
-                Failed to load images. Please try again.
+                {error.message || "Failed to load images. Please try again."}
               </AlertDescription>
             </Alert>
             <Button onClick={() => refetch()} disabled={isFetching}>
               <RefreshCw
                 className={`h-4 w-4 mr-2 ${isFetching ? "animate-spin" : ""}`}
               />
-              Try Again
+              {isFetching ? "Retrying..." : "Try Again"}
             </Button>
           </div>
         </div>
@@ -67,52 +88,90 @@ export default function Explore() {
     );
   }
 
+  // Loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4">
+          <div className="my-12 text-center">
+            <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
+              Unleash Your Imagination
+            </h1>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+            {Array.from({ length: 12 }).map((_, index) => (
+              <Skeleton key={index} className="aspect-square rounded-lg" />
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Empty state
+  const hasImages = imagesData?.objects && imagesData.objects.length > 0;
+
+  if (!hasImages) {
+    return (
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4">
+          <div className="my-12 text-center">
+            <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
+              Unleash Your Imagination
+            </h1>
+          </div>
+          <div className="flex flex-col items-center justify-center py-16 space-y-4">
+            <ImageOff className="h-16 w-16 text-muted-foreground" />
+            <Alert className="max-w-md mx-auto">
+              <AlertDescription className="text-center">
+                No public images found yet. Be the first to share your
+                creations!
+              </AlertDescription>
+            </Alert>
+            <Button onClick={() => refetch()} variant="outline" size="sm">
+              <RefreshCw className="h-4 w-4 mr-2" />
+              Refresh
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Main content with images
   return (
-    <div>
-      <div className="container mx-auto">
-        <div className="my-12 text-center">
+    <div className="min-h-screen bg-background">
+      <div className="container mx-auto px-4">
+        <div className="my-12 text-center space-y-2">
           <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">
             Unleash Your Imagination
           </h1>
         </div>
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <div key={index} className="space-y-1">
-                <div className="aspect-square bg-muted/20 rounded-lg animate-pulse" />
-              </div>
-            ))}
-          </div>
-        ) : imagesData && imagesData.objects && imagesData.objects.length > 0 ? (
-          <ImageGrid
-            images={imagesData.objects}
-            onImageClick={handleImageClick}
-          />
-        ) : (
-          <div className="text-center space-y-4">
-            <Alert className="max-w-md mx-auto">
-              <AlertCircle className="h-4 w-4" />
-              <AlertDescription>
-                No public images found. Be the first to share your creations!
-              </AlertDescription>
+
+        {/* Background fetching indicator */}
+        {isFetching && !isLoading && (
+          <div className="fixed top-4 right-4 z-50">
+            <Alert className="w-auto">
+              <RefreshCw className="h-4 w-4 animate-spin" />
+              <AlertDescription>Refreshing images...</AlertDescription>
             </Alert>
           </div>
         )}
 
-        {selectedImage && (
-          <ImageModal
-            open={!!selectedImage}
-            onOpenChange={(open) => !open && handleCloseModal()}
-            image={{
-              src: selectedImage.publicUrl,
-              prompt: selectedImage.name,
-              model: "AI Generated",
-              createdAt: selectedImage.created_at,
-              aspectRatio: "1:1",
-            }}
-          />
-        )}
+        <ImageGrid
+          images={imagesData.objects}
+          onImageClick={handleImageClick}
+        />
       </div>
+
+      {/* Image Modal */}
+      {modalImageData && (
+        <ImageModal
+          open={!!selectedImage}
+          onOpenChange={(open) => !open && handleCloseModal()}
+          image={modalImageData}
+        />
+      )}
     </div>
   );
 }

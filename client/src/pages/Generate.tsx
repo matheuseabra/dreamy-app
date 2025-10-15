@@ -2,10 +2,8 @@ import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
 import { PromptBar } from "@/components/PromptBar";
 import { useImageGeneration } from "@/hooks/useImageGeneration";
-import { apiClient } from "@/lib/api";
-import { QUERY_KEYS } from "@/lib/query-config";
-import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
+import { useGallery } from "@/hooks/api";
+import { useEffect, useMemo, useState } from "react";
 
 interface GeneratedImage {
   id: string;
@@ -39,36 +37,28 @@ const Dashboard = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { data: imagesData, isLoading: imagesLoading } = useQuery<
-    GeneratedImage[],
-    Error
-  >({
-    queryKey: QUERY_KEYS.images,
-    queryFn: async () => {
-      try {
-        const response = await apiClient.get("/api/gallery");
-        const images = response.images || [];
-        return images.map((img) => ({
-          id: img.id,
-          src: img.url,
-          prompt: img.prompt,
-          model: img.model,
-        }));
-      } catch (error) {
-        throw new Error(
-          error instanceof Error
-            ? error.message
-            : "Failed to fetch generated images from server"
-        );
-      }
-    },
-    // ...createQueryOptions(),
-  });
+  // Use the new useGallery hook
+  const { data: galleryImages, isLoading: imagesLoading } = useGallery();
+
+  // Transform gallery images to match GeneratedImage interface
+  const transformedImages: GeneratedImage[] = useMemo(
+    () =>
+      galleryImages
+        ? galleryImages.map((img) => ({
+            id: img.id,
+            src: img.url || "",
+            prompt: img.prompt || "No prompt available",
+            model: img.model || "Unknown",
+          }))
+        : [],
+    [galleryImages]
+  );
 
   useEffect(() => {
-    if (imagesData && imagesData.length > 0)
-      setGeneratedImagesLocal(imagesData);
-  }, [imagesData, setGeneratedImagesLocal]);
+    if (transformedImages.length > 0) {
+      setGeneratedImagesLocal(transformedImages);
+    }
+  }, [transformedImages, setGeneratedImagesLocal]);
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -78,15 +68,12 @@ const Dashboard = () => {
   return (
     <div className="relative min-h-screen">
       <div className="container mx-auto">
-        {/* <div className="mt-12 mb-6 text-center">
-          <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent">What are you dreaming of?</h1>
-        </div> */}
         <CombinedGallery
           onImageClick={handleImageClick}
           generatedImages={
             generatedImagesLocal.length > 0
               ? generatedImagesLocal
-              : imagesData || []
+              : transformedImages
           }
           isLoading={imagesLoading}
           isGenerating={isGenerating}

@@ -1,8 +1,6 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
-import { apiClient } from "@/lib/api";
-import { QUERY_KEYS, createQueryOptions } from "@/lib/query-config";
-import { useQuery } from "@tanstack/react-query";
+import { useGallery } from "@/hooks/api";
 import { useState } from "react";
 
 interface GeneratedImage {
@@ -16,31 +14,18 @@ const Assets = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  const { data: imagesData, isLoading: imagesLoading } = useQuery<
-    GeneratedImage[],
-    Error
-  >({
-    queryKey: QUERY_KEYS.images,
-    queryFn: async () => {
-      try {
-        const response = await apiClient.get("/api/gallery");
-        const images = response.images || [];
-        return images.map((img) => ({
-          id: img.id,
-          src: img.url,
-          prompt: img.prompt,
-          model: img.model,
-        }));
-      } catch (error) {
-        throw new Error(
-          error instanceof Error
-            ? error.message
-            : "Failed to fetch generated images from server"
-        );
-      }
-    },
-    ...createQueryOptions(),
-  });
+  // Use the new useGallery hook
+  const { data: galleryImages, isLoading: imagesLoading } = useGallery();
+
+  // Transform gallery images to match GeneratedImage interface
+  const transformedImages: GeneratedImage[] = galleryImages
+    ? galleryImages.map((img) => ({
+        id: img.id,
+        src: img.url || "",
+        prompt: img.prompt || "No prompt available",
+        model: img.model || "Unknown",
+      }))
+    : [];
 
   const handleImageClick = (image) => {
     setSelectedImage(image);
@@ -52,7 +37,7 @@ const Assets = () => {
       <div className="container mx-auto mt-4">
         <CombinedGallery
           onImageClick={handleImageClick}
-          generatedImages={imagesData || []}
+          generatedImages={transformedImages}
           isLoading={imagesLoading}
         />
       </div>
