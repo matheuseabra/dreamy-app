@@ -82,7 +82,6 @@ export const useImageGeneration = () => {
     },
     onMutate: async () => {
       setIsGenerating(true);
-      toast.info("Starting image generation...");
     },
     onError: (error: Error) => {
       console.error("Generation error:", error);
@@ -127,7 +126,9 @@ export const useImageGeneration = () => {
     }
 
     // Check if image-to-image model requires source image
-    const isImageToImageModel = selectedModel.includes("image-to-image") || selectedModel.includes("character");
+    const isImageToImageModel =
+      selectedModel.includes("image-to-image") ||
+      selectedModel.includes("character");
     if (isImageToImageModel && !sourceImageUrl) {
       toast.error("Please upload a source image for image-to-image generation");
       return;
@@ -165,4 +166,3 @@ export const useImageGeneration = () => {
     setGeneratedImagesLocal,
   };
 };
-

@@ -89,6 +89,7 @@ const Dashboard = () => {
               : imagesData || []
           }
           isLoading={imagesLoading}
+          isGenerating={isGenerating}
         />
       </div>
 
