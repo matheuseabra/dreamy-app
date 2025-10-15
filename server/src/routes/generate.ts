@@ -147,7 +147,7 @@ router.post(
 
       const statusCode = error.statusCode || 500;
       res.status(statusCode).json({
-        success: "no",
+        success: false,
         error: error.message || "Failed to generate image",
       });
     }
