@@ -2,9 +2,7 @@ import { ImageGrid } from "@/components/ImageGrid";
 import { ImageModal } from "@/components/ImageModal";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { fetchPublicImages } from "@/lib/api";
-import { QUERY_KEYS, createQueryOptions } from "@/lib/query-config";
-import { useQuery } from "@tanstack/react-query";
+import { usePublicImages } from "@/hooks/api";
 import { AlertCircle, RefreshCw } from "lucide-react";
 import { useState } from "react";
 
@@ -26,12 +24,6 @@ interface PublicImage {
   publicUrl: string;
 }
 
-interface PublicImagesResponse {
-  success: boolean;
-  objects: PublicImage[];
-  total: number;
-}
-
 export default function Explore() {
   const [selectedImage, setSelectedImage] = useState<PublicImage | null>(null);
 
@@ -40,12 +32,8 @@ export default function Explore() {
     isLoading,
     error,
     refetch,
-    isRefetching,
-  } = useQuery<PublicImagesResponse>({
-    queryKey: QUERY_KEYS.publicImages,
-    queryFn: fetchPublicImages,
-    ...createQueryOptions(),
-  });
+    isFetching,
+  } = usePublicImages();
 
   const handleImageClick = (image: PublicImage) => {
     setSelectedImage(image);
@@ -67,9 +55,9 @@ export default function Explore() {
                 Failed to load images. Please try again.
               </AlertDescription>
             </Alert>
-            <Button onClick={() => refetch()} disabled={isRefetching}>
+            <Button onClick={() => refetch()} disabled={isFetching}>
               <RefreshCw
-                className={`h-4 w-4 mr-2 ${isRefetching ? "animate-spin" : ""}`}
+                className={`h-4 w-4 mr-2 ${isFetching ? "animate-spin" : ""}`}
               />
               Try Again
             </Button>
@@ -95,7 +83,7 @@ export default function Explore() {
               </div>
             ))}
           </div>
-        ) : imagesData && imagesData.objects.length > 0 ? (
+        ) : imagesData && imagesData.objects && imagesData.objects.length > 0 ? (
           <ImageGrid
             images={imagesData.objects}
             onImageClick={handleImageClick}

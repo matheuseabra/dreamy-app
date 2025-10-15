@@ -14,3 +14,4 @@ export const STRIPE_PRICE_IDS: Record<string, string> = {
   starter: process.env.STRIPE_PRICE_STARTER || '',
   creator: process.env.STRIPE_PRICE_CREATOR || '',
   professional: process.env.STRIPE_PRICE_PROFESSIONAL || ''
+};
