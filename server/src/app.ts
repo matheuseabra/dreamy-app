@@ -5,6 +5,7 @@ import helmet from 'helmet';
 import { createError, errorHandler } from './middleware/error-handler';
 import { apiLimiter } from './middleware/rate-limit';
 import authRoutes from './routes/auth';
+import billingRoutes from './routes/billing';
 import creditsRoutes from './routes/credits';
 import galleryRoutes from './routes/gallery';
 import generateRoutes from './routes/generate';
@@ -18,6 +19,11 @@ const app = express();
 
 // Middleware
 app.use(helmet());
+// IMPORTANT: Stripe webhook needs raw body
+app.use(
+  '/api/webhooks/stripe',
+  express.raw({ type: 'application/json' })
+);
 app.use(
   cors({
     origin: process.env.FRONTEND_URL || 'http://localhost:8080',
@@ -43,6 +49,7 @@ app.use('/api/gallery', galleryRoutes);
 app.use('/api/credits', creditsRoutes);
 app.use('/api/upload', uploadRoutes);
 app.use('/api/webhooks', webhookRoutes);
+app.use('/api/billing', billingRoutes);
 
 app.get('/api/public-images', async (req, res) => {
   try {

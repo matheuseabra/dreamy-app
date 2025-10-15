@@ -14,6 +14,60 @@ export type Database = {
   }
   public: {
     Tables: {
+      credit_transactions: {
+        Row: {
+          amount_paid: number | null
+          completed_at: string | null
+          created_at: string | null
+          credits_amount: number
+          currency: string | null
+          description: string | null
+          id: string
+          metadata: Json | null
+          pack_id: string | null
+          status: string | null
+          stripe_checkout_session_id: string | null
+          stripe_customer_id: string | null
+          stripe_payment_intent_id: string | null
+          transaction_type: string
+          user_id: string
+        }
+        Insert: {
+          amount_paid?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          credits_amount: number
+          currency?: string | null
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          pack_id?: string | null
+          status?: string | null
+          stripe_checkout_session_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          transaction_type: string
+          user_id: string
+        }
+        Update: {
+          amount_paid?: number | null
+          completed_at?: string | null
+          created_at?: string | null
+          credits_amount?: number
+          currency?: string | null
+          description?: string | null
+          id?: string
+          metadata?: Json | null
+          pack_id?: string | null
+          status?: string | null
+          stripe_checkout_session_id?: string | null
+          stripe_customer_id?: string | null
+          stripe_payment_intent_id?: string | null
+          transaction_type?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       generations: {
         Row: {
           completed_at: string | null
@@ -199,6 +253,7 @@ export type Database = {
           email: string
           full_name: string | null
           id: string
+          stripe_customer_id: string | null
           updated_at: string
         }
         Insert: {
@@ -207,6 +262,7 @@ export type Database = {
           email: string
           full_name?: string | null
           id: string
+          stripe_customer_id?: string | null
           updated_at?: string
         }
         Update: {
@@ -215,6 +271,7 @@ export type Database = {
           email?: string
           full_name?: string | null
           id?: string
+          stripe_customer_id?: string | null
           updated_at?: string
         }
         Relationships: []

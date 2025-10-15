@@ -2,12 +2,15 @@ import { Router } from "express";
 import { CreditService } from "../services/credit-service";
 import { ProfileService } from "../services/profile-service";
 import { StorageService } from "../services/storage-service";
+import { BillingService } from "../services/billing-service";
+import { stripe } from '../stripe/client';
 import supabaseAdmin from "../supabase/client";
 
 const router = Router();
 const creditService = new CreditService();
 const storageService = new StorageService();
 const profileService = new ProfileService();
+const billingService = new BillingService();
 
 // Fal webhook handler
 router.post("/fal/:generationId", async (req, res) => {
@@ -138,6 +141,69 @@ router.post('/supabase', async (req, res) => {
   } catch (error: any) {
     console.error('Supabase webhook handling error:', error);
     res.status(500).json({ error: error.message });
+  }
+});
+
+// Add this route to existing webhook router
+router.post('/stripe', async (req, res) => {
+  const sig = req.headers['stripe-signature'];
+
+  if (!sig) {
+    return res.status(400).json({ error: 'No signature' });
+  }
+
+  let event: any;
+
+  try {
+    // Verify webhook signature
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET!
+    );
+  } catch (err: any) {
+    console.error('Webhook signature verification failed:', err.message);
+    return res.status(400).json({ error: `Webhook Error: ${err.message}` });
+  }
+
+  try {
+    // Handle the event
+    switch (event.type) {
+      case 'checkout.session.completed':
+        const session = event.data.object;
+        console.log('Checkout session completed:', session.id);
+
+        // Process the payment
+        await billingService.processSuccessfulPayment(session.id);
+        break;
+
+      case 'payment_intent.succeeded':
+        const paymentIntent = event.data.object;
+        console.log('Payment succeeded:', paymentIntent.id);
+        break;
+
+      case 'payment_intent.payment_failed':
+        const failedPayment = event.data.object;
+        console.error('Payment failed:', failedPayment.id);
+
+        // Update transaction status
+        await supabaseAdmin
+          .from('credit_transactions')
+          .update({
+            status: 'failed',
+            metadata: { error: failedPayment.last_payment_error },
+          })
+          .eq('stripe_payment_intent_id', failedPayment.id);
+        break;
+
+      default:
+        console.log(`Unhandled event type: ${event.type}`);
+    }
+
+    res.json({ received: true });
+  } catch (error: any) {
+    console.error('Webhook processing error:', error);
+    res.status(500).json({ error: 'Webhook processing failed' });
   }
 });
 
