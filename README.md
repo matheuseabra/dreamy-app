@@ -1,20 +1,8 @@
-# Dreamy Studio - AI Image Generation Platform
-
-<div align="center">
-  <img src="client/public/dreamy.png" alt="Dreamy Studio Logo" width="200" />
-  
-  **Create stunning AI-generated images with cutting-edge technology**
-  
-  [![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-  [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
-  [![Node.js](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
-  [![Supabase](https://img.shields.io/badge/Supabase-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)](https://supabase.com/)
-  [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
-</div>
+# Wizzard - AI Image Generation Platform
 
 ## 🚀 Overview
 
-Dreamy Studio is a full-stack AI image generation platform that empowers users to create high-quality images using multiple state-of-the-art AI models including Flux, Recraft, Ideogram, and more. The platform features user authentication, credit-based generation, image gallery management, and a modern, responsive interface.
+Wizzard is a full-stack AI image generation platform that empowers users to create high-quality images using multiple state-of-the-art AI models including Flux, Recraft, Ideogram, and more. The platform features user authentication, credit-based generation, image gallery management, and a modern, responsive interface.
 
 ### ✨ Key Features
 
@@ -56,7 +44,7 @@ This is a monorepo containing two main workspaces:
 
 ### Prerequisites
 
-- Node.js 18+ 
+- Node.js 18+
 - npm or yarn
 - Supabase account
 - Fal.ai API key
@@ -117,7 +105,7 @@ The application will be available at:
 
 ## 🎨 AI Models
 
-Dreamy Studio supports multiple AI models for different use cases:
+Wizzard supports multiple AI models for different use cases:
 
 | Model | Type | Description |
 |-------|------|-------------|

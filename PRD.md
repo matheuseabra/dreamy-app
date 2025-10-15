@@ -1,12 +1,12 @@
-# Dreamy Studio - AI Image Generation Platform
+# Wizzard - AI Image Generation Platform
 
 ## Project Overview
-Dreamy Studio is a full-stack AI image generation platform that allows users to create high-quality images using multiple AI models including Flux, Recraft, Ideogram, and others. The platform features user authentication, credit-based generation, image gallery management, and a modern landing page.
+Wizzard is a full-stack AI image generation platform that allows users to create high-quality images using multiple AI models including Flux, Recraft, Ideogram, and others. The platform features user authentication, credit-based generation, image gallery management, and a modern landing page.
 
 ## Tech Stack
 - **Frontend**: React 18, TypeScript, Vite, Tailwind CSS, shadcn/ui, React Query, React Router
 - **Backend**: Node.js, Express, TypeScript, Supabase (Auth + Database + Storage)
-- **AI Services**: Fal.ai (primary), OpenAI, Replicate
+- **AI Services**: Fal.ai (primary)
 - **Architecture**: Monorepo with npm workspaces (client/server separation)
 
 ## Code Organization Rules
@@ -277,7 +277,7 @@ export const Component: React.FC<ComponentProps> = ({ prop1, prop2 }) => {
 
 ### API Endpoint Structure:
 ```typescript
-router.post('/endpoint', 
+router.post('/endpoint',
   authenticateUser,
   validateBody(schema),
   async (req: AuthRequest, res) => {
