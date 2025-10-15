@@ -3,7 +3,7 @@ import { ImageModal } from "@/components/ImageModal";
 import { PromptBar } from "@/components/PromptBar";
 import { useImageGeneration } from "@/hooks/useImageGeneration";
 import { apiClient } from "@/lib/api";
-import { QUERY_KEYS, createQueryOptions } from "@/lib/query-config";
+import { QUERY_KEYS } from "@/lib/query-config";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
@@ -62,7 +62,7 @@ const Dashboard = () => {
         );
       }
     },
-    ...createQueryOptions(),
+    // ...createQueryOptions(),
   });
 
   useEffect(() => {
