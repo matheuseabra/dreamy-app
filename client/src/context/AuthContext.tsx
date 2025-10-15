@@ -53,7 +53,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const res = await supabase.auth.signUp({
       email,
       password,
-      options: { emailRedirectTo:  `${import.meta.env.BASE_URL}/imagine` },
+      options: { emailRedirectTo: `${window.location.origin}/imagine` },
     });
     return { error: res.error?.message ?? null };
   };
@@ -68,8 +68,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   };
 
   const signInWithGoogle = async () => {
+    // Implicit flow - Supabase handles the redirect automatically
+    // Session will be stored in localStorage and available after redirect
     const res = await supabase.auth.signInWithOAuth({
       provider: "google",
+      options: {
+        redirectTo: `${window.location.origin}/imagine`,
+      },
     });
     return { error: res.error?.message ?? null };
   };

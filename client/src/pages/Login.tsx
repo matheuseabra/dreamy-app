@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import useAuth from "@/hooks/useAuth";
 import { LoaderCircleIcon } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FcGoogle } from "react-icons/fc";
 import { Link, useNavigate } from "react-router-dom";
 
@@ -12,16 +12,22 @@ const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn, signInWithGoogle, user, loading } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => {
+    if (!loading && user) {
+      navigate("/imagine", { replace: true });
+    }
+  }, [loading, user, navigate]);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
-    setLoading(true);
+    setSubmitting(true);
     const res = await signIn(email, password);
-    setLoading(false);
+    setSubmitting(false);
     if (res.error) setError(res.error);
     else navigate("/imagine");
   };
@@ -70,9 +76,9 @@ const Login: React.FC = () => {
                      "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
                    border: "none",
                  }}
-                 disabled={loading}
+                 disabled={submitting}
                >
-                 {loading ? (
+                 {submitting ? (
                    <LoaderCircleIcon className="h-4 w-4 animate-spin" />
                  ) : (
                    "Sign in"
