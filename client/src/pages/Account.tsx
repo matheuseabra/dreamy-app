@@ -40,7 +40,7 @@ export default function AccountPage() {
 
   return (
     <div className="flex justify-center items-center min-h-[60vh]">
-      <Card className="max-w-md w-full p-8 flex flex-col items-center gap-4">
+      <Card className="max-w-md w-full bg-background p-8 flex flex-col items-center gap-4">
         <Avatar className="h-24 w-24">
           <AvatarImage src={profile.avatar_url || undefined} alt={profile.full_name || profile.email} />
           <AvatarFallback>{profile.full_name?.[0] || profile.email[0]}</AvatarFallback>

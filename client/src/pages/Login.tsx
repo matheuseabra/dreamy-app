@@ -110,7 +110,7 @@ const Login: React.FC = () => {
 
             <Button
               onClick={signInWithGoogle}
-              className="w-full h-12 text-base font-semibold mt-4 bg-background hover:bg-background/10 text-white border border-input flex items-center justify-center gap-2"
+              className="w-full h-12 text-base font-semibold mt-4 bg-background text-white border border-input flex items-center justify-center gap-2"
             >
               <FcGoogle />
               Sign in with Google

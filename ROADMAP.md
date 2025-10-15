@@ -1,6 +1,7 @@
 # Wizzard MVP Roadmap
 
 Status legend:
+
 - [x] Completed
 - [] Pending
 
@@ -14,7 +15,7 @@ Goal: Launch a reliable MVP that enables users to sign up, generate images (T2I/
 - [x] Server foundation (Express, Helmet, CORS, rate limiting)
 - [x] Supabase integration (Auth, DB, Storage clients)
 - [] Enforce and document RLS policies and storage bucket policies (private `generated-images`, public `public-images`)
-- [] Align environment variable names across code and docs (see Security & Config)
+- [x] Align environment variable names across code and docs (see Security & Config)
 
 ## 2) Authentication & Profiles
 
@@ -93,6 +94,7 @@ Goal: Launch a reliable MVP that enables users to sign up, generate images (T2I/
 ## 7) Stripe Billing & Checkout (Credits Purchase)
 
 Backend
+
 - [] Add Stripe dependencies and env config
   - Env:
     - `STRIPE_SECRET_KEY`
@@ -118,6 +120,7 @@ Backend
   - Server-side mapping pack => credits (e.g., small=50, medium=250, large=1000) in a single constants file
 
 Frontend (Billing UI)
+
 - [] Account Settings → Billing section (new tab or route)
   - Show current credits (from `GET /api/credits`)
   - Show credit packs with pricing (client-configured list that maps to server pack IDs)
@@ -127,6 +130,7 @@ Frontend (Billing UI)
 - [] Update Landing’s Pricing CTA and header pricing dialog to point to the same Billing flow
 
 Docs
+
 - [] Update `API.md` with billing endpoints and webhook payloads
 - [] Update `DEVELOPMENT.md` and `ENVIRONMENT.md` with Stripe env vars, local webhook testing instructions (Stripe CLI)
 - [] Add “Billing setup” section (how to configure prices and map to packs)

@@ -1,5 +1,5 @@
 import useAuth from "@/hooks/useAuth";
-import { Bell, CogIcon, LogOut, User } from "lucide-react";
+import { Bell, CogIcon, CreditCard, LogOut, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Pricing } from "./landing/Pricing";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
@@ -101,6 +101,12 @@ const DashboardHeader = () => {
                   <Link to="/account" className="flex items-center gap-2 cursor-pointer">
                     <CogIcon className="mr-2 h-4 w-4 text-primary" />
                     <span className="text-sm">Account Settings</span>
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link to="/billing" className="flex items-center gap-2 cursor-pointer">
+                    <CreditCard className="mr-2 h-4 w-4 text-primary" />
+                    <span className="text-sm">Billing</span>
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
