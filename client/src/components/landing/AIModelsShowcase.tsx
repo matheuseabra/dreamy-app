@@ -15,7 +15,7 @@ export const AIModelsShowcase = () => {
     {
       name: "Flux",
       description: "The gold standard for photorealistic image generation. Create breathtaking visuals with incredible detail, lifelike textures, and professional-grade quality that rivals traditional photography.",
-      image: "/api/placeholder/400/300", 
+      image: "/api/placeholder/400/300",
       features: ["Photorealistic", "Ultra-High Detail", "Professional Quality"]
     },
     {
@@ -43,48 +43,48 @@ export const AIModelsShowcase = () => {
   const currentModel = models[currentIndex];
 
   return (
-    <section className="py-20 px-4">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 sm:gap-10 lg:gap-12 items-center">
 
-          <div className="text-left">
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+          <div className="text-center lg:text-left">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-4 sm:mb-6 leading-tight">
               <span className="text-white">Industry Leading</span><br />
               <span className="bg-gradient-to-r from-purple-300 via-blue-300 to-cyan-300 bg-clip-text text-transparent">
                 Image Models
               </span>
             </h2>
-            
-            <p className="text-lg md:text-xl text-slate-300 mb-8 leading-relaxed">
+
+            <p className="text-base sm:text-lg md:text-xl text-slate-300 mb-6 sm:mb-8 leading-relaxed max-w-2xl mx-auto lg:mx-0">
               Choose from the world's most advanced AI image models. Each one is fine-tuned for specific creative needs, giving you the perfect tool for every project.
             </p>
 
             {/* Navigation Arrows */}
-            <div className="flex gap-4">
+            <div className="flex gap-3 sm:gap-4 justify-center lg:justify-start">
               <Button
                 variant="outline"
                 size="icon"
                 onClick={prevModel}
-                className="w-12 h-12 rounded-full border-slate-600 hover:border-purple-400 hover:bg-purple-900/20 text-slate-300 hover:text-purple-300 transition-all duration-300"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-slate-600 hover:border-purple-400 hover:bg-purple-900/20 text-slate-300 hover:text-purple-300 transition-all duration-300"
               >
-                <ChevronLeft className="w-5 h-5" />
+                <ChevronLeft className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
               <Button
                 variant="outline"
                 size="icon"
                 onClick={nextModel}
-                className="w-12 h-12 rounded-full border-slate-600 hover:border-purple-400 hover:bg-purple-900/20 text-slate-300 hover:text-purple-300 transition-all duration-300"
+                className="w-10 h-10 sm:w-12 sm:h-12 rounded-full border-slate-600 hover:border-purple-400 hover:bg-purple-900/20 text-slate-300 hover:text-purple-300 transition-all duration-300"
               >
-                <ChevronRight className="w-5 h-5" />
+                <ChevronRight className="w-4 h-4 sm:w-5 sm:h-5" />
               </Button>
             </div>
           </div>
 
           {/* Right Section - Model Showcase Cards */}
-          <div className="flex justify-center lg:justify-end">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
+          <div className="flex justify-center lg:justify-end mt-8 lg:mt-0">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 w-full max-w-2xl">
               {/* Main Model Card */}
-              <div 
+              <div
                 className="rounded-lg overflow-hidden col-span-1 md:col-span-2"
                 style={{
                   border: "1px solid transparent",
@@ -97,18 +97,18 @@ export const AIModelsShowcase = () => {
                 }}
               >
                 {/* Model Info Header */}
-                <div className="p-6 bg-slate-800/50">
-                  <h3 className="text-2xl font-bold text-white mb-3">{currentModel.name}</h3>
-                  <p className="text-slate-300 leading-relaxed">{currentModel.description}</p>
+                <div className="p-4 sm:p-6 bg-slate-800/50">
+                  <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 sm:mb-3">{currentModel.name}</h3>
+                  <p className="text-sm sm:text-base text-slate-300 leading-relaxed">{currentModel.description}</p>
                 </div>
-                
+
                 {/* Model Image */}
-                <div className="h-64 bg-gradient-to-br from-purple-900/20 to-blue-900/20 flex items-center justify-center">
+                <div className="h-48 sm:h-56 md:h-64 bg-gradient-to-br from-purple-900/20 to-blue-900/20 flex items-center justify-center">
                   <div className="text-center">
-                    <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center">
-                      <span className="text-2xl font-bold text-purple-300">{currentModel.name.charAt(0)}</span>
+                    <div className="w-12 h-12 sm:w-16 sm:h-16 mx-auto mb-3 sm:mb-4 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 flex items-center justify-center">
+                      <span className="text-xl sm:text-2xl font-bold text-purple-300">{currentModel.name.charAt(0)}</span>
                     </div>
-                    <p className="text-slate-400 text-sm">{currentModel.name} Model</p>
+                    <p className="text-slate-400 text-xs sm:text-sm">{currentModel.name} Model</p>
                   </div>
                 </div>
               </div>
@@ -118,7 +118,7 @@ export const AIModelsShowcase = () => {
                 {currentModel.features.map((feature, index) => (
                   <span
                     key={index}
-                    className="px-3 py-1 rounded-full text-sm font-medium bg-slate-700/50 text-slate-300 border border-slate-600/50"
+                    className="px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full text-xs sm:text-sm font-medium bg-slate-700/50 text-slate-300 border border-slate-600/50"
                   >
                     {feature}
                   </span>
@@ -126,7 +126,7 @@ export const AIModelsShowcase = () => {
               </div>
 
               {/* Pagination Dots */}
-              <div className="col-span-1 md:col-span-2 flex justify-center gap-2 mt-4">
+              <div className="col-span-1 md:col-span-2 flex justify-center gap-2 mt-2 sm:mt-4">
                 {models.map((_, index) => (
                   <button
                     key={index}
@@ -136,6 +136,7 @@ export const AIModelsShowcase = () => {
                         ? 'bg-purple-400 scale-125'
                         : 'bg-slate-600 hover:bg-slate-500'
                     }`}
+                    aria-label={`View model ${index + 1}`}
                   />
                 ))}
               </div>

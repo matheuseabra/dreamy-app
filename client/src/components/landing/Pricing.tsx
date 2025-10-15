@@ -69,24 +69,24 @@ export const Pricing = () => {
   ];
 
   return (
-    <section id="pricing" className="py-20 px-4">
+    <section id="pricing" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 px-4">
             Simple, Transparent Pricing
           </h2>
-          <p className="text-lg text-slate-300 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto px-4">
             Choose the plan that fits your creative needs. Upgrade or downgrade
             at any time.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
           {plans.map((plan, index) => (
             <Card
               key={index}
               className={`relative transition-all duration-300 hover:shadow-xl ${
-                plan.popular ? "shadow-lg scale-105" : ""
+                plan.popular ? "shadow-lg md:scale-105" : ""
               }`}
               style={{
                 border: "1px solid transparent",
@@ -101,31 +101,31 @@ export const Pricing = () => {
               }}
             >
               {plan.popular && (
-                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 text-white font-semibold">
+                <Badge className="absolute -top-2.5 sm:-top-3 left-1/2 transform -translate-x-1/2 text-white font-semibold text-xs sm:text-sm">
                   <Star className="w-3 h-3 mr-1" />
                   Most Popular
                 </Badge>
               )}
 
-              <CardHeader className="text-center pb-4">
-                <CardTitle className="text-2xl text-white">
+              <CardHeader className="text-center pb-3 sm:pb-4 pt-6 sm:pt-6">
+                <CardTitle className="text-xl sm:text-2xl text-white">
                   {plan.name}
                 </CardTitle>
-                <div className="mt-4">
-                  <span className="text-4xl font-bold text-white">
+                <div className="mt-3 sm:mt-4">
+                  <span className="text-3xl sm:text-4xl font-bold text-white">
                     {plan.price}
                   </span>
                   {plan.period && (
-                    <span className="text-slate-300">/{plan.period}</span>
+                    <span className="text-sm sm:text-base text-slate-300">/{plan.period}</span>
                   )}
                 </div>
-                <CardDescription className="mt-2 text-slate-300">
+                <CardDescription className="mt-2 text-sm sm:text-base text-slate-300 px-2">
                   {plan.description}
                 </CardDescription>
               </CardHeader>
 
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
+              <CardContent className="space-y-4 sm:space-y-6 px-4 sm:px-6">
+                <ul className="space-y-2 sm:space-y-3">
                   {plan.features.map((feature, featureIndex) => (
                     <li key={featureIndex} className="flex items-center">
                       <Check className="w-4 h-4 text-purple-300 mr-3 flex-shrink-0" />
@@ -136,7 +136,7 @@ export const Pricing = () => {
 
                 <Link to={plan.href} className="block">
                   <Button
-                    className={`w-full ${
+                    className={`w-full text-sm sm:text-base ${
                       plan.popular
                         ? "text-black font-semibold"
                         : "bg-slate-700 hover:bg-slate-600 text-white"
@@ -160,11 +160,11 @@ export const Pricing = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
-          <p className="text-slate-300 mb-4">
+        <div className="text-center mt-8 sm:mt-10 lg:mt-12 px-4">
+          <p className="text-sm sm:text-base text-slate-300 mb-3 sm:mb-4">
             All plans include our core features and 24/7 support
           </p>
-          <p className="text-sm text-slate-300">
+          <p className="text-xs sm:text-sm text-slate-300">
             Need a custom plan?{" "}
             <Link to="/contact" className="text-purple-300 hover:underline">
               Contact our sales team

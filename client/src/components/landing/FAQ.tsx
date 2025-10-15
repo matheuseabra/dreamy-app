@@ -29,44 +29,44 @@ export const FAQ = () => {
   ];
 
   return (
-    <section id="faq" className="py-20 px-4">
+    <section id="faq" className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto max-w-4xl">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+        <div className="text-center mb-10 sm:mb-12 lg:mb-16">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white mb-4 sm:mb-6 px-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-lg text-slate-300">
+          <p className="text-base sm:text-lg text-slate-300 px-4">
             Everything you need to know about MageMind
           </p>
         </div>
 
-        <Accordion type="single" collapsible className="space-y-4">
+        <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
           {faqs.map((faq, index) => (
-            <AccordionItem 
-              key={index} 
+            <AccordionItem
+              key={index}
               value={`item-${index}`}
-              className="border border-primary/20 backdrop-blur-sm rounded-lg px-6"
-       
+              className="border border-primary/20 backdrop-blur-sm rounded-lg px-4 sm:px-6"
+
             >
-              <AccordionTrigger className="text-left hover:no-underline py-6">
-                <span className="text-lg font-medium text-white">
+              <AccordionTrigger className="text-left hover:no-underline py-4 sm:py-6">
+                <span className="text-base sm:text-lg font-medium text-white pr-4">
                   {faq.question}
                 </span>
               </AccordionTrigger>
-              <AccordionContent className="text-slate-300 pb-6 leading-relaxed">
+              <AccordionContent className="text-sm sm:text-base text-slate-300 pb-4 sm:pb-6 leading-relaxed">
                 {faq.answer}
               </AccordionContent>
             </AccordionItem>
           ))}
         </Accordion>
 
-        <div className="text-center mt-12">
-          <p className="text-slate-300 mb-4">
+        <div className="text-center mt-8 sm:mt-10 lg:mt-12 px-4">
+          <p className="text-sm sm:text-base text-slate-300 mb-3 sm:mb-4">
             Still have questions?
           </p>
-          <a 
-            href="mailto:support@dreamystudio.com" 
-            className="text-purple-300 hover:underline font-medium"
+          <a
+            href="mailto:support@dreamystudio.com"
+            className="text-sm sm:text-base text-purple-300 hover:underline font-medium"
           >
             Contact our support team
           </a>

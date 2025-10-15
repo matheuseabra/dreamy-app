@@ -11,7 +11,7 @@ export const CTA = () => {
     }
   };
   return (
-    <section className="py-20 px-4">
+    <section className="py-12 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
       <div className="container mx-auto">
         <Card
           className="overflow-hidden"
@@ -25,31 +25,31 @@ export const CTA = () => {
             backgroundClip: "padding-box, border-box",
           }}
         >
-          <CardContent className="p-12 text-center">
+          <CardContent className="p-6 sm:p-8 lg:p-12 text-center">
             <div className="max-w-3xl mx-auto">
               {/* Icon */}
-              <div className="mx-auto mb-6 p-4 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 w-fit">
-                <Sparkles className="w-8 h-8 text-purple-300" />
+              <div className="mx-auto mb-4 sm:mb-6 p-3 sm:p-4 rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 w-fit">
+                <Sparkles className="w-6 h-6 sm:w-8 sm:h-8 text-purple-300" />
               </div>
 
               {/* Heading */}
-              <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6 px-2">
                 Ready to Create Something Amazing?
               </h2>
 
               {/* Description */}
-              <p className="text-lg text-slate-300 mb-8 max-w-2xl mx-auto">
+              <p className="text-base sm:text-lg text-slate-300 mb-6 sm:mb-8 max-w-2xl mx-auto px-2">
                 Join thousands of creators who are already using Dreamy Studio
                 to bring their ideas to life. Start generating stunning AI
                 images today.
               </p>
 
               {/* CTA Buttons */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 w-full sm:w-auto px-2">
                 <Link to="/signup">
                   <Button
                     size="lg"
-                    className="text-lg px-8 py-6 text-black font-semibold"
+                    className="text-base sm:text-lg px-6 sm:px-8 py-4 sm:py-6 text-black font-semibold w-full sm:w-auto"
                     style={{
                       background:
                         "linear-gradient(135deg, #E0B0FF 0%, #ADD8E6 50%, #FFC0CB 100%)",
@@ -57,7 +57,7 @@ export const CTA = () => {
                     }}
                   >
                     Start Creating Free
-                    <ArrowRight className="ml-2 w-5 h-5" />
+                    <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
                   </Button>
                 </Link>
               </div>

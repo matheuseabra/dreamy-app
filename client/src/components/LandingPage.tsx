@@ -8,9 +8,9 @@ import { Pricing } from "./landing/Pricing";
 
 export const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-hidden">
       <Navbar />
-      <main>
+      <main className="overflow-x-hidden">
         <Hero />
         <Features />
         {/* <AIModelsShowcase /> */}
