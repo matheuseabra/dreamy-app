@@ -148,7 +148,6 @@ Docs
   - `client/src/integrations/supabase/client.ts` (require `VITE_SUPABASE_ANON_KEY`)
 - [] Align environment variable names
   - Client currently uses `VITE_API_URL` in `client/src/config.ts`
-  - Docs use `VITE_API_BASE_URL` and `VITE_SUPABASE_ANON_KEY`
   - Standardize to `VITE_API_URL` and `VITE_SUPABASE_ANON_KEY` everywhere
 - [] Validate and document RLS policies across tables (profiles, generations, images, user_credits, credit_transactions)
 - [] Confirm storage bucket policies:

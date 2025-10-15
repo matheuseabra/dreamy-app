@@ -126,7 +126,7 @@ The application requires several environment variables for proper operation:
 ```env
 VITE_SUPABASE_URL=your_supabase_url
 VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
-VITE_API_BASE_URL=http://localhost:9000
+VITE_API_URL=http://localhost:9000
 ```
 
 **Server (.env):**

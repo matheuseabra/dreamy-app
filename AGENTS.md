@@ -366,8 +366,6 @@ VITE_SUPABASE_ANON_KEY=eyJ...  # Client-safe anon key
 VITE_API_URL=http://localhost:9000
 ```
 
-**Note**: There's inconsistency in docs (uses `VITE_API_BASE_URL`) vs code (uses `VITE_API_URL`). Use `VITE_API_URL`.
-
 ## Key Files Reference
 
 ### Server
