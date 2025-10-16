@@ -80,7 +80,7 @@ router.post(
 
       // Build webhook URL for async processing
       const webhookUrl = process.env.WEBHOOK_BASE_URL
-        ? `https://5c66c672cdf9.ngrok-free.app/api/webhooks/fal/${generationId}`
+        ? `${process.env.WEBHOOK_BASE_URL}/api/webhooks/fal/${generationId}`
         : undefined;
 
       console.log({ webhookUrl })
@@ -98,8 +98,6 @@ router.post(
 
         // Generate video synchronously
         const result = await videoFalService.subscribe(input);
-
-        console.log({ result })
 
         // Process the result
         const video = result.data?.video || result.data?.videos?.[0];
