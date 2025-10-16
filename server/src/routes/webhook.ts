@@ -47,9 +47,6 @@ router.post("/fal/:generationId", async (req, res) => {
       if (generation.media_type === 'video') {
         // Handle video generation
         const video = webhookData.payload.video || (webhookData.payload.videos?.[0]);
-        console.log("===== VIDEO GENERATION WEBHOOK =======")
-        console.log(video)
-        console.log("===== VIDEO GENERATION WEBHOOK =======")
 
         if (!video?.url) {
           throw new Error('No video URL in webhook payload');

@@ -80,7 +80,7 @@ router.post(
 
       // Build webhook URL for async processing
       const webhookUrl = process.env.WEBHOOK_BASE_URL
-        ? `${process.env.WEBHOOK_BASE_URL}/api/webhooks/fal/${generationId}`
+        ? `https://5c66c672cdf9.ngrok-free.app/api/webhooks/fal/${generationId}`
         : undefined;
 
       console.log({ webhookUrl })

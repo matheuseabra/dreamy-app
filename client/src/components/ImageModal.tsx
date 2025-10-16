@@ -119,7 +119,7 @@ export const ImageModal = ({
                 <Button
                   variant="outline"
                   size="sm"
-                  className="font-medium text-xs rounded-md bg-transparent focus-visible:ring-0 focus-visible:ring-offset-0"
+                  className="font-medium text-xs rounded-lg focus-visible:ring-0 focus-visible:ring-offset-0"
                   onClick={handleDownload}
                 >
                   <Download className="h-3 w-3" /> Download

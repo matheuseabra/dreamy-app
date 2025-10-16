@@ -38,4 +38,31 @@ export const VIDEO_MODELS = [
     creditsPerSecond: 12,
     thumb: gptImageThumb,
   },
+  {
+    id: "fal-ai/minimax/hailuo-02/standard/text-to-video",
+    name: "Hailuo 02 Standard",
+    description: "Standard quality text-to-video (15 credits/sec)",
+    type: "text-to-video",
+    icon: Video,
+    creditsPerSecond: 15,
+    thumb: gptImageThumb,
+  },
+  {
+    id: "fal-ai/kandinsky5/text-to-video",
+    name: "Kandinsky 5",
+    description: "High-quality text-to-video (20 credits/sec)",
+    type: "text-to-video",
+    icon: Video,
+    creditsPerSecond: 20,
+    thumb: gptImageThumb,
+  },
+  {
+    id: "fal-ai/minimax/hailuo-02/pro/text-to-video",
+    name: "Hailuo 02 Pro",
+    description: "Professional quality text-to-video (25 credits/sec)",
+    type: "text-to-video",
+    icon: Video,
+    creditsPerSecond: 25,
+    thumb: gptImageThumb,
+  }
 ];

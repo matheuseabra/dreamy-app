@@ -52,6 +52,8 @@ export const useVideoGeneration = () => {
       "fal-ai/veo3/fast": "Veo 3 Fast",
       "fal-ai/kling-video/v2.5-turbo/pro/text-to-video": "Kling v2.5 Turbo Pro",
       "fal-ai/wan-25-preview/text-to-video": "WAN 2.5 Preview",
+      "fal-ai/minimax/hailuo-02/standard/text-to-video": "Hailuo 02 Standard",
+      "fal-ai/kandinsky5/text-to-video": "Kandinsky 5",
     };
     return modelMap[modelId] || "AI Video Model";
   };

@@ -26,7 +26,7 @@ export const VideoGallery = ({
   return (
     <div className="w-full mt-12">
       {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
           {Array.from({ length: 6 }).map((_, index) => (
             <div
               key={index}
@@ -44,7 +44,7 @@ export const VideoGallery = ({
           </p>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-2">
           {/* Optimistic loading skeleton - shown first */}
           {isGenerating && (
             <div className="aspect-video bg-muted/20 rounded-lg relative overflow-hidden">

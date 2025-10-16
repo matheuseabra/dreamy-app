@@ -1,4 +1,4 @@
-import { Play } from "lucide-react";
+import { useRef, useState } from "react";
 
 interface VideoCardProps {
   src: string;
@@ -17,6 +17,9 @@ export const VideoCard = ({
   duration,
   onClick,
 }: VideoCardProps) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const [isHovering, setIsHovering] = useState(false);
+
   const formatDuration = (seconds?: number) => {
     if (!seconds) return "0:00";
     const mins = Math.floor(seconds / 60);
@@ -24,14 +27,33 @@ export const VideoCard = ({
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
+  const handleMouseEnter = () => {
+    setIsHovering(true);
+    if (videoRef.current) {
+      videoRef.current.play().catch(() => {
+        // Handle autoplay restrictions silently
+      });
+    }
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovering(false);
+    if (videoRef.current) {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+    }
+  };
+
   return (
     <div
-      className="group relative aspect-video overflow-hidden rounded-lg cursor-pointer transition-all hover:ring-2 hover:ring-primary/50"
+      className="group relative aspect-video overflow-hidden rounded-lg cursor-pointer"
       onClick={onClick}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       {/* Thumbnail or video preview */}
       <div className="absolute inset-0 bg-muted/20">
-        {thumbnailUrl ? (
+        {thumbnailUrl && !isHovering ? (
           <img
             src={thumbnailUrl}
             alt={prompt}
@@ -40,20 +62,15 @@ export const VideoCard = ({
           />
         ) : (
           <video
+            ref={videoRef}
             src={src}
             className="w-full h-full object-cover"
             muted
             playsInline
             preload="metadata"
+            loop
           />
         )}
-      </div>
-
-      {/* Play button overlay */}
-      <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className="w-16 h-16 rounded-full bg-primary/90 flex items-center justify-center">
-          <Play className="h-8 w-8 text-primary-foreground ml-1" fill="currentColor" />
-        </div>
       </div>
 
       {/* Duration badge */}

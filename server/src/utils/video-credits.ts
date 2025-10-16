@@ -12,6 +12,8 @@ const VIDEO_CREDITS_PER_SECOND: Record<string, number> = {
   'fal-ai/veo3/fast': 10,                                         // Fast and cost-effective
   'fal-ai/kling-video/v2.5-turbo/pro/text-to-video': 25,        // Professional quality, mid-high cost
   'fal-ai/wan-25-preview/text-to-video': 12,                     // Preview model, moderate cost
+  'fal-ai/minimax/hailuo-02/standard/text-to-video': 25,
+  'fal-ai/kandinsky5/text-to-video': 20,
 };
 
 // Minimum credits per generation (even for 1 second)
