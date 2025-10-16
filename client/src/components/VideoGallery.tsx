@@ -57,11 +57,6 @@ export const VideoGallery = ({
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                 <div className="w-8 h-8 border-2 border-muted-foreground/30 border-t-muted-foreground rounded-full animate-spin mb-2" />
-                {currentPrompt && (
-                  <p className="text-xs text-muted-foreground/70 line-clamp-2 mt-2">
-                    {currentPrompt}
-                  </p>
-                )}
                 <p className="text-xs text-muted-foreground/50 mt-2">
                   Generating video... This may take a few minutes
                 </p>
