@@ -113,7 +113,7 @@ const Signup: React.FC = () => {
               className="w-full h-12 text-base font-semibold mt-4 bg-background hover:bg-background/10 text-white border border-input flex items-center justify-center gap-2"
             >
               <FcGoogle />
-              Sign in with Google
+              Sign up with Google
             </Button>
           </div>
         </div>

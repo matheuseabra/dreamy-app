@@ -44,15 +44,4 @@ export const CREDIT_PACKS: CreditPack[] = [
     savings: '35%',
     description: 'For power users and professionals',
   },
-  {
-    id: 'enterprise',
-    name: 'Enterprise Pack',
-    credits: 2500,
-    price: 24999,
-    priceDisplay: '$249.99',
-    perCreditCost: 0.10,
-    popular: false,
-    savings: '50%',
-    description: 'Maximum value for teams',
-  },
 ];

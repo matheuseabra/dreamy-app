@@ -5,11 +5,11 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2025-09-30.clover',
+  apiVersion: '2025-09-30.clove' as any,
   typescript: true,
 });
 
-// Map pack IDs to Stripe Price IDs
+// Map pack IDs to Stripe Price IDs (enterprise omitted by design)
 export const STRIPE_PRICE_IDS: Record<string, string> = {
   starter: process.env.STRIPE_PRICE_STARTER || '',
   creator: process.env.STRIPE_PRICE_CREATOR || '',

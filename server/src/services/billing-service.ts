@@ -68,8 +68,8 @@ export class BillingService {
           quantity: 1,
         },
       ],
-      success_url: `${process.env.FRONTEND_URL}/account/billing?session_id={CHECKOUT_SESSION_ID}&success=true`,
-      cancel_url: `${process.env.FRONTEND_URL}/account/billing?canceled=true`,
+      success_url: `${process.env.FRONTEND_URL}/billing?session_id={CHECKOUT_SESSION_ID}&success=true`,
+      cancel_url: `${process.env.FRONTEND_URL}/billing?canceled=true`,
       metadata: {
         user_id: userId,
         pack_id: packId,

@@ -62,7 +62,7 @@ export const paginationSchema = z.object({
 export type PaginationInput = z.infer<typeof paginationSchema>;
 
 export const createCheckoutSessionSchema = z.object({
-  packId: z.enum(['starter', 'creator', 'professional', 'enterprise']),
+  packId: z.enum(['starter', 'creator', 'professional']),
 });
 
 export type CreateCheckoutSessionInput = z.infer<

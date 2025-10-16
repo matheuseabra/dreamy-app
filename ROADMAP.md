@@ -39,7 +39,9 @@ Goal: Launch a reliable MVP that enables users to sign up, generate images (T2I/
 - [x] Credits endpoint
   - `GET /api/credits` (`server/src/routes/credits.ts`)
 - [] Stripe-powered credit purchases (see section 7)
-  - Create Stripe Checkout integration and webhook to increment credits
+  - Checkout only (no Stripe Customer Portal); webhook increments credits on success
+- [x] Initial free credits
+  - New users start with 3 generations; generation is disabled when credits reach 0 until purchase
 
 ## 4) Image Generation (Fal.ai)
 
@@ -88,36 +90,34 @@ Goal: Launch a reliable MVP that enables users to sign up, generate images (T2I/
     - Show current credits
     - List credit packs (client-configured)
     - “Buy credits” buttons (start Checkout Session)
-    - “Manage billing” via Stripe Customer Portal
+    - No Stripe Customer Portal (Checkout only)
     - Show purchase history (if implemented on server)
 
 ## 7) Stripe Billing & Checkout (Credits Purchase)
 
 Backend
 
-- [] Add Stripe dependencies and env config
+- [x] Add Stripe dependencies and env config
   - Env:
     - `STRIPE_SECRET_KEY`
     - `STRIPE_WEBHOOK_SECRET`
-    - `STRIPE_PRICE_SMALL_PACK`, `STRIPE_PRICE_MEDIUM_PACK`, `STRIPE_PRICE_LARGE_PACK` (or a generic mapping)
+    - `STRIPE_PRICE_STARTER`, `STRIPE_PRICE_CREATOR`, `STRIPE_PRICE_PROFESSIONAL` (or a generic mapping)
   - Update `ENVIRONMENT.md` for dev/prod examples
-- [] Endpoints
+- [x] Endpoints
   - `POST /api/billing/create-checkout-session`
-    - Body: `{ packId: 'small' | 'medium' | 'large' }`
+    - Body: `{ packId: 'starter' | 'creator' | 'professional' }`
     - Creates a Checkout Session with the correct price ID, associates Supabase userId in `metadata`
     - Returns `url` to redirect
-  - `GET /api/billing/portal`
-    - Creates a Customer Portal session (with Stripe customer created/linked by email or stored mapping in DB)
-    - Returns `url` to redirect for managing payment methods/invoices
-- [] Webhook: `POST /api/webhooks/stripe`
+  - Note: No Stripe Customer Portal
+- [x] Webhook: `POST /api/webhooks/stripe`
   - Verify signature with `STRIPE_WEBHOOK_SECRET`
   - On `checkout.session.completed` (or `payment_intent.succeeded` via session linkage), lookup `user_id` from `metadata`, determine the purchased pack, and increment `user_credits.credits_remaining`
   - Idempotency handling to avoid double-crediting
   - Optional: record transaction in a new table `credit_transactions` for audit (user_id, credits_added, stripe_event_id, created_at)
   - Return 200 on success; log errors but avoid leaking sensitive info
-- [] Types & DB updates (optional but recommended)
+- [x] Types & DB updates (optional but recommended)
   - Add `credit_transactions` table in Supabase and update `server/src/supabase/database.types.ts`
-  - Server-side mapping pack => credits (e.g., small=50, medium=250, large=1000) in a single constants file
+  - Server-side mapping pack => credits (e.g., starter=50, creator=250, professional=750) in a single constants file
 
 Frontend (Billing UI)
 
@@ -125,7 +125,7 @@ Frontend (Billing UI)
   - Show current credits (from `GET /api/credits`)
   - Show credit packs with pricing (client-configured list that maps to server pack IDs)
   - “Buy credits” button → calls `POST /api/billing/create-checkout-session`, then `window.location.href = url`
-  - “Manage billing” button → calls `GET /api/billing/portal` then redirect to portal
+  - No Customer Portal; purchases via Checkout only
   - Optional: show recent purchases if we implement a `GET /api/billing/history` backed by `credit_transactions`
 - [] Update Landing’s Pricing CTA and header pricing dialog to point to the same Billing flow
 

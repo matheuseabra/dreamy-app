@@ -1,4 +1,5 @@
 // server/src/config/credit-packs.ts
+// Enterprise pack intentionally omitted by design
 export const CREDIT_PACKS = {
   starter: {
     id: 'starter',

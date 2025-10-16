@@ -15,18 +15,3 @@ export function useCreateCheckoutSession() {
     },
   });
 }
-
-export function useCreatePortalSession() {
-  return useMutation({
-    mutationFn: () => billingApi.createPortalSession(),
-    onSuccess: (response) => {
-      if (response.success && response.data.url) {
-        // Redirect to Stripe customer portal
-        window.location.href = response.data.url;
-      }
-    },
-    onError: (error) => {
-      console.error('Failed to create portal session:', error);
-    },
-  });
-}

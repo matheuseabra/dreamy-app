@@ -4,7 +4,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
-import { Loader2, Check, Star, CreditCard, History } from 'lucide-react';
+import { Loader2, Check, Star, History } from 'lucide-react';
 import { toast } from 'sonner';
 import { CREDIT_PACKS } from '@/config/creditPacks';
 import { useCreateCheckoutSession } from '@/hooks/api/useBilling';
@@ -29,7 +29,7 @@ export default function Billing() {
     });
   };
 
-  const handleManageBilling = () => {};
+
 
   return (
     <div className="container max-w-6xl mx-auto py-8 px-4">
@@ -56,14 +56,7 @@ export default function Billing() {
                 Credits remaining
               </p>
             </div>
-            <Button
-              variant="outline"
-              onClick={handleManageBilling}
-              className="gap-2"
-            >
-              <CreditCard className="w-4 h-4" />
-              Manage Billing
-            </Button>
+
           </div>
         </CardContent>
       </Card>
@@ -71,7 +64,7 @@ export default function Billing() {
       {/* Credit Packs */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold mb-4">Buy Credits</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {CREDIT_PACKS.map((pack) => (
             <Card
               key={pack.id}

@@ -18,8 +18,8 @@ export class CreditService {
         .from('user_credits')
         .insert({
           user_id: userId,
-          credits_remaining: 10,
-          credits_total: 10,
+          credits_remaining: 3,
+          credits_total: 3,
         })
         .select()
         .single();
