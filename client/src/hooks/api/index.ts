@@ -3,3 +3,4 @@ export * from './useAuth';
 export * from './useImages';
 export * from './useBilling';
 export * from './useGallery';
+export * from './useVideos';

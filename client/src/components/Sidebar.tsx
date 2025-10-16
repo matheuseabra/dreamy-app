@@ -4,6 +4,7 @@ import {
   HelpCircle,
   MessageSquare,
   Star,
+  Video,
   WandSparklesIcon
 } from "lucide-react";
 import React from "react";
@@ -36,6 +37,11 @@ const Sidebar: React.FC = () => {
       path: "/imagine",
       icon: WandSparklesIcon,
       label: "Imagine",
+    },
+    {
+      path: "/video",
+      icon: Video,
+      label: "Video",
     }
   ];
 

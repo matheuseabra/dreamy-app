@@ -21,6 +21,7 @@ import NotFound from "./pages/NotFound";
 import ProfilePage from "./pages/Profile";
 import Signup from "./pages/Signup";
 import Support from "./pages/Support";
+import Video from "./pages/Video";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -76,6 +77,16 @@ const App = () => (
                   <ProtectedRoute>
                     <Layout>
                       <Generate />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/video"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Video />
                     </Layout>
                   </ProtectedRoute>
                 }
