@@ -79,6 +79,7 @@ export type Database = {
           guidance_scale: number | null
           id: string
           image_size: string | null
+          media_type: string
           model: string
           model_options: Json | null
           negative_prompt: string | null
@@ -103,6 +104,7 @@ export type Database = {
           guidance_scale?: number | null
           id?: string
           image_size?: string | null
+          media_type?: string
           model: string
           model_options?: Json | null
           negative_prompt?: string | null
@@ -127,6 +129,7 @@ export type Database = {
           guidance_scale?: number | null
           id?: string
           image_size?: string | null
+          media_type?: string
           model?: string
           model_options?: Json | null
           negative_prompt?: string | null
@@ -305,6 +308,87 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      videos: {
+        Row: {
+          content_type: string | null
+          created_at: string
+          duration_seconds: number | null
+          fal_metadata: Json | null
+          file_size_bytes: number | null
+          format: string | null
+          fps: number | null
+          generation_id: string
+          height: number | null
+          id: string
+          is_favorited: boolean
+          is_public: boolean
+          storage_bucket: string
+          storage_path: string
+          thumbnail_path: string | null
+          updated_at: string
+          url: string | null
+          user_id: string
+          width: number | null
+        }
+        Insert: {
+          content_type?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          fal_metadata?: Json | null
+          file_size_bytes?: number | null
+          format?: string | null
+          fps?: number | null
+          generation_id: string
+          height?: number | null
+          id?: string
+          is_favorited?: boolean
+          is_public?: boolean
+          storage_bucket?: string
+          storage_path: string
+          thumbnail_path?: string | null
+          updated_at?: string
+          url?: string | null
+          user_id: string
+          width?: number | null
+        }
+        Update: {
+          content_type?: string | null
+          created_at?: string
+          duration_seconds?: number | null
+          fal_metadata?: Json | null
+          file_size_bytes?: number | null
+          format?: string | null
+          fps?: number | null
+          generation_id?: string
+          height?: number | null
+          id?: string
+          is_favorited?: boolean
+          is_public?: boolean
+          storage_bucket?: string
+          storage_path?: string
+          thumbnail_path?: string | null
+          updated_at?: string
+          url?: string | null
+          user_id?: string
+          width?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "videos_generation_id_fkey"
+            columns: ["generation_id"]
+            isOneToOne: false
+            referencedRelation: "generations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "videos_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
     }
     Views: {

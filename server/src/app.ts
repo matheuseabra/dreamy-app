@@ -9,7 +9,9 @@ import billingRoutes from './routes/billing';
 import creditsRoutes from './routes/credits';
 import galleryRoutes from './routes/gallery';
 import generateRoutes from './routes/generate';
+import generateVideoRoutes from './routes/generateVideo';
 import uploadRoutes from './routes/upload';
+import videosRoutes from './routes/videos';
 import webhookRoutes from './routes/webhook';
 import supabaseAdmin from './supabase/client';
 
@@ -45,6 +47,8 @@ app.get('/health', (req, res) => {
 });
 app.use('/api/auth', authRoutes);
 app.use('/api/generate', generateRoutes);
+app.use('/api/generate-video', generateVideoRoutes);
+app.use('/api/videos', videosRoutes);
 app.use('/api/gallery', galleryRoutes);
 app.use('/api/credits', creditsRoutes);
 app.use('/api/upload', uploadRoutes);
