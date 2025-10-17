@@ -45,6 +45,9 @@ export const galleryApi = {
   getGallery: () =>
     api.get<GalleryResponse>('/api/gallery'),
 
+  getFavorites: () =>
+    api.get<GalleryResponse>('/api/gallery/test/favorites'),
+
   toggleFavorite: (imageId: string) =>
     api.post<ToggleFavoriteResponse>(`/api/gallery/${imageId}/favorite`),
 

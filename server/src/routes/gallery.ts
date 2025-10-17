@@ -204,8 +204,55 @@ router.delete('/:id', authenticateUser, async (req: AuthRequest, res) => {
   }
 });
 
+// Toggle favorite status
+router.post('/:id/favorite', authenticateUser, async (req: AuthRequest, res) => {
+  try {
+    const userId = req.user!.id;
+    const imageId = req.params.id;
+
+    // Get current favorite status
+    const { data: image, error: fetchError } = await supabaseAdmin
+      .from('images')
+      .select('is_favorited')
+      .eq('id', imageId)
+      .eq('user_id', userId)
+      .single();
+
+    if (fetchError || !image) {
+      return res.status(404).json({
+        success: false,
+        error: 'Image not found',
+      });
+    }
+
+    // Toggle the favorite status
+    const { data: updatedImage, error: updateError } = await supabaseAdmin
+      .from('images')
+      .update({
+        is_favorited: !image.is_favorited,
+        updated_at: new Date().toISOString(),
+      })
+      .eq('id', imageId)
+      .eq('user_id', userId)
+      .select()
+      .single();
+
+    if (updateError) throw updateError;
+
+    res.json({
+      success: true,
+      image: updatedImage,
+    });
+  } catch (error: any) {
+    res.status(500).json({
+      success: false,
+      error: error.message,
+    });
+  }
+});
+
 // Get favorited images
-router.get('/favorites/list', authenticateUser, async (req: AuthRequest, res) => {
+router.get('/test/favorites', authenticateUser, async (req: AuthRequest, res) => {
   try {
     const userId = req.user!.id;
 
@@ -223,10 +270,14 @@ router.get('/favorites/list', authenticateUser, async (req: AuthRequest, res) =>
         id: img.id,
         url: await storageService.getSignedUrl(img.webp_path || img.storage_path, 3600),
         downloadUrl: await storageService.getSignedUrl(img.storage_path, 3600),
+        format: img.format,
+        fileSize: img.file_size_bytes,
         width: img.width,
         height: img.height,
         prompt: img.generations?.prompt,
         model: img.generations?.model,
+        isFavorited: img.is_favorited,
+        isPublic: img.is_public,
         createdAt: img.created_at,
       }))
     );

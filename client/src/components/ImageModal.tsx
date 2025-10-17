@@ -1,19 +1,22 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { ChevronLeft, ChevronRight, Copy, Download } from "lucide-react";
+import { ChevronLeft, ChevronRight, Copy, Download, Heart } from "lucide-react";
 import { useState } from "react";
 import { toast } from "sonner";
+import { useToggleFavorite } from "@/hooks/api/useGallery";
 
 interface ImageModalProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   image: {
+    id?: string;
     src: string;
     prompt: string;
     model: string;
     createdAt?: string;
     aspectRatio?: string;
+    isFavorited?: boolean;
   } | null;
   onPrevious?: () => void;
   onNext?: () => void;
@@ -31,6 +34,7 @@ export const ImageModal = ({
   hasNext = false,
 }: ImageModalProps) => {
   const [showFullPrompt, setShowFullPrompt] = useState(false);
+  const toggleFavorite = useToggleFavorite();
 
   if (!image) return null;
 
@@ -78,6 +82,21 @@ export const ImageModal = ({
     });
   };
 
+  const handleFavorite = () => {
+    if (!image.id) {
+      toast.error("Cannot favorite this image");
+      return;
+    }
+    toggleFavorite.mutate(image.id, {
+      onSuccess: () => {
+        toast.success(image.isFavorited ? "Removed from favorites" : "Added to favorites");
+      },
+      onError: () => {
+        toast.error("Failed to update favorite status");
+      }
+    });
+  };
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden border-0">
@@ -115,7 +134,20 @@ export const ImageModal = ({
 
           <div className="w-80 bg-card border-l border-border flex flex-col">
             <div className="p-4 border-b border-none">
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between gap-2">
+                {image.id && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className={`font-medium text-xs rounded-lg focus-visible:ring-0 focus-visible:ring-offset-0 ${
+                      image.isFavorited ? 'text-red-500 border-red-500' : ''
+                    }`}
+                    onClick={handleFavorite}
+                  >
+                    <Heart className="h-3 w-3" fill={image.isFavorited ? "currentColor" : "none"} />
+                    {image.isFavorited ? "Favorited" : "Favorite"}
+                  </Button>
+                )}
                 <Button
                   variant="outline"
                   size="sm"

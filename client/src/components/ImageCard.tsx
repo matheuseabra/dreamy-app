@@ -1,15 +1,21 @@
 import { Card } from "@/components/ui/card";
-import { Download, Maximize2 } from "lucide-react";
+import { Download, Maximize2, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useToggleFavorite } from "@/hooks/api/useGallery";
+import { toast } from "sonner";
 
 interface ImageCardProps {
+  id?: string;
   src: string;
   prompt: string;
   model: string;
+  isFavorited?: boolean;
   onClick: () => void;
 }
 
-export const ImageCard = ({ src, prompt, model, onClick }: ImageCardProps) => {
+export const ImageCard = ({ id, src, prompt, model, isFavorited = false, onClick }: ImageCardProps) => {
+  const toggleFavorite = useToggleFavorite();
+
   const handleDownload = (e: React.MouseEvent) => {
     e.stopPropagation();
     const link = document.createElement('a');
@@ -18,6 +24,22 @@ export const ImageCard = ({ src, prompt, model, onClick }: ImageCardProps) => {
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+  };
+
+  const handleFavorite = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    if (!id) {
+      toast.error("Cannot favorite this image");
+      return;
+    }
+    toggleFavorite.mutate(id, {
+      onSuccess: () => {
+        toast.success(isFavorited ? "Removed from favorites" : "Added to favorites");
+      },
+      onError: () => {
+        toast.error("Failed to update favorite status");
+      }
+    });
   };
 
   return (
@@ -35,6 +57,16 @@ export const ImageCard = ({ src, prompt, model, onClick }: ImageCardProps) => {
           </div>
         </div>
         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex gap-2">
+          {id && (
+            <Button
+              size="icon"
+              variant="secondary"
+              onClick={handleFavorite}
+              className={`h-8 w-8 ${isFavorited ? 'text-red-500' : ''}`}
+            >
+              <Heart className="h-4 w-4" fill={isFavorited ? "currentColor" : "none"} />
+            </Button>
+          )}
           <Button
             size="icon"
             variant="secondary"

@@ -1,6 +1,7 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
-import { useGallery } from "@/hooks/api";
+import { useFavorites } from "@/hooks/api/useGallery";
+import { Heart } from "lucide-react";
 import { useState } from "react";
 
 interface GeneratedImage {
@@ -11,16 +12,16 @@ interface GeneratedImage {
   isFavorited?: boolean;
 }
 
-const Assets = () => {
+const Favorites = () => {
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
 
-  // Use the new useGallery hook
-  const { data: galleryImages, isLoading: imagesLoading } = useGallery();
+  // Use the useFavorites hook
+  const { data: favoriteImages, isLoading: imagesLoading } = useFavorites();
 
-  // Transform gallery images to match GeneratedImage interface
-  const transformedImages: GeneratedImage[] = galleryImages
-    ? galleryImages.map((img) => ({
+  // Transform favorite images to match GeneratedImage interface
+  const transformedImages: GeneratedImage[] = favoriteImages
+    ? favoriteImages.map((img) => ({
         id: img.id,
         src: img.url || "",
         prompt: img.prompt || "No prompt available",
@@ -45,6 +46,18 @@ const Assets = () => {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto mt-4">
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Heart className="h-6 w-6 text-red-500 fill-red-500" />
+            <h1 className="text-2xl font-bold">Favorites</h1>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            {favoriteImages && favoriteImages.length > 0
+              ? `${favoriteImages.length} favorited ${favoriteImages.length === 1 ? 'image' : 'images'}`
+              : 'No favorite images yet'}
+          </p>
+        </div>
+
         <CombinedGallery
           onImageClick={handleImageClick}
           generatedImages={transformedImages}
@@ -60,4 +73,4 @@ const Assets = () => {
   );
 };
 
-export default Assets;
+export default Favorites;

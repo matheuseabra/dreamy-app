@@ -5,6 +5,7 @@ import { galleryApi, GalleryImage } from '@/lib/api/gallery';
 export const galleryKeys = {
   all: ['gallery'] as const,
   list: () => [...galleryKeys.all, 'list'] as const,
+  favorites: () => [...galleryKeys.all, 'favorites'] as const,
 };
 
 // Hooks
@@ -56,6 +57,7 @@ export function useToggleFavorite() {
       if (response.success) {
         // Refetch to ensure consistency
         queryClient.invalidateQueries({ queryKey: galleryKeys.list() });
+        queryClient.invalidateQueries({ queryKey: galleryKeys.favorites() });
       }
     },
   });
@@ -120,5 +122,19 @@ export function usePublishImage() {
         queryClient.invalidateQueries({ queryKey: galleryKeys.list() });
       }
     },
+  });
+}
+
+export function useFavorites() {
+  return useQuery({
+    queryKey: galleryKeys.favorites(),
+    queryFn: async () => {
+      const response = await galleryApi.getFavorites();
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to fetch favorites');
+      }
+      return response.images;
+    },
+    staleTime: 30 * 1000, // 30 seconds
   });
 }

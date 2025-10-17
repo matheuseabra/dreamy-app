@@ -8,18 +8,19 @@ interface CombinedGalleryProps {
     src: string;
     prompt: string;
     model: string;
+    isFavorited?: boolean;
   }>;
   isLoading?: boolean;
   isGenerating?: boolean;
   currentPrompt?: string;
 }
 
-export const CombinedGallery = ({ 
-  onImageClick, 
-  generatedImages, 
+export const CombinedGallery = ({
+  onImageClick,
+  generatedImages,
   isLoading,
   isGenerating,
-  currentPrompt 
+  currentPrompt
 }: CombinedGalleryProps) => {
   const allImages = [...generatedImages];
 
@@ -43,11 +44,11 @@ export const CombinedGallery = ({
           {/* Optimistic loading skeleton - shown first */}
           {isGenerating && (
             <div className="aspect-square bg-muted/20 rounded-lg relative overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/40 to-transparent animate-shimmer" 
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-muted/40 to-transparent animate-shimmer"
                    style={{
                      backgroundSize: '200% 100%',
                      animation: 'shimmer 2s infinite'
-                   }} 
+                   }}
               />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-4 text-center">
                 <div className="w-8 h-8 border-2 border-muted-foreground/30 border-t-muted-foreground rounded-full animate-spin mb-2" />
@@ -59,19 +60,21 @@ export const CombinedGallery = ({
               </div>
             </div>
           )}
-          
+
           {allImages.map((image) => (
             <ImageCard
               key={image.id}
+              id={image.id}
               src={image.src}
               prompt={image.prompt}
               model={image.model}
+              isFavorited={image.isFavorited}
               onClick={() => onImageClick(image)}
             />
           ))}
         </div>
       )}
-      
+
       <style>{`
         @keyframes shimmer {
           0% {

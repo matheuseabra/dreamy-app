@@ -12,6 +12,7 @@ import AccountPage from "./pages/Account";
 import Billing from "./pages/Billing";
 import Assets from "./pages/Assets";
 import Contact from "./pages/Contact";
+import Favorites from "./pages/Favorites";
 import Edit from "./pages/Edit";
 import Explore from "./pages/Explore";
 import Feedback from "./pages/Feedback";
@@ -117,6 +118,16 @@ const App = () => (
                   <ProtectedRoute>
                     <Layout>
                       <Assets />
+                    </Layout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/favorites"
+                element={
+                  <ProtectedRoute>
+                    <Layout>
+                      <Favorites />
                     </Layout>
                   </ProtectedRoute>
                 }
