@@ -36,7 +36,7 @@ const Sidebar: React.FC = () => {
     {
       path: "/imagine",
       icon: WandSparklesIcon,
-      label: "Imagine",
+      label: "Image",
     },
     {
       path: "/video",
