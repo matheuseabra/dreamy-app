@@ -52,7 +52,6 @@ export default function Explore() {
     setSelectedImage(null);
   };
 
-  // Transform selected image for modal
   const modalImageData: SelectedImageData | null = selectedImage
     ? {
         src: selectedImage.publicUrl,
@@ -63,7 +62,6 @@ export default function Explore() {
       }
     : null;
 
-  // Error state
   if (error) {
     return (
       <div className="min-h-screen bg-background">
@@ -88,8 +86,19 @@ export default function Explore() {
     );
   }
 
-  // Loading state
   if (isLoading) {
+    const skeletonHeights = ['h-64', 'h-80', 'h-96', 'h-72', 'h-60'];
+    const getSkeletonHeight = (index: number) => {
+      return skeletonHeights[index % skeletonHeights.length];
+    };
+
+    const columns = [
+      Array.from({ length: 3 }, (_, i) => i),
+      Array.from({ length: 3 }, (_, i) => i + 3),
+      Array.from({ length: 3 }, (_, i) => i + 6),
+      Array.from({ length: 3 }, (_, i) => i + 9),
+    ];
+
     return (
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4">
@@ -98,9 +107,16 @@ export default function Explore() {
               Unleash Your Imagination
             </h1>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <Skeleton key={index} className="aspect-square rounded-lg" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-1">
+            {columns.map((column, columnIndex) => (
+              <div key={columnIndex} className="space-y-1">
+                {column.map((itemIndex) => (
+                  <Skeleton
+                    key={itemIndex}
+                    className={`${getSkeletonHeight(itemIndex)} rounded-lg`}
+                  />
+                ))}
+              </div>
             ))}
           </div>
         </div>
@@ -108,7 +124,6 @@ export default function Explore() {
     );
   }
 
-  // Empty state
   const hasImages = imagesData?.objects && imagesData.objects.length > 0;
 
   if (!hasImages) {
@@ -138,7 +153,6 @@ export default function Explore() {
     );
   }
 
-  // Main content with images
   return (
     <div className="min-h-screen bg-background">
       <div className="container mx-auto px-4">
@@ -148,7 +162,6 @@ export default function Explore() {
           </h1>
         </div>
 
-        {/* Background fetching indicator */}
         {isFetching && !isLoading && (
           <div className="fixed top-4 right-4 z-50">
             <Alert className="w-auto">
@@ -164,7 +177,6 @@ export default function Explore() {
         />
       </div>
 
-      {/* Image Modal */}
       {modalImageData && (
         <ImageModal
           open={!!selectedImage}
