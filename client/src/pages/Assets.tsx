@@ -1,6 +1,7 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
 import { useGallery } from "@/hooks/api";
+import { Folder } from "lucide-react";
 import { useState } from "react";
 
 interface GeneratedImage {
@@ -45,6 +46,17 @@ const Assets = () => {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto mt-4">
+        <div className="mb-6">
+          <div className="flex items-center gap-2 mb-2">
+            <Folder className="h-6 w-6" />
+            <h1 className="text-2xl font-bold">Assets</h1>
+          </div>
+          <p className="text-sm text-muted-foreground">
+            {transformedImages && transformedImages.length > 0
+              ? `${transformedImages.length} ${transformedImages.length === 1 ? 'asset' : 'assets'}`
+              : 'No assets yet'}
+          </p>
+        </div>
         <CombinedGallery
           onImageClick={handleImageClick}
           generatedImages={transformedImages}

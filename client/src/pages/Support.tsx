@@ -26,7 +26,7 @@ const Support = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.subject || !formData.message) {
       toast.error("Please fill in all required fields");
       return;
@@ -68,8 +68,8 @@ const Support = () => {
 
   return (
     <div className="relative min-h-screen">
-      <div className="container mx-auto relative z-10">
-        <div className="my-12 text-center">
+      <div className="container max-w-4xl mx-auto py-8 px-4 z-10">
+        <div className="mb-8 text-center">
           <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent flex items-center justify-center gap-2 mb-2">
             <HelpCircle className="h-8 w-8" />
             Support Center
@@ -175,8 +175,8 @@ const Support = () => {
               <CardContent>
                 <div className="space-y-6">
                   {faqItems.map((item, index) => (
-                    <div 
-                      key={index} 
+                    <div
+                      key={index}
                       className="border-l-2 border-primary/20 pl-4 hover:border-primary/40 transition-colors"
                     >
                       <h4 className="font-medium text-foreground mb-2">{item.question}</h4>
@@ -196,22 +196,22 @@ const Support = () => {
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full justify-start hover:bg-primary/10 transition-colors"
                   >
                     <BookOpen className="h-4 w-4 mr-2 text-primary" />
                     View Documentation
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full justify-start hover:bg-primary/10 transition-colors"
                   >
                     <MessageSquare className="h-4 w-4 mr-2 text-primary" />
                     Join Community Discord
                   </Button>
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     className="w-full justify-start hover:bg-primary/10 transition-colors"
                   >
                     <Mail className="h-4 w-4 mr-2 text-primary" />

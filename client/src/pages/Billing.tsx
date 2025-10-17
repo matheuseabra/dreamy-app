@@ -33,6 +33,8 @@ export default function Billing() {
     });
   };
 
+  const credits = creditsData?.credits;
+
   if (error) {
     return (
       <div className="min-h-screen bg-background">
@@ -65,7 +67,7 @@ export default function Billing() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <div className="container max-w-6xl mx-auto py-8 px-4">
+        <div className="container max-w-4xl mx-auto py-8 px-4">
           <div className="mb-8">
             <h1 className="text-3xl font-bold mb-2">Billing & Credits</h1>
             <p className="text-muted-foreground">
@@ -112,8 +114,6 @@ export default function Billing() {
       </div>
     );
   }
-
-  const credits = creditsData?.credits;
 
   return (
     <div className="container max-w-4xl mx-auto py-8 px-4">

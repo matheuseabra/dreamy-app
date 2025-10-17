@@ -1,7 +1,7 @@
 import { CombinedGallery } from "@/components/CombinedGallery";
 import { ImageModal } from "@/components/ImageModal";
 import { useFavorites } from "@/hooks/api/useGallery";
-import { Heart } from "lucide-react";
+import { Star } from "lucide-react";
 import { useState } from "react";
 
 interface GeneratedImage {
@@ -26,7 +26,7 @@ const Favorites = () => {
         src: img.url || "",
         prompt: img.prompt || "No prompt available",
         model: img.model || "Unknown",
-        isFavorited: img.is_favorited,
+        isFavorited: img.is_favorited
       }))
     : [];
 
@@ -48,7 +48,7 @@ const Favorites = () => {
       <div className="container mx-auto mt-4">
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-2">
-            <Heart className="h-6 w-6 text-red-500 fill-red-500" />
+            <Star className="h-6 w-6 text-amber-500 fill-amber-500" />
             <h1 className="text-2xl font-bold">Favorites</h1>
           </div>
           <p className="text-sm text-muted-foreground">

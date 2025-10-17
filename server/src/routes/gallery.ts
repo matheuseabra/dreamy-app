@@ -276,8 +276,8 @@ router.get('/test/favorites', authenticateUser, async (req: AuthRequest, res) =>
         height: img.height,
         prompt: img.generations?.prompt,
         model: img.generations?.model,
-        isFavorited: img.is_favorited,
-        isPublic: img.is_public,
+        is_favorited: img.is_favorited,
+        is_public: img.is_public,
         createdAt: img.created_at,
       }))
     );

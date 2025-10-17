@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import { Download, Maximize2, Heart } from "lucide-react";
+import { Download, Maximize2, Star } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useToggleFavorite } from "@/hooks/api/useGallery";
 import { toast } from "sonner";
@@ -62,9 +62,13 @@ export const ImageCard = ({ id, src, prompt, model, isFavorited = false, onClick
               size="icon"
               variant="secondary"
               onClick={handleFavorite}
-              className={`h-8 w-8 ${isFavorited ? 'text-red-500' : ''}`}
+              className={`h-8 w-8`}
             >
-              <Heart className="h-4 w-4" fill={isFavorited ? "currentColor" : "none"} />
+              {isFavorited ? (
+                <Star className="h-4 w-4" fill="#fea708" color="#fea708" />
+              ) : (
+                <Star className="h-4 w-4" />
+              )}
             </Button>
           )}
           <Button

@@ -30,7 +30,7 @@ const Feedback = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.type || !formData.title || !formData.description) {
       toast.error("Please fill in all required fields");
       return;
@@ -58,7 +58,7 @@ const Feedback = () => {
 
   return (
     <div className="relative min-h-screen">
-      <div className="container mx-auto relative z-10">
+      <div className="container max-w-4xl mx-auto py-8 px-4 z-10">
         <div className="my-12 text-center">
           <h1 className="text-3xl font-bold bg-gradient-to-b from-white to-zinc-400 bg-clip-text text-transparent flex items-center justify-center gap-2 mb-2">
             <MessageSquare className="h-8 w-8" />
@@ -107,11 +107,11 @@ const Feedback = () => {
                   <Label className="text-base font-medium">What type of feedback is this? *</Label>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-3">
                     {feedbackTypes.map((type) => (
-                      <Card 
+                      <Card
                         key={type.value}
                         className={`cursor-pointer transition-all hover:shadow-lg backdrop-blur border-border/50 ${
-                          formData.type === type.value 
-                            ? 'ring-2 ring-primary bg-primary/10 border-primary' 
+                          formData.type === type.value
+                            ? 'ring-2 ring-primary bg-primary/10 border-primary'
                             : 'hover:bg-card/80 hover:border-primary/50'
                         }`}
                         onClick={() => handleInputChange("type", type.value)}
@@ -134,8 +134,8 @@ const Feedback = () => {
                 {formData.type && (
                   <div>
                     <Label className="text-base font-medium">How would you rate your overall experience? *</Label>
-                    <RadioGroup 
-                      value={formData.rating} 
+                    <RadioGroup
+                      value={formData.rating}
                       onValueChange={(value) => handleInputChange("rating", value)}
                       className="flex gap-6 mt-3"
                     >
