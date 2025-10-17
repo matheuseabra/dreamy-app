@@ -49,6 +49,7 @@ const Dashboard = () => {
             src: img.url || "",
             prompt: img.prompt || "No prompt available",
             model: img.model || "Unknown",
+            ...img
           }))
         : [],
     [galleryImages]

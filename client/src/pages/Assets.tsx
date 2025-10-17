@@ -26,18 +26,18 @@ const Assets = () => {
         src: img.url || "",
         prompt: img.prompt || "No prompt available",
         model: img.model || "Unknown",
-        isFavorited: img.is_favorited,
+        ...img
       }))
     : [];
 
-  const handleImageClick = (image: GeneratedImage) => {
+  const handleImageClick = (image) => {
     // Transform to include all necessary data for modal
     const modalImage = {
       id: image.id,
       src: image.src,
       prompt: image.prompt,
       model: image.model,
-      isFavorited: image.isFavorited,
+      isFavorited: image?.is_favorited,
     };
     setSelectedImage(modalImage);
     setModalOpen(true);
