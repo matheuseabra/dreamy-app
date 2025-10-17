@@ -10,6 +10,7 @@ interface GeneratedVideo {
   model: string;
   duration?: number;
   thumbnailUrl?: string;
+  aspectRatio?: string;
 }
 
 type VideoGenerationResponse = {
@@ -24,6 +25,7 @@ type VideoGenerationResponse = {
       duration_seconds?: number;
       width?: number;
       height?: number;
+      aspectRatio?: string;
     };
   };
   error?: string;
@@ -83,6 +85,7 @@ export const useVideoGeneration = () => {
           model: getModelDisplayName(selectedModel),
           duration: video.duration_seconds,
           thumbnailUrl: video.thumbnailUrl || undefined,
+          aspectRatio: video.aspectRatio || undefined,
         };
 
         setGeneratedVideosLocal((prev) => [newVideo, ...prev]);
@@ -177,6 +180,7 @@ export const useVideoGeneration = () => {
           model: getModelDisplayName(selectedModel),
           duration: video.duration_seconds,
           thumbnailUrl: video.thumbnailUrl || undefined,
+          aspectRatio: video.aspectRatio || undefined,
         };
 
         setGeneratedVideosLocal((prev) => [newVideo, ...prev]);

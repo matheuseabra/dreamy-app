@@ -57,6 +57,7 @@ router.post(
           status: 'pending',
           credits_used: creditsRequired,
           num_images: 1, // Videos typically generate 1 output
+          image_size: input.aspect_ratio || input.image_size, // Save aspect_ratio to image_size column
           model_options: {
             image_size: input.image_size,
             aspect_ratio: input.aspect_ratio,
@@ -283,7 +284,6 @@ router.get('/:id', authenticateUser, async (req: AuthRequest, res) => {
           videoData.storage_path,
           3600
         );
-
         video = {
           id: videoData.id,
           url: signedUrl,
@@ -292,6 +292,7 @@ router.get('/:id', authenticateUser, async (req: AuthRequest, res) => {
           duration_seconds: videoData.duration_seconds,
           format: videoData.format,
           file_size_bytes: videoData.file_size_bytes,
+          aspectRatio: generation.image_size,
         };
       }
     }

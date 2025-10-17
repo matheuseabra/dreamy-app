@@ -12,6 +12,7 @@ interface GeneratedVideo {
   model: string;
   duration?: number;
   thumbnailUrl?: string;
+  aspectRatio?: string;
 }
 
 const Video = () => {
@@ -56,6 +57,7 @@ const Video = () => {
             model: vid.model || "Unknown",
             duration: vid.duration_seconds,
             thumbnailUrl: vid.thumbnailUrl || undefined,
+            aspectRatio: vid.aspectRatio || undefined,
           }))
         : [],
     [videoList]

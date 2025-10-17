@@ -38,6 +38,14 @@ export const VideoModal = ({
 
   if (!video) return null;
 
+  // Detect portrait/vertical videos (9:16, 9:21, etc.)
+  const isPortrait = video.aspectRatio
+    ? video.aspectRatio.includes("9:16") ||
+      video.aspectRatio.includes("9:21") ||
+      video.aspectRatio.startsWith("9:") ||
+      video.aspectRatio.includes("portrait")
+    : false;
+
   const MAX_PROMPT_LENGTH = 200;
   const isTruncated = video.prompt.length > MAX_PROMPT_LENGTH;
   const displayPrompt =
@@ -110,12 +118,15 @@ export const VideoModal = ({
     });
   };
 
+  console.log({ video })
+  console.log("isPortrait:", isPortrait);
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-7xl w-[95vw] h-[90vh] p-0 overflow-hidden border-0">
-        <div className="flex h-full">
+        <div className="flex">
           {/* Video Player Section */}
-          <div className="flex-1 relative flex items-center justify-center bg-black">
+          <div className="flex-1 relative flex items-center justify-center bg-black overflow-hidden">
             {hasPrevious && (
               <Button
                 variant="ghost"
@@ -142,7 +153,8 @@ export const VideoModal = ({
               src={video.src}
               controls
               autoPlay
-              className="w-full h-full object-contain"
+              playsInline
+              className={isPortrait ? "h-[650px] object-contain" : "w-full h-full object-contain"}
               poster={video.thumbnailUrl}
             />
           </div>

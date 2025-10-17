@@ -32,7 +32,7 @@ router.get('/', authenticateUser, async (req: AuthRequest, res) => {
     // Build query
     let query = supabaseAdmin
       .from('videos')
-      .select('*, generations(prompt, model)', { count: 'exact' })
+      .select('*, generations(prompt, model, image_size)', { count: 'exact' })
       .eq('user_id', userId);
 
     // Filter by favorites if requested
@@ -68,6 +68,7 @@ router.get('/', authenticateUser, async (req: AuthRequest, res) => {
         fileSize: video.file_size_bytes,
         prompt: video.generations?.prompt,
         model: video.generations?.model,
+        aspectRatio: video.generations?.image_size,
         isFavorited: video.is_favorited,
         isPublic: video.is_public,
         createdAt: video.created_at,
@@ -104,7 +105,7 @@ router.get('/:id', authenticateUser, async (req: AuthRequest, res) => {
 
     const { data: video, error } = await supabaseAdmin
       .from('videos')
-      .select('*, generations(prompt, model, negative_prompt, model_options, created_at)')
+      .select('*, generations(prompt, model, negative_prompt, model_options, image_size, created_at)')
       .eq('id', videoId)
       .eq('user_id', userId)
       .single();
@@ -134,6 +135,7 @@ router.get('/:id', authenticateUser, async (req: AuthRequest, res) => {
         fps: video.fps,
         format: video.format,
         fileSize: video.file_size_bytes,
+        aspectRatio: video.generations?.image_size,
         isFavorited: video.is_favorited,
         isPublic: video.is_public,
         createdAt: video.created_at,
@@ -141,6 +143,7 @@ router.get('/:id', authenticateUser, async (req: AuthRequest, res) => {
           prompt: video.generations?.prompt,
           negativePrompt: video.generations?.negative_prompt,
           model: video.generations?.model,
+          aspectRatio: video.generations?.image_size,
           modelOptions: video.generations?.model_options,
           createdAt: video.generations?.created_at,
         },
@@ -284,7 +287,7 @@ router.get('/favorites/list', authenticateUser, async (req: AuthRequest, res) =>
 
     const { data: videos, error } = await supabaseAdmin
       .from('videos')
-      .select('*, generations(prompt, model)')
+      .select('*, generations(prompt, model, image_size)')
       .eq('user_id', userId)
       .eq('is_favorited', true)
       .order('created_at', { ascending: false });
@@ -307,6 +310,7 @@ router.get('/favorites/list', authenticateUser, async (req: AuthRequest, res) =>
         format: video.format,
         prompt: video.generations?.prompt,
         model: video.generations?.model,
+        aspectRatio: video.generations?.image_size,
         createdAt: video.created_at,
       }))
     );

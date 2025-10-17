@@ -31,6 +31,7 @@ export interface Video {
   fps?: number;
   format?: string;
   fileSize?: number;
+  aspectRatio?: string;
   isFavorited?: boolean;
   isPublic?: boolean;
   createdAt?: string;
