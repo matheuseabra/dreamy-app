@@ -9,7 +9,7 @@ import Layout from "./components/Layout";
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthProvider } from './context/AuthContext';
 import AccountPage from "./pages/Account";
-import BigllingPage from "./pages/Billing";
+import Billing from "./pages/Billing";
 import Assets from "./pages/Assets";
 import Contact from "./pages/Contact";
 import Edit from "./pages/Edit";
@@ -157,7 +157,7 @@ const App = () => (
                 element={
                   <ProtectedRoute>
                     <Layout>
-                      <BigllingPage />
+                      <Billing />
                     </Layout>
                   </ProtectedRoute>
                 }

@@ -1,5 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { billingApi } from '@/lib/api/billing';
+
+export function useCredits() {
+  return useQuery({
+    queryKey: ['credits'],
+    queryFn: () => billingApi.getCredits(),
+  });
+}
 
 export function useCreateCheckoutSession() {
   return useMutation({

@@ -6,11 +6,20 @@ interface CheckoutSessionResponse {
   error?: string;
 }
 
-
+interface CreditsResponse {
+  success: boolean;
+  credits: {
+    remaining: number;
+    total: number;
+    lastRefill: string;
+  };
+  error?: string;
+}
 
 export const billingApi = {
   createCheckoutSession: (packId: string) =>
     api.post<CheckoutSessionResponse>('/api/billing/create-checkout-session', { packId }),
 
-
+  getCredits: () =>
+    api.get<CreditsResponse>('/api/credits'),
 };
