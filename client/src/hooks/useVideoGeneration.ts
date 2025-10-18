@@ -1,7 +1,20 @@
+/**
+ * client/src/hooks/useVideoGeneration.ts
+ *
+ * Hook for handling video generation flows on the client.
+ * - Mirrors logic used in useImageGeneration for consistent insufficient-credit behavior.
+ * - Opens PricingDialog on either:
+ *    a) thrown ApiError with HTTP 402, or
+ *    b) successful HTTP response with `{ success: false, error: "Insufficient credits..." }`
+ *
+ * Exposes `showPricingDialog`, `setShowPricingDialog`, and `requiredCredits` so pages can render the dialog.
+ */
+
 import { generateVideo, getVideoGenerationStatus } from "@/lib/video-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState, useCallback } from "react";
 import { toast } from "sonner";
+import { ApiError } from "@/lib/api-client";
 
 interface GeneratedVideo {
   id: string;
@@ -27,9 +40,13 @@ type VideoGenerationResponse = {
       height?: number;
       aspectRatio?: string;
     };
+    error?: string;
+    message?: string;
   };
   error?: string;
   details?: string;
+  // optional numeric field servers may include for required credits
+  requiredCredits?: number;
 };
 
 export const useVideoGeneration = () => {
@@ -43,8 +60,16 @@ export const useVideoGeneration = () => {
   const [seed, setSeed] = useState<number | undefined>(undefined);
   const [enableSafetyChecker, setEnableSafetyChecker] = useState(true);
   const [isGenerating, setIsGenerating] = useState(false);
-  const [generatedVideosLocal, setGeneratedVideosLocal] = useState<GeneratedVideo[]>([]);
+  const [generatedVideosLocal, setGeneratedVideosLocal] = useState<GeneratedVideo[]>(
+    []
+  );
   const [pollInterval, setPollInterval] = useState<NodeJS.Timeout | null>(null);
+
+  // Pricing dialog state exposed to the consumer
+  const [showPricingDialog, setShowPricingDialog] = useState(false);
+  const [requiredCredits, setRequiredCredits] = useState<number | undefined>(
+    undefined
+  );
 
   const queryClient = useQueryClient();
 
@@ -60,68 +85,100 @@ export const useVideoGeneration = () => {
     return modelMap[modelId] || "AI Video Model";
   };
 
-  const pollGenerationStatus = useCallback(async (generationId: string) => {
+  const tryParseRequiredCreditsFromBody = (body: any): number | undefined => {
+    if (!body) return undefined;
     try {
-      const response = await getVideoGenerationStatus(generationId);
-
-      if (!response.success || !response.generation) {
-        throw new Error(response.error || "Failed to get generation status");
+      if (typeof body === "string") {
+        const parsed = JSON.parse(body);
+        return (
+          parsed?.requiredCredits ??
+          parsed?.required_credits ??
+          parsed?.data?.requiredCredits ??
+          parsed?.data?.required_credits
+        );
+      } else if (typeof body === "object") {
+        return (
+          body?.requiredCredits ??
+          body?.required_credits ??
+          body?.data?.requiredCredits ??
+          body?.data?.required_credits
+        );
       }
-
-      const { status, video, error } = response.generation;
-
-      if (status === "completed" && video) {
-        // Clear polling interval
-        if (pollInterval) {
-          clearInterval(pollInterval);
-          setPollInterval(null);
-        }
-
-        // Add video to local state
-        const newVideo: GeneratedVideo = {
-          id: video.id,
-          src: video.url,
-          prompt: prompt,
-          model: getModelDisplayName(selectedModel),
-          duration: video.duration_seconds,
-          thumbnailUrl: video.thumbnailUrl || undefined,
-          aspectRatio: video.aspectRatio || undefined,
-        };
-
-        setGeneratedVideosLocal((prev) => [newVideo, ...prev]);
-        setIsGenerating(false);
-        toast.success("Video generated successfully!");
-        setPrompt("");
-
-        // Invalidate queries
-        queryClient.invalidateQueries({ queryKey: ["videos"] });
-
-        return true;
-      } else if (status === "failed") {
-        if (pollInterval) {
-          clearInterval(pollInterval);
-          setPollInterval(null);
-        }
-        setIsGenerating(false);
-        toast.error(error || "Video generation failed");
-        return true;
-      }
-
-      // Still processing, continue polling
-      return false;
-    } catch (error) {
-      console.error("Polling error:", error);
-      if (pollInterval) {
-        clearInterval(pollInterval);
-        setPollInterval(null);
-      }
-      setIsGenerating(false);
-      toast.error("Failed to check generation status");
-      return true;
+    } catch {
+      // ignore JSON parse errors
     }
-  }, [pollInterval, prompt, selectedModel, queryClient]);
+    return undefined;
+  };
 
-  const generateVideoMutation = useMutation<VideoGenerationResponse, Error, void>({
+  const pollGenerationStatus = useCallback(
+    async (generationId: string) => {
+      try {
+        const response = await getVideoGenerationStatus(generationId);
+
+        if (!response.success || !response.generation) {
+          throw new Error(response.error || "Failed to get generation status");
+        }
+
+        const { status, video, error } = response.generation;
+
+        if (status === "completed" && video) {
+          // Clear polling interval
+          if (pollInterval) {
+            clearInterval(pollInterval);
+            setPollInterval(null);
+          }
+
+          // Add video to local state
+          const newVideo: GeneratedVideo = {
+            id: video.id,
+            src: video.url,
+            prompt: prompt,
+            model: getModelDisplayName(selectedModel),
+            duration: video.duration_seconds,
+            thumbnailUrl: video.thumbnailUrl || undefined,
+            aspectRatio: video.aspectRatio || undefined,
+          };
+
+          setGeneratedVideosLocal((prev) => [newVideo, ...prev]);
+          setIsGenerating(false);
+          toast.success("Video generated successfully!");
+          setPrompt("");
+
+          // Invalidate queries
+          queryClient.invalidateQueries({ queryKey: ["videos"] });
+
+          return true;
+        } else if (status === "failed") {
+          if (pollInterval) {
+            clearInterval(pollInterval);
+            setPollInterval(null);
+          }
+          setIsGenerating(false);
+          toast.error(error || "Video generation failed");
+          return true;
+        }
+
+        // Still processing, continue polling
+        return false;
+      } catch (err) {
+        console.error("Polling error:", err);
+        if (pollInterval) {
+          clearInterval(pollInterval);
+          setPollInterval(null);
+        }
+        setIsGenerating(false);
+        toast.error("Failed to check generation status");
+        return true;
+      }
+    },
+    [pollInterval, prompt, selectedModel, queryClient]
+  );
+
+  const generateVideoMutation = useMutation<
+    VideoGenerationResponse,
+    Error,
+    void
+  >({
     mutationFn: async (): Promise<VideoGenerationResponse> => {
       const requestData: any = {
         prompt,
@@ -131,7 +188,7 @@ export const useVideoGeneration = () => {
         fps,
         guidance_scale: guidanceScale,
         enable_safety_checker: enableSafetyChecker,
-        sync_mode: false, // Always async for video
+        sync_mode: false, // videos are async
       };
 
       if (negativePrompt.trim()) {
@@ -151,26 +208,77 @@ export const useVideoGeneration = () => {
     onError: (error: Error) => {
       console.error("Generation error:", error);
       setIsGenerating(false);
-      const message = error instanceof Error && error.message ? error.message : String(error);
+      const message =
+        error instanceof Error && error.message ? error.message : String(error);
+
+      // Thrown 402 or text that mentions credits -> open dialog
+      if (
+        (error instanceof ApiError && (error as ApiError).status === 402) ||
+        /insufficient credits/i.test(message) ||
+        /credit/i.test(message)
+      ) {
+        // Try to extract required credits from thrown error body if available
+        const needed = tryParseRequiredCreditsFromBody((error as any)?.body);
+        setRequiredCredits(needed);
+        setShowPricingDialog(true);
+        return;
+      }
 
       if (message.includes("Rate limit")) {
         toast.error("Rate limit exceeded. Please wait a moment and try again.");
-      } else if (message.includes("Credits") || message.includes("credit")) {
-        toast.error("Insufficient credits. Please add credits to continue.");
       } else {
         toast.error(message || "Failed to generate video. Please try again.");
       }
     },
     onSuccess: async (data) => {
-      if (!data?.success || !data?.generation) {
-        toast.error(data?.error || "No generation data received from server");
+      // Handle server responses that explicitly report failure via success:false
+      // Example: { success: false, error: "Insufficient credits for video generation" }
+      if (data && data.success === false) {
+        const errMsg = (data.error || "").toString();
+
+        // If server explicitly indicates insufficient credits, open the pricing dialog
+        if (/insufficient credits/i.test(errMsg)) {
+          // Some server payloads may include requiredCredits in the JSON body
+          const needed =
+            data.requiredCredits ??
+            // try to parse details if it contains JSON
+            ((): number | undefined => {
+              try {
+                if (data.details) {
+                  const parsed = JSON.parse(data.details);
+                  return (
+                    parsed?.requiredCredits ??
+                    parsed?.required_credits ??
+                    parsed?.data?.requiredCredits
+                  );
+                }
+              } catch {
+                // ignore
+              }
+              return undefined;
+            })();
+
+          setRequiredCredits(needed);
+          setShowPricingDialog(true);
+          setIsGenerating(false);
+          return;
+        }
+
+        // Fallback: show server-provided error
+        toast.error(errMsg || "No generation data received from server");
+        setIsGenerating(false);
+        return;
+      }
+
+      if (!data?.generation) {
+        toast.error("No generation data received from server");
         setIsGenerating(false);
         return;
       }
 
       const { id, status } = data.generation;
 
-      // If completed immediately (sync mode or very fast)
+      // If completed immediately (unlikely for video, but handle just in case)
       if (status === "completed" && data.generation.video) {
         const video = data.generation.video;
         const newVideo: GeneratedVideo = {
@@ -191,7 +299,7 @@ export const useVideoGeneration = () => {
         return;
       }
 
-      // Start polling for async generation
+      // Start polling for async generation (in_queue or processing)
       toast.info("Video generation started. This may take a few minutes...");
 
       const interval = setInterval(async () => {
@@ -199,9 +307,14 @@ export const useVideoGeneration = () => {
         if (isComplete && interval) {
           clearInterval(interval);
         }
-      }, 5000); // Poll every 5 seconds
+      }, 5000); // Poll every 5s
 
       setPollInterval(interval);
+    },
+    onSettled: () => {
+      // Leave isGenerating=false to other handlers where appropriate;
+      // we ensure it's false when operations complete or errors occur.
+      queryClient.invalidateQueries({ queryKey: ["videos"] });
     },
   });
 
@@ -216,10 +329,11 @@ export const useVideoGeneration = () => {
       return;
     }
 
+    // Fire the mutation — backend will determine if credits are sufficient
     generateVideoMutation.mutate();
   };
 
-  // Cleanup polling on unmount
+  // Cleanup polling on unmount / consumer can also call cleanup()
   const cleanup = useCallback(() => {
     if (pollInterval) {
       clearInterval(pollInterval);
@@ -251,5 +365,11 @@ export const useVideoGeneration = () => {
     generatedVideosLocal,
     setGeneratedVideosLocal,
     cleanup,
+    // Pricing dialog controls for the consumer
+    showPricingDialog,
+    setShowPricingDialog,
+    requiredCredits,
   };
 };
+
+export default useVideoGeneration;

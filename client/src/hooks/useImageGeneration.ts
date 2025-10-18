@@ -1,4 +1,5 @@
 import { apiClient } from "@/lib/api";
+import { ApiError } from "@/lib/api-client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { toast } from "sonner";
@@ -12,14 +13,20 @@ interface GeneratedImage {
 
 type ServerResponse = {
   success: boolean;
-  generation: {
+  // When generation fails the server may return an error message in the payload:
+  // { success: false, error: "Insufficient credits for video generation" }
+  error?: string;
+  details?: string;
+  // generation is optional when success is false
+  generation?: {
     id: string;
     status: string;
-    images: Array<{
+    // images may be absent in some responses (e.g. failure cases)
+    images?: Array<{
       id: string;
       url: string;
-      width: number;
-      height: number;
+      width?: number;
+      height?: number;
     }>;
   };
 };
@@ -36,6 +43,8 @@ export const useImageGeneration = () => {
   const [generatedImagesLocal, setGeneratedImagesLocal] = useState<
     GeneratedImage[]
   >([]);
+  const [showPricingDialog, setShowPricingDialog] = useState(false);
+  const [requiredCredits, setRequiredCredits] = useState<number | null>(null);
 
   const queryClient = useQueryClient();
 
@@ -87,16 +96,63 @@ export const useImageGeneration = () => {
       console.error("Generation error:", error);
       const message =
         error instanceof Error && error.message ? error.message : String(error);
+      // Open pricing dialog when credits are insufficient (HTTP 402 or message match)
+      if (
+        (error instanceof ApiError && error.status === 402) ||
+        /insufficient credits/i.test(message) ||
+        /credit/i.test(message)
+      ) {
+        // Try to extract required credits from error body if available
+        let needed: number | null = null;
+        const body: any = (error as any)?.body;
+        try {
+          if (typeof body === "string") {
+            const parsed = JSON.parse(body);
+            const val =
+              parsed?.requiredCredits ??
+              parsed?.required_credits ??
+              parsed?.data?.requiredCredits;
+            if (typeof val === "number") needed = val;
+          } else if (body && typeof body === "object") {
+            const val =
+              body?.requiredCredits ??
+              body?.required_credits ??
+              body?.data?.requiredCredits;
+            if (typeof val === "number") needed = val;
+          }
+        } catch {
+          // ignore parse errors
+        }
+        setRequiredCredits(needed);
+        setShowPricingDialog(true);
+        return;
+      }
       if (message.includes("Rate limit")) {
         toast.error("Rate limit exceeded. Please wait a moment and try again.");
-      } else if (message.includes("Credits")) {
-        toast.error("Credits exhausted. Please add credits to continue.");
       } else {
         toast.error(message || "Failed to generate image. Please try again.");
       }
     },
     onSuccess: async (data) => {
-      if (!data?.success || !data?.generation?.images?.length) {
+      // Handle server responses that explicitly report failure via success:false
+      // Example server response: { success: false, error: "Insufficient credits for video generation" }
+      if (data && data.success === false) {
+        const errMsg = (data.error || "").toString();
+        if (/insufficient credits/i.test(errMsg)) {
+          // Open pricing dialog when the server explicitly reports insufficient credits.
+          // The response shape in this case doesn't include requiredCredits, so leave undefined.
+          setRequiredCredits(null);
+          setShowPricingDialog(true);
+          setIsGenerating(false);
+          return;
+        }
+        // Fallback for other server-reported errors
+        toast.error(errMsg || "No images received from server");
+        setIsGenerating(false);
+        return;
+      }
+
+      if (!data?.generation?.images?.length) {
         toast.error("No images received from server");
         return;
       }
@@ -164,5 +220,8 @@ export const useImageGeneration = () => {
     handleGenerate,
     generatedImagesLocal,
     setGeneratedImagesLocal,
+    showPricingDialog,
+    setShowPricingDialog,
+    requiredCredits,
   };
 };

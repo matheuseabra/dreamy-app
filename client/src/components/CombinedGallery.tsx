@@ -25,7 +25,7 @@ export const CombinedGallery = ({
   const allImages = [...generatedImages];
 
   return (
-    <div className="w-full mt-12">
+    <div className="w-full mt-6">
       {isLoading ? (
         <div className="grid grid-cols-1 sm:grid-cols-3 xl:grid-cols-4 gap-1">
           {Array.from({ length: 8 }).map((_, index) => (

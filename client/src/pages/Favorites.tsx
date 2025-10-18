@@ -46,15 +46,15 @@ const Favorites = () => {
   return (
     <div className="min-h-screen">
       <div className="container mx-auto mt-4">
-        <div className="mb-6">
+        <div className="mb-3">
           <div className="flex items-center gap-2 mb-2">
             <Star className="h-6 w-6 text-amber-500 fill-amber-500" />
             <h1 className="text-2xl font-bold">Favorites</h1>
           </div>
           <p className="text-sm text-muted-foreground">
-            {favoriteImages && favoriteImages.length > 0
-              ? `${favoriteImages.length} favorited ${favoriteImages.length === 1 ? 'image' : 'images'}`
-              : 'No favorite images yet'}
+            {favoriteImages && favoriteImages.length > 0 && !imagesLoading
+              ? `${favoriteImages.length} favorited`
+              : 'Loading favorites...'}
           </p>
         </div>
 

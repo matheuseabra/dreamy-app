@@ -15,7 +15,21 @@ import {
 export const videoKeys = {
   all: ['videos'] as const,
   lists: () => [...videoKeys.all, 'list'] as const,
-  list: (filters?: Record<string, any>) => [...videoKeys.lists(), filters] as const,
+  // Normalize filters into a stable JSON string so the query key is stable
+  // (avoid passing raw objects which change identity on each render).
+  list: (filters?: Record<string, any>) => {
+    const normalized = filters
+      ? JSON.stringify(
+          Object.keys(filters)
+            .sort()
+            .reduce((acc, key) => {
+              (acc as Record<string, any>)[key] = (filters as Record<string, any>)[key];
+              return acc;
+            }, {} as Record<string, any>)
+        )
+      : '{}';
+    return [...videoKeys.lists(), normalized] as const;
+  },
   details: () => [...videoKeys.all, 'detail'] as const,
   detail: (id: string) => [...videoKeys.details(), id] as const,
   favorites: () => [...videoKeys.all, 'favorites'] as const,

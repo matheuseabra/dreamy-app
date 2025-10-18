@@ -43,6 +43,7 @@ type PromptBarProps = {
   onSourceImageChange?: (url: string | null) => void;
   strength?: number;
   onStrengthChange?: (value: number) => void;
+  isOutOfCredits?: boolean;
 };
 
 export function PromptBar({
@@ -62,6 +63,7 @@ export function PromptBar({
   onSourceImageChange,
   strength = 0.8,
   onStrengthChange,
+  isOutOfCredits = false,
 }: PromptBarProps) {
   const authToken = useAuth().session?.access_token;
   const selectedModelData = useMemo(
@@ -420,7 +422,7 @@ export function PromptBar({
             <Button
               variant="outline"
               onClick={onGenerate}
-              disabled={isGenerating || !prompt.trim()}
+              disabled={isGenerating || isOutOfCredits || !prompt.trim()}
               size="sm"
               className="h-10 rounded-xl mt-1 flex-shrink-0"
             >

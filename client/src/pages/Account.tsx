@@ -250,38 +250,6 @@ export default function AccountPage() {
             </form>
           </CardContent>
         </Card>
-
-        {/* Account Info Card */}
-        <Card className="border border-accent mt-6">
-          <CardHeader>
-            <CardTitle>Account Information</CardTitle>
-            <CardDescription>Your account details</CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm font-medium">User ID</span>
-              <span className="text-sm text-muted-foreground font-mono">
-                {profile.id}
-              </span>
-            </div>
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm font-medium">Account Created</span>
-              <span className="text-sm text-muted-foreground">
-                {profile.created_at
-                  ? new Date(profile.created_at).toLocaleDateString()
-                  : 'N/A'}
-              </span>
-            </div>
-            <div className="flex justify-between items-center py-2">
-              <span className="text-sm font-medium">Last Updated</span>
-              <span className="text-sm text-muted-foreground">
-                {profile.updated_at
-                  ? new Date(profile.updated_at).toLocaleDateString()
-                  : 'N/A'}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
       </div>
     </div>
   );

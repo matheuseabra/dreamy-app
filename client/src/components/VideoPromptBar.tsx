@@ -36,6 +36,7 @@ type VideoPromptBarProps = {
   onGuidanceScaleChange: (value: number) => void;
   enableSafetyChecker: boolean;
   onEnableSafetyCheckerChange: (value: boolean) => void;
+  isOutOfCredits?: boolean;
 };
 
 const ASPECT_RATIOS = [
@@ -71,6 +72,7 @@ export function VideoPromptBar({
   onGuidanceScaleChange,
   enableSafetyChecker,
   onEnableSafetyCheckerChange,
+  isOutOfCredits = false,
 }: VideoPromptBarProps) {
   const selectedModelData = useMemo(
     () => VIDEO_MODELS.find((m) => m.id === selectedModel) || VIDEO_MODELS[0],
@@ -293,7 +295,7 @@ export function VideoPromptBar({
             <Button
               variant="outline"
               onClick={onGenerate}
-              disabled={isGenerating || !prompt.trim()}
+              disabled={isGenerating || isOutOfCredits || !prompt.trim()}
               size="sm"
               className="h-10 rounded-xl mt-1 flex-shrink-0"
             >

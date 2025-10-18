@@ -3,7 +3,8 @@ import { ImageModal } from "@/components/ImageModal";
 import { PromptBar } from "@/components/PromptBar";
 import { useImageGeneration } from "@/hooks/useImageGeneration";
 import { useGallery } from "@/hooks/api";
-import { useEffect, useMemo, useState } from "react";
+import PricingDialog from "@/components/pricing/PricingDialog";
+import { useEffect, useMemo, useState, useCallback } from "react";
 
 interface GeneratedImage {
   id: string;
@@ -32,6 +33,9 @@ const Dashboard = () => {
     handleGenerate,
     generatedImagesLocal,
     setGeneratedImagesLocal,
+  showPricingDialog,
+  setShowPricingDialog,
+  requiredCredits,
   } = useImageGeneration();
 
   const [selectedImage, setSelectedImage] = useState(null);
@@ -65,6 +69,9 @@ const Dashboard = () => {
     setSelectedImage(image);
     setModalOpen(true);
   };
+
+  // Credit gating removed from the client — server will return 402 / success:false errors
+  // when credits are insufficient and the generation hooks will open the Pricing dialog.
 
   return (
     <div className="relative min-h-screen">
@@ -106,6 +113,14 @@ const Dashboard = () => {
         open={modalOpen}
         onOpenChange={setModalOpen}
         image={selectedImage}
+      />
+
+      <PricingDialog
+        open={showPricingDialog}
+        onOpenChange={setShowPricingDialog}
+        requiredCredits={requiredCredits ?? undefined}
+        title="Insufficient credits"
+        description="Add credits to continue generating images."
       />
     </div>
   );

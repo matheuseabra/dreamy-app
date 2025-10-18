@@ -1,6 +1,7 @@
 import { VideoGallery } from "@/components/VideoGallery";
 import { VideoModal } from "@/components/VideoModal";
 import { VideoPromptBar } from "@/components/VideoPromptBar";
+import PricingDialog from "@/components/pricing/PricingDialog";
 import { useVideoGeneration } from "@/hooks/useVideoGeneration";
 import { useVideos } from "@/hooks/api";
 import { useEffect, useMemo, useState } from "react";
@@ -38,6 +39,10 @@ const Video = () => {
     generatedVideosLocal,
     setGeneratedVideosLocal,
     cleanup,
+    // pricing dialog controls exposed by the hook
+    showPricingDialog,
+    setShowPricingDialog,
+    requiredCredits,
   } = useVideoGeneration();
 
   const [selectedVideo, setSelectedVideo] = useState<GeneratedVideo | null>(null);
@@ -63,10 +68,11 @@ const Video = () => {
     [videoList]
   );
 
+  // Always sync local list with transformedVideos (even if empty)
+  // This ensures the gallery shows the empty state when the server returns
+  // an empty list instead of keeping previous state.
   useEffect(() => {
-    if (transformedVideos.length > 0) {
-      setGeneratedVideosLocal(transformedVideos);
-    }
+    setGeneratedVideosLocal(transformedVideos);
   }, [transformedVideos, setGeneratedVideosLocal]);
 
   // Cleanup polling on unmount
@@ -87,9 +93,7 @@ const Video = () => {
         <VideoGallery
           onVideoClick={handleVideoClick}
           generatedVideos={
-            generatedVideosLocal.length > 0
-              ? generatedVideosLocal
-              : transformedVideos
+            generatedVideosLocal.length > 0 ? generatedVideosLocal : transformedVideos
           }
           isLoading={videosLoading}
           isGenerating={isGenerating}
@@ -120,10 +124,14 @@ const Video = () => {
         />
       </div>
 
-      <VideoModal
-        open={modalOpen}
-        onOpenChange={setModalOpen}
-        video={selectedVideo}
+      <VideoModal open={modalOpen} onOpenChange={setModalOpen} video={selectedVideo} />
+
+      <PricingDialog
+        open={showPricingDialog}
+        onOpenChange={setShowPricingDialog}
+        requiredCredits={requiredCredits}
+        title="Insufficient credits"
+        description="Add credits to continue generating videos."
       />
     </div>
   );
